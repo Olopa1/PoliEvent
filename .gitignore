@@ -1,0 +1,8 @@
+./backend/*.xml
+!./backedn/pom.xml
+./backend/mvnw
+./backedn/mvnw.cmd
+./backend/HELP.md
+./backend/target/
+
+
