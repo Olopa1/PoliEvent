@@ -8,17 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "registration")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
     private final UserService userService;
     @Autowired
     public UserController(UserService userService){this.userService = userService;}
 
-    @GetMapping
+    @GetMapping("/getUser")
     public List<User> list(final HttpServletRequest request){
         return userService.listAll();
     }
 
-    @PostMapping
-    public void registerNewUser(@RequestBody User user){userService.addUser(user);}
+    @PostMapping("/saveUser")
+    public void registerNewUser(@RequestBody User user){
+        userService.addUser(user);
+        System.out.println("Dodano");
+    }
 }
