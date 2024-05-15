@@ -1,4 +1,3 @@
-backend/PoliEvent/*.xml
 !backend/PoliEvent/pom.xml
 backend/PoliEvent/mvnw
 backend/PoliEvent/mvnw.cmd
