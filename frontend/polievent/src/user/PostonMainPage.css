@@ -33,8 +33,10 @@
   
   .post p {
     margin-bottom: 10px;
-    text-align: center;
-    justify-content: center;
+    text-align: left;
+    justify-content: left;
+    padding: 10px;
+    font-weight: normal;
   }
   
   .post-details {
@@ -65,6 +67,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Cień tekstu */
     justify-content: center;
     text-align: center;
+    text-transform: uppercase;
   }
   .post-footer {
     margin-top: auto; /* Umiejscowienie stopki na dole */
@@ -74,4 +77,11 @@
     color: #666; /* Kolor tekstu stopki posta */
     font-size: 14px; /* Rozmiar czcionki dla stopki posta */
     text-align: center; /* Wyśrodkowanie tekstu w stopce posta */
+  }
+  .last-col {
+    background-color: white;
+  }
+  .post-footer .button
+  {
+    background-color: aquamarine;
   }
