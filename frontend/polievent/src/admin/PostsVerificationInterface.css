@@ -1,0 +1,40 @@
+body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+  }
+
+.post-card { 
+margin-bottom: 20px; 
+} 
+
+.card-body{
+    background-color: #cccccc;
+}
+
+.header{
+    margin-top: 15px;
+    color: rgb(0, 0, 0);
+
+}
+
+.btn-danger{
+    background-color: red;
+    font-size: 18px;
+    color: black;
+
+}
+
+.btn-success{
+    background-color: #32cd32;
+    font-size: 18px;
+    color: black;
+    
+}
+
+.btn-primary{
+    font-size: 18px;
+    color: black;
+
+}
+.wyloguj{
+    margin-left: auto;
+}
