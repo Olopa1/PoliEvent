@@ -33,8 +33,10 @@
   
   .post p {
     margin-bottom: 10px;
-    text-align: center;
-    justify-content: center;
+    text-align: left;
+    justify-content: left;
+    padding: 10px;
+    font-weight: normal;
   }
   
   .post-details {
@@ -75,6 +77,9 @@
     color: #666; /* Kolor tekstu stopki posta */
     font-size: 14px; /* Rozmiar czcionki dla stopki posta */
     text-align: center; /* Wyśrodkowanie tekstu w stopce posta */
+  }
+  .last-col {
+    background-color: white;
   }
   .post-footer .button
   {

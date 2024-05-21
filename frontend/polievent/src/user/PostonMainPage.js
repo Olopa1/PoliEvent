@@ -14,7 +14,7 @@ const Post = ({ title, content, author, date }) => {
           <Row>
             <Col>ul.Politechniczna 8</Col>
             <Col>25.05.2024r.</Col>
-            <Col>23/50</Col>
+            <Col className="last-col">23/50</Col>
           </Row>
         </Container>
         <h2>{title}</h2>
