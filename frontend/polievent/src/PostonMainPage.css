@@ -65,6 +65,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Cień tekstu */
     justify-content: center;
     text-align: center;
+    text-transform: uppercase;
   }
   .post-footer {
     margin-top: auto; /* Umiejscowienie stopki na dole */
@@ -74,4 +75,8 @@
     color: #666; /* Kolor tekstu stopki posta */
     font-size: 14px; /* Rozmiar czcionki dla stopki posta */
     text-align: center; /* Wyśrodkowanie tekstu w stopce posta */
+  }
+  .post-footer .button
+  {
+    background-color: aquamarine;
   }

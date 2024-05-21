@@ -25,7 +25,7 @@ function GridPosts() {
         <Post {...post} />
       </Col>
     </Row>
-    <Row className="justify-content-center">
+        <Row className="justify-content-center">
       <Col sm={6}>
         <Post {...post} />
       </Col>
