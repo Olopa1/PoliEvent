@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import userService from '../restFunctionalities/user.service';
-import { Alert, Container, FormLabel } from 'react-bootstrap';
+import { Alert, Col, Container, FormLabel, Row } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
 const RegisterForm = function(){
@@ -9,13 +9,27 @@ const RegisterForm = function(){
       lastName: "",
       companyName: "",
       email: "",
-      userStatus: "Status",
+      userStatus: "User",
       password: "",
       dateOfBirth: ""
     });
     const [secondPassword,setPassword] = useState("");
     const [msg,setMsg] = useState("");
     const [isSuccess,setIsSuccess] = useState(true);
+
+    const handleChangeCompanyName = (e)=>{
+      const value = e.target.value;
+      setUser(prevUser=>({...prevUser, companyName: value}));
+    }
+
+    const handleChangeUserState = (e)=>{
+      const value = e.target.value;
+      if(value === "User"){
+        setUser(prevUser=>({...prevUser, companyName: ""}));
+      }
+        setUser(prevUser=>({...prevUser, userStatus: value}));
+    }
+
     const handleChangeFirstName = (e)=>{
       const value = e.target.value;
       setUser(prevUser=>({...prevUser, firstName: value}));
@@ -47,10 +61,11 @@ const RegisterForm = function(){
       console.log(value);
     }
 
-    const checkForPasswordIntegrity = ()=>{
+    function checkForPasswordIntegrity(){
       if(user.password === secondPassword){
         return true;
       }
+      
       return false;
     }
 
@@ -58,36 +73,54 @@ const RegisterForm = function(){
       e.preventDefault();
       console.log(user);
       setIsSuccess(true);
+      if(checkForPasswordIntegrity()){
       userService.saveUser(user).then((res)=>{
-        if(() => checkForPasswordIntegrity() === true){
           console.log("User added succesfully");
           setMsg("Pomyślnie zarejestrowano");
           setUser({
             firstName: "",
             lastName: "",
+            companyName: "",
             email: "",
-            dateOfBirth: "",
+            userStatus: "User",
             password: "",
+            dateOfBirth: ""
           })
           setPassword("");
-        }
-        else{
-          setMsg("Niepoprawne hasło");
-          setIsSuccess(false);
-        }
       }).catch((error)=>{
         console.log(error);
         setIsSuccess(false);
-        setMsg("Coś poszło nie tak" + error);
+        if(error.response.data.message === "Email already taken"){
+          setMsg("Email jest zajęty");
+        }
+        else{
+          setMsg("Coś poszło nie tak");
+        }
       });
+    }
+    else{
+      setIsSuccess(false);
+      setUser({
+        firstName: "",
+        lastName: "",
+        companyName: "",
+        email: "",
+        userStatus: "User",
+        password: "",
+        dateOfBirth: ""
+      })
+      setPassword("");
+      setMsg("Podano dwa różne hasła");
+    }
   
     }
   
+      //{!isSuccess ? setIsSuccess(true) : ''}
     return(
       <Container className='justify-content-center'>
+          <p>Rejestracja użytkownika</p>
       {msg && 
       <Alert variant={isSuccess ? 'success' : 'danger'}>{msg}</Alert>}
-      {!isSuccess ? setIsSuccess(true) : ''}
       <Form>
           <Form.Group>
             <Form.Label>Imię:</Form.Label>
@@ -101,6 +134,18 @@ const RegisterForm = function(){
             <Form.Text className='text-muted'>
             </Form.Text>
           </Form.Group>
+          <Form.Group>
+            <Form.Label>Rodzaj użytkownika</Form.Label><br></br>
+            <Form.Check inline defaultChecked type='radio' label='Użytkownik' name='userStatus' value={'User'} onClick={(e)=>handleChangeUserState(e)}/>
+            <Form.Check inline type='radio' label='Firma' name='userStatus' value={'Company'} onClick={(e)=>handleChangeUserState(e)}/>
+          </Form.Group>
+          {user.userStatus === 'Company' &&
+            <Form.Group>
+            <FormLabel>Nazwa firmy:</FormLabel>
+            <Form.Control type='text' placeholder='Podaj nazwę firmy' onChange={(e)=>handleChangeCompanyName(e)} value={user.companyName}/>
+            <Form.Text className='text-muted'>
+            </Form.Text>
+          </Form.Group>}
           <Form.Group>
             <Form.Label>Email:</Form.Label>
             <Form.Control type='email' placeholder='Podaj email' onChange={(e)=>handleChangeEmail(e)} value={user.email}/>
@@ -125,11 +170,11 @@ const RegisterForm = function(){
             <Form.Text>
             </Form.Text>
           </Form.Group>
+          <br></br>
           <Button variant='primary' onClick={(e)=>RegisterUser(e)}>
             Zarejestruj
           </Button>
         </Form>
-        
       </Container>
     );
   }
