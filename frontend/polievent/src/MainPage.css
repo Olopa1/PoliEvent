@@ -1,0 +1,15 @@
+/* MainPage.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+  }
+  
+  .main-page {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    height: 100vh;
+  }

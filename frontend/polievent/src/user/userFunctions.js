@@ -81,6 +81,7 @@ const RegisterForm = function(){
           <br></br>
           <button type='submit' onClick={(e)=>RegisterUser(e)}>Submit</button> 
         </form>
+        
       </div>
     );
   }
