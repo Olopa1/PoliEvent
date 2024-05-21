@@ -17,6 +17,7 @@ function App() {
         <Route path="/admin" element={<Verification/>}/>
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/post" element={<Post />} />
+        <Route path="/homepage" element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );

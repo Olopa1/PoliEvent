@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 export const Login = () => {
@@ -38,9 +38,11 @@ export const Login = () => {
                 placeholder="hasło"
               />
             </div>
+            <Link to="/homepage">
             <button type="submit" className="btn btn-primary btn-block">
               Zaloguj
             </button>
+            </Link>
           </form>
         </div>
       </div>
