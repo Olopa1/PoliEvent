@@ -1,7 +1,7 @@
   
   .left-menu {
     position: fixed;
-    left: 0; /* Przypisanie menu do lewej krawędzi ekranu */
+    left: 0;
     top: 0;
     height: 100%;
     margin-top: 30px;
@@ -19,26 +19,26 @@
     margin-right: 5px;
     align-items: center;
     justify-content: center;
-    /* Dodaj odstęp między obrazkiem a tekstem */
   }
   .left-menu li {
     width: 100%;
     text-align: center;
   }
-  
+  .left-menu li.active a {
+    font-weight: bold;
+    background-color: #575757;
+}
   .left-menu li a {
-    display: flex; /* Ustawienie elementu <a> jako flex container */
-    align-items: center; /* Wyśrodkowanie elementów wzdłuż osi Y */
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    padding: 30px; /* Dopasuj padding do potrzeb */
+    padding: 30px;
     color: white;
     transition: background-color 0.3s ease;
   }
   .left-menu li a:hover {
     background-color: #575757;
   }
-  /* MainPage.css */
-
 .profile-section {
     margin-top: auto;
     padding: 0;
@@ -70,10 +70,10 @@
     color: white;
   }
   .left-menu span {
-    display: flex; /* Ustawienie elementu <a> jako flex container */
-    align-items: center; /* Wyśrodkowanie elementów wzdłuż osi Y */
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    padding: 30px; /* Dopasuj padding do potrzeb */
+    padding: 30px;
     color: white;
     transition: background-color 0.3s ease;
   }
