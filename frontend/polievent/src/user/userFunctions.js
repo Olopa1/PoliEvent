@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import userService from '../restFunctionalities/user.service';
+import { Alert, Container, FormLabel } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap'
 const RegisterForm = function(){
     const [user,setUser] = useState({
       firstName: "",
@@ -10,8 +13,9 @@ const RegisterForm = function(){
       password: "",
       dateOfBirth: ""
     });
+    const [secondPassword,setPassword] = useState("");
     const [msg,setMsg] = useState("");
-  
+    const [isSuccess,setIsSuccess] = useState(true);
     const handleChangeFirstName = (e)=>{
       const value = e.target.value;
       setUser(prevUser=>({...prevUser, firstName: value}));
@@ -36,53 +40,97 @@ const RegisterForm = function(){
       const value = e.target.value;
       setUser(prevUser=>({...prevUser, password: value}));
     }
-  
+    
+    const handleChangeConfirmPassword = (e)=>{
+      const value = e.target.value;
+      setPassword(value);
+      console.log(value);
+    }
+
+    const checkForPasswordIntegrity = ()=>{
+      if(user.password === secondPassword){
+        return true;
+      }
+      return false;
+    }
+
     const RegisterUser = (e)=>{
       e.preventDefault();
       console.log(user);
+      setIsSuccess(true);
       userService.saveUser(user).then((res)=>{
-        console.log("User added succesfully");
-        setMsg("Used Added Succesfully");
-        setUser({
-          firstName: "",
-          lastName: "",
-          email: "",
-          dateOfBirth: "",
-          password: "",
-        })
+        if(() => checkForPasswordIntegrity() === true){
+          console.log("User added succesfully");
+          setMsg("Pomyślnie zarejestrowano");
+          setUser({
+            firstName: "",
+            lastName: "",
+            email: "",
+            dateOfBirth: "",
+            password: "",
+          })
+          setPassword("");
+        }
+        else{
+          setMsg("Niepoprawne hasło");
+          setIsSuccess(false);
+        }
       }).catch((error)=>{
         console.log(error);
-        setMsg("Something went wrong check console for information");
+        setIsSuccess(false);
+        setMsg("Coś poszło nie tak" + error);
       });
   
     }
   
     return(
-      <div>
-      {msg && <p>{msg}</p>}
-      <form>
-          <label for='firstName'>Imię:</label>
-          <input type='text' id='firstName' onChange={(e)=>handleChangeFirstName(e)} value={user.firstName}/>
-          <br></br>
-          <label for='lastName'>Nazwisko:</label>
-          <input type='text' id='lastName' onChange={(e)=>handleChangeLastName(e)} value={user.lastName}/>
-          <br></br>
-          <label for='email'>Email:</label>
-          <input type='email' id='email'onChange={(e)=>handleChangeEmail(e)} value={user.email}/>
-          <br></br>
-          <label for='dateOfBirth'>Data urodzenia</label>
-          <input type='date' id='dateOfBirth'onChange={(e)=>handleChangeDateOfBirth(e)} value={user.dateOfBirth}/>
-          <br></br>
-          <label for='password'>Hasło</label>
-          <input type='password' id='password'onChange={(e)=>handleChangePassword(e)} value={user.password}/>
-          <br></br>
-          <label for='confirmPassword'>Powtórz hasło</label>
-          <input type='password' id='confirmPassword'/>
-          <br></br>
-          <button type='submit' onClick={(e)=>RegisterUser(e)}>Submit</button> 
-        </form>
+      <Container className='justify-content-center'>
+      {msg && 
+      <Alert variant={isSuccess ? 'success' : 'danger'}>{msg}</Alert>}
+      {!isSuccess ? setIsSuccess(true) : ''}
+      <Form>
+          <Form.Group>
+            <Form.Label>Imię:</Form.Label>
+            <Form.Control type='text' placeholder='Podaj imię' onChange={(e)=>handleChangeFirstName(e)} value={user.firstName}/>
+            <Form.Text className='text-muted'>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <FormLabel>Nazwisko:</FormLabel>
+            <Form.Control type='text' placeholder='Podaj nazwisko' onChange={(e)=>handleChangeLastName(e)} value={user.lastName}/>
+            <Form.Text className='text-muted'>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Email:</Form.Label>
+            <Form.Control type='email' placeholder='Podaj email' onChange={(e)=>handleChangeEmail(e)} value={user.email}/>
+            <Form.Text>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Data urodzenia:</Form.Label>
+            <Form.Control type='date' onChange={(e)=>handleChangeDateOfBirth(e)} value={user.dateOfBirth}/>
+            <Form.Text>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Hasło:</Form.Label>
+            <Form.Control type='password' onChange={(e)=>handleChangePassword(e)} value={user.password}/>
+            <Form.Text>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <Form.Label>Powtórz hasło:</Form.Label>
+            <Form.Control type='password' onChange={(e)=>handleChangeConfirmPassword(e)} value={secondPassword}/>
+            <Form.Text>
+            </Form.Text>
+          </Form.Group>
+          <Button variant='primary' onClick={(e)=>RegisterUser(e)}>
+            Zarejestruj
+          </Button>
+        </Form>
         
-      </div>
+      </Container>
     );
   }
 
