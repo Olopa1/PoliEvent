@@ -51,7 +51,7 @@ const PostCard = ({ event }) => {
   );
 };
 
-const Verification = () => {
+export const Verification = () => {
   const event1 = {
     name: 'Food trucki na PŁ',
     organizer: 'Stowarzyszenie F.O.O.D',

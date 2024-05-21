@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import './Login.css';
 
-const Login = () => {
+export const Login = () => {
   return (
     <div>
       <Helmet>
