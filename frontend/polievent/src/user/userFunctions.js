@@ -13,6 +13,7 @@ const RegisterForm = function(){
       password: "",
       dateOfBirth: ""
     });
+    const [fieldsAreBlank,setFieldsAreBlank] = useState(true);
     const [secondPassword,setPassword] = useState("");
     const [msg,setMsg] = useState("");
     const [isSuccess,setIsSuccess] = useState(true);
@@ -65,15 +66,43 @@ const RegisterForm = function(){
       if(user.password === secondPassword){
         return true;
       }
-      
       return false;
+    }
+
+    function checkForBlankFields(){
+      if(user.companyName === '' && user.userStatus === 'Company'){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      if(user.dateOfBirth === ''){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      if(user.email === ''){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      if(user.password === ''|| secondPassword === ''){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      if(user.firstName === ''){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      if(user.lastName === ''){
+        setFieldsAreBlank(true);
+        return false;
+      }
+      setFieldsAreBlank(false);
+      return true;
     }
 
     const RegisterUser = (e)=>{
       e.preventDefault();
       console.log(user);
       setIsSuccess(true);
-      if(checkForPasswordIntegrity()){
+      if(checkForPasswordIntegrity() && checkForBlankFields()){
       userService.saveUser(user).then((res)=>{
           console.log("User added succesfully");
           setMsg("Pomyślnie zarejestrowano");
@@ -110,7 +139,13 @@ const RegisterForm = function(){
         dateOfBirth: ""
       })
       setPassword("");
-      setMsg("Podano dwa różne hasła");
+      if(fieldsAreBlank){
+        setMsg("Nie wpisano wszytkich informacji");
+        setFieldsAreBlank(!fieldsAreBlank);
+      }
+      else{
+        setMsg("Podano dwa różne hasła");
+      }
     }
   
     }

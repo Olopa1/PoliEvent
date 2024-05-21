@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<MainPage />} />
+        <Route index path='/' element={<MainPage />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/post" element={<Post />} />
       </Routes>
