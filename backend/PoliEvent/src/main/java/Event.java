@@ -14,10 +14,10 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eventID;
     private String tytul;
-    private String miejsce;
     private LocalDate data;
     private LocalTime godzinaRozpoczecia;
     private LocalTime godzinaZakonczenia;
+    private String miejsce;
     private int zapisani;
     private int zainteresowani;
     private String zdjecie;
@@ -27,7 +27,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(String title, String location, LocalDate date, LocalTime startTime, LocalTime endTime, int attendees, int interested, String image, String description) {
+    public Event(String title, LocalDate date, LocalTime startTime, LocalTime endTime, String location, int attendees, int interested, String image, String description) {
         this.tytul = title;
         this.miejsce = location;
         this.data = date;
