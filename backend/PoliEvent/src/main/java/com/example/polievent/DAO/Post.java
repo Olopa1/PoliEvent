@@ -2,7 +2,6 @@ package com.example.polievent.DAO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.*;
-import java.io.Serializable;
 
 
 @Entity
@@ -10,7 +9,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Post implements Serializable {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
