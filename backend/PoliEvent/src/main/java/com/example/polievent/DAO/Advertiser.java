@@ -1,3 +1,4 @@
+package com.example.polievent.DAO;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
