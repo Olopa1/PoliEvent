@@ -1,58 +1,50 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const EditEventPopup = ({ event, onClose }) => {
-  const [formData, setFormData] = useState({
-    title: event.title,
-    date: event.date,
-    time: event.time,
-    location: event.location,
-    description: event.description,
-  });
+const EditEventPopup = ({ event, onClose, onUpdate }) => {
+  const [title, setTitle] = useState(event.title);
+  const [date, setDate] = useState(event.date);
+  const [location, setLocation] = useState(event.location);
+  const [image, setImage] = useState(null); // Nowe pole dla zdjęcia
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.put(`/api/advertiser/events/${event.id}`, formData)
-      .then(response => {
-        onClose();
-        window.location.reload();
-      })
-      .catch(error => {
-        console.error('There was an error updating the event!', error);
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('date', date);
+    formData.append('location', location);
+    formData.append('image', image); // Dodanie zdjęcia do formularza
+
+    try {
+      const response = await axios.put(`/api/events/${event.id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
+      onUpdate(response.data);
+      onClose();
+    } catch (error) {
+      console.error('There was an error updating event!', error);
+    }
   };
 
   return (
     <div className="popup">
-      <button onClick={onClose}>Close</button>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Title:
-          <input type="text" name="title" value={formData.title} onChange={handleChange} required />
-        </label>
-        <label>
-          Date:
-          <input type="date" name="date" value={formData.date} onChange={handleChange} required />
-        </label>
-        <label>
-          Time:
-          <input type="time" name="time" value={formData.time} onChange={handleChange} required />
-        </label>
-        <label>
-          Location:
-          <input type="text" name="location" value={formData.location} onChange={handleChange} required />
-        </label>
-        <label>
-          Description:
-          <textarea name="description" value={formData.description} onChange={handleChange} required />
-        </label>
-        <button type="submit">Save Changes</button>
-      </form>
+      <div className="popup-inner">
+        <button className="close-btn" onClick={onClose}>Anuluj</button>
+        <h2>Edytuj wydarzenie</h2>
+        <form onSubmit={handleSubmit}>
+          <label>Tytuł:</label>
+          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
+          <label>Data:</label>
+          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+          <label>Miejsce:</label>
+          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
+          <label>Zdjęcie:</label>
+          <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+          <button type="submit">Wyślij</button>
+        </form>
+      </div>
     </div>
   );
 };
