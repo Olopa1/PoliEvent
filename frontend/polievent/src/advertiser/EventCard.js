@@ -25,9 +25,9 @@ const EventCard = ({ event }) => {
     <div className="event-card">
       <img src={event.image} alt={event.title} />
       <h3>{event.title}</h3>
-      <p>{event.date} at {event.time}</p>
-      <p>Location: {event.location}</p>
-      <p>{event.attendees} attendees, {event.interested} interested</p>
+      <p>{event.date} o godzinie {event.time}</p>
+      <p>Lokalizacja: {event.location}</p>
+      <p>{event.attendees} zapisanych, {event.interested} zainteresowanych</p>
       <div className="options">
         <button onClick={() => setShowOptions(!showOptions)}>⋮</button>
         {showOptions && (
