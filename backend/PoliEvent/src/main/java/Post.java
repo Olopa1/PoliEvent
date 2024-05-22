@@ -9,14 +9,16 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long postID;
     private String tytul;
+    private String image;
     private String opis;
     private Long eventID;
 
     public Post() {
     }
 
-    public Post(String title, String description, Long eventID) {
+    public Post(String title, String image, String description, Long eventID) {
         this.tytul = title;
+        this.image = image;
         this.opis = description;
         this.eventID = eventID;
     }
