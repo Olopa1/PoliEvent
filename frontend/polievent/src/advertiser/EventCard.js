@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import EditEventPopup from './EditEventPopup';
 import AddPostPopup from './AddPostPopup';
+import './EventCard.css'
 
 const EventCard = ({ event }) => {
   const [showOptions, setShowOptions] = useState(false);

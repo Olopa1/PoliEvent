@@ -4,6 +4,7 @@ import NotificationPopup from './NotificationPopup';
 import SettingsPopup from './SettingsPopup';
 import EventCard from './EventCard';
 import EventFormPopup from './EventFormPopup';
+import './AdvertiserDashboard.css'
 
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);

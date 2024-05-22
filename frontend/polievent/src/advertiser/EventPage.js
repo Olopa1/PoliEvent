@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import EditEventPopup from './EditEventPopup';
 import AddPostPopup from './AddPostPopup';
+import './EventPage.css'
 
 const EventPage = () => {
   const { eventId } = useParams();

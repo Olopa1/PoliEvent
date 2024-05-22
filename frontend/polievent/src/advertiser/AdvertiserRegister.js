@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './AdvertiserRegister.css'
 
 const AdvertiserRegister = () => {
   const [formData, setFormData] = useState({
