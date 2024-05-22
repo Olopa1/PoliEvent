@@ -4,7 +4,7 @@ import NotificationPopup from './NotificationPopup';
 import SettingsPopup from './SettingsPopup';
 import EventCard from './EventCard';
 import EventFormPopup from './EventFormPopup';
-import './AdvertiserDashboard.css';
+import './AdvertiserDashboard.css'
 
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -39,19 +39,6 @@ const AdvertiserDashboard = () => {
     setShowEventForm(false);
   };
 
-  // Stałe wydarzenie do wyświetlenia na tablicy reklamodawcy
-  const staticEvent = {
-    id: 1,
-    title: "Przykładowe Wydarzenie",
-    date: "2024-06-01",
-    time: "15:00",
-    location: "Przykładowa Lokalizacja",
-    attendees: 20,
-    interested: 30,
-    image: "https://via.placeholder.com/150",
-    description: "Opis wydarzenia."
-  };
-
   return (
     <div className="dashboard">
       <nav className="menu">
@@ -63,7 +50,6 @@ const AdvertiserDashboard = () => {
         {events.map(event => (
           <EventCard key={event.id} event={event} />
         ))}
-        <EventCard key={staticEvent.id} event={staticEvent} />
         <div className="add-event-card" onClick={() => setShowEventForm(true)}>
           <span>+</span>
         </div>
