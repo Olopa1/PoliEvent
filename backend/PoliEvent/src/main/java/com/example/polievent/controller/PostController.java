@@ -1,30 +1,26 @@
 package com.example.polievent.controller;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.util.List;
-
-import com.example.polievent.service.PostService;
+import java.util.*;
 import com.example.polievent.DAO.Post;
+import com.example.polievent.service.PostService;
+import com.example.polievent.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
-
+    private final PostService postService;
     @Autowired
-    private PostService postService;
+    public PostController(PostService postService){this.postService = postService;}
 
-    @PostMapping("/events/{eventId}/posts")
-    public ResponseEntity<Post> addPost(@PathVariable Long eventId,
-                                        @RequestParam("title") String title,
-                                        @RequestParam("content") String content,
-                                        @RequestParam("image") MultipartFile image) throws IOException {
-        Post post = postService.addPost(eventId, title, content, image);
-        return new ResponseEntity<>(post, HttpStatus.CREATED);
+    @GetMapping("/getPost")
+    public List<Post> list(final HttpServletRequest request){
+        return postService.listAll();
     }
 
-    // Inne metody kontrolera do obsługi innych żądań HTTP, takie jak edycja, usuwanie itp.
+    @PostMapping("/savePost")
+    public void registerNewUser(@RequestBody Post post){
+        postService.addPost(post);
+        System.out.println("Dodano post");
+    }
 }

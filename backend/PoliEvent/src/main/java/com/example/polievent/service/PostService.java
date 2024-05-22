@@ -1,39 +1,29 @@
 package com.example.polievent.service;
-
+import com.example.polievent.DAO.PostRepository;
+import com.example.polievent.DAO.Post;
+import com.example.polievent.DAO.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-
-import com.example.polievent.DAO.Post;
-import com.example.polievent.DAO.PostRepository;
-
+import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class PostService {
-
     @Autowired
-    private PostRepository postRepository;
+    private final PostRepository postRepository;
 
-    public Post addPost(Long eventId, String title, String content, MultipartFile image) throws IOException {
-        // Zapisz plik na serwerze
-        String uploadDir = "./uploads/";
-        Path uploadPath = Paths.get(uploadDir);
-        if (!Files.exists(uploadPath)) {
-            Files.createDirectories(uploadPath);
-        }
-        String fileName = title.replaceAll("\\s+", "") + "_" + LocalDateTime.now() + "_" + image.getOriginalFilename();
-        Path filePath = uploadPath.resolve(fileName);
-        Files.copy(image.getInputStream(), filePath);
-
-        // Zapisz ścieżkę do pliku w bazie danych
-        Post post = new Post(title, fileName, content, eventId);
-        return postRepository.save(post);
+    public PostService(PostRepository postRepository){
+        this.postRepository = postRepository;
     }
 
-    // Inne metody serwisu do obsługi innych operacji na postach
+    public List<Post> listAll(){return postRepository.findAll();}
+    public void addPost(Post post){
+        Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
+        if(postOptional.isPresent()){
+            throw new IllegalStateException("ID TAKEN");
+        }
+        postRepository.save(post);
+    }
 }

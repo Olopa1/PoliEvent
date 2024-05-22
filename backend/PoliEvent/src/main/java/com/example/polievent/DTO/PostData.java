@@ -1,17 +1,15 @@
-package com.example.polievent.DAO;
-import jakarta.persistence.*;
-import lombok.*;
-import java.util.*;
+package com.example.polievent.DTO;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.time.LocalDate;
+import java.util.Date;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
 @Setter
-public class Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Getter
+@AllArgsConstructor
+public class PostData {
     private Long id;
     private String title;
     private String description;
