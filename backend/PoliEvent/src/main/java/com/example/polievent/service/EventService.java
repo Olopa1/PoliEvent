@@ -1,3 +1,5 @@
+package com.example.polievent.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,10 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import com.example.polievent.DAO.Event;
+import com.example.polievent.DAO.EventRepository;
+
 
 @Service
 public class EventService {
