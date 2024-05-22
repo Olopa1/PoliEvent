@@ -6,19 +6,26 @@ import Post from './user/PostonMainPage';
 import MainPage from './user/MainPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Planzajec from './user/Planzajec';
+
 import AdvertiserDashboard from './advertiser/AdvertiserDashboard';
 import EventPage from './advertiser/EventPage';
+
+import { Login } from './admin/Login'
+import { Verification } from './admin/PostsVerificationInterface'
+
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route index element={<MainPage />} />
-        <Route path="/plan" element={<Planzajec />} />
+        <Route path="/" element={<Login />}/>
+        <Route path="/admin" element={<Verification/>}/>
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/post" element={<Post />} />
+
         <Route path="/advertiserdashboard" element={<AdvertiserDashboard/>}/>
         <Route path="/event/:eventId" element={<EventPage />} />
+        <Route path="/homepage" element={<MainPage />} />
       </Routes>
     </BrowserRouter>
   );
