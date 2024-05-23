@@ -19,6 +19,12 @@ public class UserController {
         return userService.listAll();
     }
 
+    @GetMapping("/fetchUserLogin")
+    public Optional<User> fetchLoginAndEmail(@RequestParam String email,@RequestParam String password){
+        return userService.findOneByEmailAndPassword(email,password);
+    }
+
+    @GetMapping("/")
     @PostMapping("/saveUser")
     public void registerNewUser(@RequestBody User user){
         userService.addUser(user);
