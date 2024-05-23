@@ -18,6 +18,6 @@ public class PostData {
     private int verified;
     private int intrestedPeople;
     private int maxPeople;
-    private Date datePosted;
-    private Date dateEvent;
+    private LocalDate datePosted;
+    private LocalDate dateEvent;
 }
