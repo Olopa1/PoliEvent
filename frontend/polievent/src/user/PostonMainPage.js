@@ -4,12 +4,12 @@ import {Container, Row, Col } from 'react-bootstrap';
 import Buttons from './OptionPicker'
 const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent}) => {
   return (
-    <div className="post-container">
+    <div className="post-my-container">
       <div className="image-container">
         <img src="/foodtruck.webp" alt="Obraz" className="image" />
         <div className="text">{title}</div>
       </div>
-      <div className="post">
+      <div className="post-my">
         <Container>
           <Row>
             <Col>ul. {street}</Col>
@@ -18,8 +18,10 @@ const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted
           </Row>
         </Container>
         <h2>{title}</h2>
-        <p>{desc}</p>
-        <div className="post-footer">
+        <div className="post-my-desc">
+          <p>{desc}</p>
+        </div>
+          <div className="post-my-footer">
             <Buttons/>
           <span>{company}</span>
           <span>{datePosted}</span>
