@@ -24,7 +24,8 @@
     --button-danger-color-hover: #bc2c2c;
     --button-danger-color-active: #af2929;
     --button-danger-border: 1px solid #ff4444;
-    width: 150px;
+    width: 225px;
     padding: 3px;
     margin: 10px;
+    margin-bottom: 30px;
     }
