@@ -3,6 +3,7 @@ backend/PoliEvent/HELP.md
 backend/PoliEvent/target/
 backend/PoliEvent/.mvn/
 backend/PoliEvent/.gitignore
+backend/PoliEvent/.idea/
 .gitignore.un~
 .gitignore~
 .gitignore.swp
