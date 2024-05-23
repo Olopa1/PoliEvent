@@ -5,6 +5,7 @@ import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
 const RegisterForm = function(){
     const [user,setUser] = useState({
+      login: "",
       firstName: "",
       lastName: "",
       companyName: "",
@@ -17,6 +18,18 @@ const RegisterForm = function(){
     const [secondPassword,setPassword] = useState("");
     const [msg,setMsg] = useState("");
     const [isSuccess,setIsSuccess] = useState(true);
+    const [invalidCharacters,setInvalidCharacter] = useState(false);
+
+    const handleChangeUserLogin = (e)=>{
+      const value = e.target.value;
+      setUser(prevUser=>({...prevUser,login: value}));
+      const invalidCharactersPattern = /[\^#%&*$:<>\?\/\{\|\}]/;
+      if (user.login.match(/[^#%&*:<>?/{|}]+/)) {
+          setInvalidCharacter(false);
+      } else {
+          setInvalidCharacter(true);
+      }
+    }
 
     const handleChangeCompanyName = (e)=>{
       const value = e.target.value;
@@ -107,6 +120,7 @@ const RegisterForm = function(){
           console.log("User added succesfully");
           setMsg("Pomyślnie zarejestrowano");
           setUser({
+            login: "",
             firstName: "",
             lastName: "",
             companyName: "",
@@ -119,8 +133,11 @@ const RegisterForm = function(){
       }).catch((error)=>{
         console.log(error);
         setIsSuccess(false);
-        if(error.response.data.message === "Email already taken"){
+        if(error.response.data.message === "Email taken"){
           setMsg("Email jest zajęty");
+        }
+        else if(error.response.data.message === "Login taken"){
+          setMsg("Login jest zajęty");
         }
         else{
           setMsg("Coś poszło nie tak");
@@ -130,6 +147,7 @@ const RegisterForm = function(){
     else{
       setIsSuccess(false);
       setUser({
+        login: "",
         firstName: "",
         lastName: "",
         companyName: "",
@@ -150,7 +168,6 @@ const RegisterForm = function(){
   
     }
   
-      //{!isSuccess ? setIsSuccess(true) : ''}
     return(
       <Container className='justify-content-center'>
           <p>Rejestracja użytkownika</p>
@@ -167,6 +184,13 @@ const RegisterForm = function(){
             <FormLabel>Nazwisko:</FormLabel>
             <Form.Control type='text' placeholder='Podaj nazwisko' onChange={(e)=>handleChangeLastName(e)} value={user.lastName}/>
             <Form.Text className='text-muted'>
+            </Form.Text>
+          </Form.Group>
+          <Form.Group>
+            <FormLabel>Nazwa użytkownika:</FormLabel>
+            <Form.Control type='text' placeholder='Podaj nazwę użytkownika' onChange={(e)=>handleChangeUserLogin(e)} value={user.login}/>
+            <Form.Text className='text-muted'>
+            {invalidCharacters && <Alert variant='danger'>W loginie znajduje się zakazanych znak</Alert>}
             </Form.Text>
           </Form.Group>
           <Form.Group>
@@ -206,7 +230,7 @@ const RegisterForm = function(){
             </Form.Text>
           </Form.Group>
           <br></br>
-          <Button variant='primary' onClick={(e)=>RegisterUser(e)}>
+          <Button disabled={invalidCharacters} variant='primary' onClick={(e)=>RegisterUser(e)}>
             Zarejestruj
           </Button>
         </Form>

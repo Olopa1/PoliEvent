@@ -17,9 +17,9 @@ public class userConfig {
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args -> {
             User dominik = new User(
-                1L,"Dominik","Klimczak","","jakis@email.com","Status","123", LocalDate.of(2002, Month.DECEMBER,2));
+                1L,"Login","Dominik","Klimczak","","jakis@email.com","Status","123", LocalDate.of(2002, Month.DECEMBER,2));
             User jan = new User(
-                    2L,"Jan","Nowak","","jakis2@email.com","Status1","123", LocalDate.of(1999, Month.JULY,12));
+                    2L,"Olopa","Jan","Nowak","","jakis2@email.com","Status1","123", LocalDate.of(1999, Month.JULY,12));
         repository.saveAll(List.of(dominik,jan));
         };
     }

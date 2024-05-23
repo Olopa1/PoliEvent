@@ -1,5 +1,6 @@
 package com.example.polievent.DAO;
 
+import org.hibernate.mapping.Selectable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,9 @@ public interface UserRepository extends JpaRepository<User,Long> {
     Optional<User> findUserByFirstName(String name);
     @Query("Select u FROM User u WHERE u.email = ?1")
     Optional<User> findUserByEmail(String email);
-    @Query("SELECT u FROM User u where u.email = ?1 and u.password = ?2")
-    Optional<User> findUserByEmailAndPassword(String email,String password);
+    @Query("SELECT u FROM User u where u.login = ?1 and u.password = ?2")
+    Optional<User> findUserByLoginAndPassword(String login,String password);
+
+    @Query("select u from User u where u.login = ?1")
+    Optional<User> findUserByLogin(String login);
 }

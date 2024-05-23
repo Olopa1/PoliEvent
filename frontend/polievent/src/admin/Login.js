@@ -1,9 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import './Login.css';
-
+import userService from '../restFunctionalities/user.service';
 export const Login = () => {
+  
+  const [email,setEmail] = useState('');
+  const [password,setPassword] = useState('');
+
+
+  const userLogin = ()=>{
+    userService.fetchUserLogin(email,password).then((res)=>{
+      console.log(res);
+    }).catch((error)=>{
+      console.log(error);
+    })
+  }
+
+  const onChangePassword = (e) =>{
+    const value = e.target.value;
+    setPassword(value);
+  }
+  const onChangeEmail = (e) =>{
+    const value = e.target.value;
+    setEmail(value);
+  }
+
   return (
     <div>
       <Helmet>
@@ -28,6 +50,8 @@ export const Login = () => {
                 id="email"
                 className="form-control"
                 placeholder="email"
+                onChange={(e)=>onChangeEmail(e)}
+                value={email}
               />
             </div>
             <div className="form-group">
@@ -36,13 +60,13 @@ export const Login = () => {
                 id="password"
                 className="form-control"
                 placeholder="hasło"
+                onChange={(e)=>onChangePassword(e)}
+                value={password}
               />
             </div>
-            <Link to="/homepage">
-            <button type="submit" className="btn btn-primary btn-block">
+            <button type="submit" className="btn btn-primary btn-block" onClick={() => userLogin()}>
               Zaloguj
             </button>
-            </Link>
           </form>
         </div>
       </div>
