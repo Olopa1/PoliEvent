@@ -31,7 +31,8 @@
 
 input{
     display: block;
-    margin-bottom: 17px;
+    /* margin-bottom: 17px; */
+    margin-top: 17PX;
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
@@ -53,36 +54,24 @@ input{
     }
             
     
-}
-
-
-.btn{
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 37px;
+}.btn{
+    
     display: block;
     outline: none;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
     cursor: pointer;
     font-weight: 600;
     border-radius: 3px;
     padding: 12px 24px;
     border: 1.2px solid #000000;
-    color: #000000;
+    /* border: 0; */
+    color: #3a4149;
     background: #D9D9D9;
     line-height: 1.15;
     font-size: 16px;
-    width: 200px;
-    font-family: 'Be Vietnam Pro';
-
-    :hover {
-        transition: all .1s ease;
-        box-shadow: 0 0 0 0 #fff, 0 0 0 3px #1de9b6;
-    }
-
-
-}
-
-@media screen and (max-width: 768px) {
+}@media screen and (max-width: 768px) {
     .btn {
       width: 100%;
       max-width: 200px; 
