@@ -2,27 +2,29 @@ import React from 'react';
 import './PostonMainPage.css';
 import {Container, Row, Col } from 'react-bootstrap';
 import Buttons from './OptionPicker'
-const Post = ({ title, content, author, date }) => {
+const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent}) => {
   return (
-    <div className="post-container">
+    <div className="post-my-container">
       <div className="image-container">
         <img src="/foodtruck.webp" alt="Obraz" className="image" />
         <div className="text">{title}</div>
       </div>
-      <div className="post">
+      <div className="post-my">
         <Container>
           <Row>
-            <Col>ul.Politechniczna 8</Col>
-            <Col>25.05.2024r.</Col>
-            <Col className="last-col">23/50</Col>
+            <Col>ul. {street}</Col>
+            <Col>{dateEvent}</Col>
+            <Col className="last-col">{interestedPeople}/{maxPeople}</Col>
           </Row>
         </Container>
         <h2>{title}</h2>
-        <p>{content}</p>
-        <div className="post-footer">
+        <div className="post-my-desc">
+          <p>{desc}</p>
+        </div>
+          <div className="post-my-footer">
             <Buttons/>
-          <span>Author: {author}</span>
-          <span>Date: {date}</span>
+          <span>{company}</span>
+          <span>{datePosted}</span>
         </div>
       </div>
     </div>

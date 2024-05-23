@@ -1,29 +1,54 @@
-import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import Validation from './Validation';
 import './Login.css';
+import axios from 'axios';
 import userService from '../restFunctionalities/user.service';
+
 export const Login = () => {
-  
-  const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [msg, setMsg] = useState("");
+  const [isSuccess, setIsSuccess] = useState(true);
 
-
-  const userLogin = ()=>{
-    userService.fetchUserLogin(email,password).then((res)=>{
-      console.log(res);
-    }).catch((error)=>{
-      console.log(error);
-    })
+  const handleInput = (event) => {
+    setUser(prevUser => ({ ...prevUser, [event.target.name]: event.target.value }));
   }
 
-  const onChangePassword = (e) =>{
-    const value = e.target.value;
-    setPassword(value);
-  }
-  const onChangeEmail = (e) =>{
-    const value = e.target.value;
-    setEmail(value);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    
+    // Validate email and password
+    const validationErrors = Validation(user);
+    setErrors(validationErrors);
+
+    // If there are validation errors, don't proceed with login
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
+    try {
+      const response = await userService.loginUser(user); // Call loginUser method from UserService
+      // Assuming backend returns a success status code (e.g., 200) upon successful login
+      if (response.status === 200) {
+        // Redirect user to homepage upon successful login
+        window.location.href = '/homepage';
+      } else {
+        // Handle other cases (e.g., display error message)
+      }
+    } catch (error) {
+      // Handle error (e.g., display error message)
+      setIsSuccess(false);
+      if (error.response && error.response.data.message) {
+        setMsg(error.response.data.message);
+      } else {
+        setMsg("Coś poszło nie tak");
+      }
+    }
   }
 
   return (
@@ -43,30 +68,35 @@ export const Login = () => {
         <div className="login-container">
         <h2 className="text1">Zaloguj się</h2>
           
-          <form>
+          <form action=""  onSubmit={handleSubmit}>
             <div className="form-group">
               <input
-                type="email"
-                id="email"
+                name="email"
                 className="form-control"
                 placeholder="email"
-                onChange={(e)=>onChangeEmail(e)}
-                value={email}
+                onChange={handleInput}
               />
+              <span>{errors.email && <span className='text-danger'>{errors.email}</span>}</span>
             </div>
             <div className="form-group">
               <input
                 type="password"
-                id="password"
+                name="password"
                 className="form-control"
                 placeholder="hasło"
-                onChange={(e)=>onChangePassword(e)}
-                value={password}
+                onChange={handleInput}
               />
+              <span>{errors.password && <span className='text-danger ' >{errors.password}</span>}</span>
             </div>
             <button type="submit" className="btn btn-primary btn-block" onClick={() => userLogin()}>
               Zaloguj
             </button>
+            </Link>
+            <Link to="/register">
+            <button type="submit" className="btn  btn-primary btn-block mt-3" >
+              Zarejestruj się
+            </button>
+            </Link>
           </form>
         </div>
       </div>
