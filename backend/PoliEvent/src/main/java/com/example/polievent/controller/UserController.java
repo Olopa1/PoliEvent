@@ -20,11 +20,10 @@ public class UserController {
     }
 
     @GetMapping("/fetchUserLogin")
-    public Optional<User> fetchLoginAndEmail(@RequestParam String email,@RequestParam String password){
-        return userService.findOneByEmailAndPassword(email,password);
+    public Optional<User> fetchLoginAndEmail(@RequestParam String login,@RequestParam String password){
+        return userService.findOneByLoginAndPassword(login,password);
     }
 
-    @GetMapping("/")
     @PostMapping("/saveUser")
     public void registerNewUser(@RequestBody User user){
         userService.addUser(user);
