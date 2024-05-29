@@ -5,10 +5,13 @@ class UserService{
     saveUser(user){
         return axios.post(APIR_URL + "/saveUser",user);
     }
-    async fetchUserLogin(email,password){
-        const address = `${APIR_URL}/fetchUserLogin?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
-        return await axios.get(address,{timeout: 10000});
-    }
+    async loginUser(email, password) {
+      return await axios.post(APIR_URL + '/loginUser', { email, password }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  }
 }
 
 

@@ -25,8 +25,8 @@ public class UserService {
 
     public List<User> listAll(){return userRepository.findAll();}
     public Optional<User> listAllByFirstName(String name){return userRepository.findUserByFirstName(name);}
-    public Optional<User> findOneByLoginAndPassword(String login,String password){
-        return  userRepository.findUserByLoginAndPassword(login,password);
+    public Optional<User> findOneByEmailAndPassword(String email,String password){
+        return userRepository.findUserByEmailAndPassword(email,password);
     }
     public void addUser(User user){
         Optional<User> userOptional = userRepository.findUserByLogin(user.getLogin());
