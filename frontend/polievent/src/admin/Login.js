@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import React, { useState } from "react";
 import Validation from './Validation';
 import './Login.css';
-import axios from 'axios';
 import userService from '../restFunctionalities/user.service';
 
 export const Login = () => {
@@ -22,28 +21,34 @@ export const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     
-    // Validate email and password
     const validationErrors = Validation(user);
     setErrors(validationErrors);
+    console.log("Validation Errors: ", validationErrors);
 
-    // If there are validation errors, don't proceed with login
     if (Object.keys(validationErrors).length > 0) {
+      console.log("Found validation errors, not submitting form.");
       return;
     }
 
     try {
-      const response = await userService.loginUser(user); // Call loginUser method from UserService
-      // Assuming backend returns a success status code (e.g., 200) upon successful login
+      console.log("Attempting to login with: ", user);
+      const response = await userService.loginUser(user.email, user.password); 
+      console.log("Response: ", response);
+
       if (response.status === 200) {
-        // Redirect user to homepage upon successful login
+        console.log("Login successful, redirecting to /homepage");
         window.location.href = '/homepage';
       } else {
-        // Handle other cases (e.g., display error message)
+        console.log("Login failed, response status: ", response.status);
+        setIsSuccess(false);
+        setMsg("Nieprawidłowe dane logowania");
       }
     } catch (error) {
-      // Handle error (e.g., display error message)
+      console.log("Error: ", error);
       setIsSuccess(false);
-      if (error.response && error.response.data.message) {
+      if (error.response && error.response.status === 401) {
+        setMsg("Nieprawidłowe dane logowania");
+      } else if (error.response && error.response.data && error.response.data.message) {
         setMsg(error.response.data.message);
       } else {
         setMsg("Coś poszło nie tak");
@@ -57,46 +62,45 @@ export const Login = () => {
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login Page</title>
-       
         <link
           href="https://fonts.googleapis.com/css?family=Be Vietnam Pro"
           rel="stylesheet"
         />
       </Helmet>
-      <div className="container" >
+      <div className="container">
         <img src="logo-pl_2.jpg" className="logo_pl" alt="logo" />
         <div className="login-container">
-        <h2 className="text1">Zaloguj się</h2>
+          <h2 className="text1">Zaloguj się</h2>
           
-          <form action=""  onSubmit={handleSubmit}>
+          {msg && <div className={`alert ${isSuccess ? 'alert-success' : 'alert-danger'}`}>{msg}</div>}
+          
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 name="email"
-                className="form-control"
+                className={`form-control ${errors.email ? 'is-invalid' : ''}`}
                 placeholder="email"
                 onChange={handleInput}
               />
-              <span>{errors.email && <span className='text-danger'>{errors.email}</span>}</span>
+              {errors.email && <div className='invalid-feedback'>{errors.email}</div>}
             </div>
             <div className="form-group">
               <input
                 type="password"
                 name="password"
-                className="form-control"
+                className={`form-control ${errors.password ? 'is-invalid' : ''}`}
                 placeholder="hasło"
                 onChange={handleInput}
               />
-              <span>{errors.password && <span className='text-danger ' >{errors.password}</span>}</span>
+              {errors.password && <div className='invalid-feedback'>{errors.password}</div>}
             </div>
-            <Link>
             <button type="submit" className="btn btn-primary btn-block">
               Zaloguj
             </button>
-            </Link>
             <Link to="/register">
-            <button type="submit" className="btn  btn-primary btn-block mt-3" >
-              Zarejestruj się
-            </button>
+              <button type="button" className="btn btn-secondary btn-block mt-3">
+                Zarejestruj się
+              </button>
             </Link>
           </form>
         </div>
