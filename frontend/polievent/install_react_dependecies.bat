@@ -1,4 +1,3 @@
-npm install
 npm i axios
 npm i react-awesome-button
 npm i react-bootstrap
