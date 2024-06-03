@@ -10,7 +10,13 @@ body {
   .main-page {
     display: flex;
     justify-content: flex-start;
-    align-items: stretch;
+    align-items: flex-start;
     height: 100vh;
   }
-  
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    padding: 20px;
+  }
