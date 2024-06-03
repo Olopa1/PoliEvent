@@ -2,7 +2,7 @@ import React from 'react';
 import './PostonMainPage.css';
 import {Container, Row, Col } from 'react-bootstrap';
 import Buttons from './OptionPicker'
-const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent}) => {
+const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent,timeEvent}) => {
   return (
     <div className="post-my-container">
       <div className="image-container">
@@ -13,7 +13,10 @@ const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted
         <Container>
           <Row>
             <Col>ul. {street}</Col>
-            <Col>{dateEvent}</Col>
+            <Col className="date-time-col">
+              <span className="date">{dateEvent}</span>
+              <span className="hour">{timeEvent}</span>
+            </Col>
             <Col className="last-col">{interestedPeople}/{maxPeople}</Col>
           </Row>
         </Container>

@@ -93,3 +93,12 @@
   .last-col {
     background-color: white;
   }
+  .post-my .hour {
+    display: none;
+  }
+  .date-time-col:hover .date {
+    display: none;
+  }
+  .date-time-col:hover .hour {
+    display: inline;
+  }
