@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -20,4 +21,5 @@ public class PostData {
     private int maxPeople;
     private LocalDate datePosted;
     private LocalDate dateEvent;
+    private LocalTime timeEvent;
 }
