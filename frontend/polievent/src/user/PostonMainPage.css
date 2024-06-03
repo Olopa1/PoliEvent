@@ -1,11 +1,11 @@
 .post-my-container {
     background-color: rgb(255, 253, 253);
     border-radius: 32px;
-    margin-top: 30px;
+    margin-top: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     height: 600px;
     width: 800px;
-    margin-left: 200px;
+    /* margin-left: 200px; */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
     .post-my-container:hover {
