@@ -15,6 +15,7 @@ export const Shedule = function(){
     const [classes,setClasses] = useState([]);
     const onClassAdded = (e)=>{
         setClasses([...classes, e.initialData]);
+        console.log(initialData);
     };
     const onClassDeleted = (e)=>{
         const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);

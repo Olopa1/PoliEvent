@@ -17,8 +17,10 @@ public class Shedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String text;
-    private String startDate;
+    private Boolean allDay;
     private String endDate;
+    private String recurrencRule;
+    private String startDate;
+    private String text;
     private Long userId;
 }
