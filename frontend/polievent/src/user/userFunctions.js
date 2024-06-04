@@ -113,7 +113,6 @@ const RegisterForm = function(){
 
     const RegisterUser = (e)=>{
       e.preventDefault();
-      console.log(user);
       setIsSuccess(true);
       if(checkForPasswordIntegrity() && checkForBlankFields()){
       userService.saveUser(user).then((res)=>{
