@@ -21,8 +21,10 @@ public class userConfig {
             User jan = new User(
                     2L,"Olopa","Jan","Nowak","","jakis2@email.com","Status1","123", LocalDate.of(1999, Month.JULY,12));
             User test = new User(
-                    3L,"test","Vlad","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
-        repository.saveAll(List.of(dominik,jan, test));
+                    3L,"test","Vl","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
+            User admin = new User(
+                    4L,"test","Vlad","test","","root@email.com","admin","Admroot1", LocalDate.of(1999, Month.JULY,12));
+        repository.saveAll(List.of(dominik,jan, test, admin));
         };
     }
 }
