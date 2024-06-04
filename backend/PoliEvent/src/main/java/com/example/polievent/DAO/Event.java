@@ -24,6 +24,6 @@ public class Event {
     private String description;
     private String status;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "advertiser_id", nullable = false)
     private Advertiser advertiser;
 }
