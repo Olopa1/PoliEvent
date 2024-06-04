@@ -119,7 +119,8 @@ const RegisterForm = function(){
       if (!password_pattern.test(user.password)) {
         setIsSuccess(false);
         setMsg("Hasło musi zawierać co najmniej 8 znaków, w tym jedną cyfrę, jedną małą literę i jedną dużą literę");
-      }else if(checkForPasswordIntegrity() && checkForBlankFields()){
+      }
+      else if(checkForPasswordIntegrity() && checkForBlankFields()){
       userService.saveUser(user).then((res)=>{
           console.log("User added succesfully");
           setMsg("Pomyślnie zarejestrowano");
