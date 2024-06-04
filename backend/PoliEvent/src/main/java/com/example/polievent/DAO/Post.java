@@ -1,7 +1,10 @@
 package com.example.polievent.DAO;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 import java.util.*;
+import java.time.LocalTime;
 
 
 @Entity
@@ -20,6 +23,7 @@ public class Post {
     private int verified;
     private int intrestedPeople;
     private int maxPeople;
-    private Date datePosted;
-    private Date dateEvent;
+    private LocalDate datePosted;
+    private LocalDate dateEvent;
+    private LocalTime timeEvent;
 }

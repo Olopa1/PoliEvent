@@ -5,6 +5,13 @@ class UserService{
     saveUser(user){
         return axios.post(APIR_URL + "/saveUser",user);
     }
+    async loginUser(email, password) {
+      return await axios.post(APIR_URL + '/loginUser', { email, password }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  }
 }
 
 

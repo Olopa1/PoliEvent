@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserData {
     private Long id;
+    private String login;
     private String firstName;
     private String lastName;
     private String companyName;

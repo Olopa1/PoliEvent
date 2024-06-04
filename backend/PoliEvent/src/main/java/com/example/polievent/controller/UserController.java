@@ -5,6 +5,7 @@ import com.example.polievent.DAO.User;
 import com.example.polievent.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,21 @@ public class UserController {
     @GetMapping("/getUser")
     public List<User> list(final HttpServletRequest request){
         return userService.listAll();
+    }
+
+    @PostMapping("/loginUser")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<Optional<User>> fetchLoginAndEmail(@RequestBody User user) {
+        Optional<User> foundUser = userService.findOneByEmailAndPassword(user.getEmail(), user.getPassword());
+        if (foundUser.isPresent()) {
+            return ResponseEntity.ok(foundUser);
+        }
+//        else if(user.getUserStatus().equals("admin")){
+//            return ResponseEntity.status(111).body(foundUser);
+//        }
+        else {
+            return ResponseEntity.status(401).body(Optional.empty());
+        }
     }
 
     @PostMapping("/saveUser")
