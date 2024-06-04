@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import './PostsVerificationInterface.css';
-
 const PostCard = ({ event }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -10,6 +9,7 @@ const PostCard = ({ event }) => {
   };
 
   return (
+  
     <div className="post-card">
       <div className="card">
         <div className="card-body">
@@ -50,25 +50,6 @@ const PostCard = ({ event }) => {
 
 export const Verification = () => {
 
-  const handleLogout = () => {
-    fetch('/api/logout', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(response => {
-      if (response.ok) {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-      } else {
-        console.error('Logout failed');
-      }
-    }).catch(error => {
-      console.error('Error during logout:', error);
-    });
-  };
-
   const event1 = {
     name: 'Food trucki na PŁ',
     organizer: 'Stowarzyszenie F.O.O.D',
@@ -80,7 +61,11 @@ export const Verification = () => {
     organizer: 'Stowarzyszenie F.O.O.D',
     date: '27.04.2024'
   };
+  function logout(){
+    localStorage.clear();
+    window.location.href = '/';
 
+}
   return (
     <div className="container">
       <div className="row">
@@ -98,7 +83,7 @@ export const Verification = () => {
 
       <div className="row justify-content-end">
         <div className="col-md-1">
-          <button className="btn btn-danger float-right wyloguj mb-3" onClick={handleLogout}>Wyloguj</button>
+          <button className="btn btn-danger float-right wyloguj mb-3" onClick={logout}>Wyloguj</button>
         </div>
       </div>
     </div>
