@@ -1,33 +1,47 @@
 package com.example.polievent.controller;
+
+import com.example.polievent.DAO.Event;
+import com.example.polievent.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
+
 import java.util.List;
 
-import com.example.polievent.service.EventService;
-import com.example.polievent.DAO.Event;
-
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
+    private final EventService eventService;
 
     @Autowired
-    private EventService eventService;
-    //TODO: utworzyc dwa pola w frontendzie na startTime i endTime---------------------------------
-    @PostMapping("/events")
-    public ResponseEntity<Event> addEvent(@RequestParam("title") String title,
-                                          @RequestParam("date") String date,
-                                          @RequestParam("startTime") String startTime,
-                                          @RequestParam("endTime") String endTime,
-                                          @RequestParam("location") String location,
-                                          @RequestParam("image") MultipartFile image,
-                                          @RequestParam("description") String description) throws IOException {
-        Event event = eventService.addEvent(title, date, startTime, endTime, location, image, description);
-        return new ResponseEntity<>(event, HttpStatus.CREATED);
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
     }
 
-    // TODO: edycja, usuwanie wydarzen
+    @GetMapping("/getEvents")
+    public List<Event> list() {
+        return eventService.listAll();
+    }
+
+    @GetMapping("/getEventsByAdvertiser/{advertiserId}")
+    public List<Event> listByAdvertiser(@PathVariable Long advertiserId) {
+        return eventService.listByAdvertiser(advertiserId);
+    }
+
+    @PostMapping("/saveEvent")
+    public void addEvent(@RequestBody Event event) {
+        eventService.addEvent(event);
+        System.out.println("Event added");
+    }
+
+    @PutMapping("/updateEvent/{id}")
+    public void updateEvent(@PathVariable Long id, @RequestBody Event event) {
+        eventService.updateEvent(id, event);
+        System.out.println("Event updated");
+    }
+
+    @DeleteMapping("/deleteEvent/{id}")
+    public void deleteEvent(@PathVariable Long id) {
+        eventService.deleteEvent(id);
+        System.out.println("Event deleted");
+    }
 }

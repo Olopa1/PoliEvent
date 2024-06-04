@@ -1,32 +1,23 @@
 package com.example.polievent.controller;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 import com.example.polievent.DAO.Advertiser;
 import com.example.polievent.service.AdvertiserService;
-
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AdvertiserController {
+    private final AdvertiserService advertiserService;
 
     @Autowired
-    private AdvertiserService advertiserService;
-
-    @PostMapping("/advertisers")
-    public ResponseEntity<Advertiser> addAdvertiser(@RequestBody Advertiser advertiser) {
-        Advertiser newAdvertiser = advertiserService.addAdvertiser(advertiser);
-        return new ResponseEntity<>(newAdvertiser, HttpStatus.CREATED);
+    public AdvertiserController(AdvertiserService advertiserService) {
+        this.advertiserService = advertiserService;
     }
 
-    @GetMapping("/advertisers")
-    public ResponseEntity<List<Advertiser>> getAllAdvertisers() {
-        List<Advertiser> advertisers = advertiserService.getAllAdvertisers();
-        return new ResponseEntity<>(advertisers, HttpStatus.OK);
+    @PostMapping("/saveAdvertiser")
+    public void addAdvertiser(@RequestBody Advertiser advertiser) {
+        advertiserService.addAdvertiser(advertiser);
+        System.out.println("Advertiser added");
     }
-
-    // TODO: metoda do edycji
 }
