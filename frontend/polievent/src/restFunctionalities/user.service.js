@@ -12,6 +12,12 @@ class UserService{
         }
       });
   }
+  async saveShedule(shedules){
+    return await axios.post(APIR_URL + '/saveShedule',{shedules});
+  }
+  async deleteShedulesWithId(id){
+    return await axios.delete(APIR_URL + '/deleteShedule',{id});
+  }
 }
 
 

@@ -16,11 +16,12 @@ public class userConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args -> {
-            User dominik = new User(
-                1L,"Login","Dominik","Klimczak","","jakis@email.com","Status","123", LocalDate.of(2002, Month.DECEMBER,2));
-            User jan = new User(
-                    2L,"Olopa","Jan","Nowak","","jakis2@email.com","Status1","123", LocalDate.of(1999, Month.JULY,12));
+            User admin = new User(
+                1L,"admin","Admin","Admin","","admin@admin.com","Admin","ZAQ!2wsx", LocalDate.of(2002, Month.DECEMBER,2));
             User test = new User(
+                    3L,"test","Vlad","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
+        repository.saveAll(List.of(admin, test));
+
                     3L,"test","Vl","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
             User admin = new User(
                     4L,"test","Vlad","test","","root@email.com","admin","Admroot1", LocalDate.of(1999, Month.JULY,12));

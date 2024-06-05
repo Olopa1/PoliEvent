@@ -113,7 +113,6 @@ const RegisterForm = function(){
 
     const RegisterUser = (e)=>{
       e.preventDefault();
-      console.log(user);
       setIsSuccess(true);
       const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
       if (!password_pattern.test(user.password)) {

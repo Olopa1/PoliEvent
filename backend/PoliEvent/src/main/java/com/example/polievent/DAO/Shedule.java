@@ -19,7 +19,7 @@ public class Shedule {
     private Long id;
     private Boolean allDay;
     private String endDate;
-    private String recurrencRule;
+    private String recurrenceRule;
     private String startDate;
     private String text;
     private Long userId;
