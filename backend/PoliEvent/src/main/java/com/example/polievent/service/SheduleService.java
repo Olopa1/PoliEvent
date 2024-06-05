@@ -25,4 +25,9 @@ public class SheduleService {
         }
         sheduleRepository.save(shedule);
     }
+    public void deleteShedule(Long id){
+        Optional<Shedule> shedule = Optional.ofNullable(sheduleRepository.findSheduleById(id)
+                .orElseThrow(() -> new IllegalStateException("ID not found")));
+        sheduleRepository.deleteById(id);
+    }
 }
