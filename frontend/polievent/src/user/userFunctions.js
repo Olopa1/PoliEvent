@@ -114,7 +114,12 @@ const RegisterForm = function(){
     const RegisterUser = (e)=>{
       e.preventDefault();
       setIsSuccess(true);
-      if(checkForPasswordIntegrity() && checkForBlankFields()){
+      const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
+      if (!password_pattern.test(user.password)) {
+        setIsSuccess(false);
+        setMsg("Hasło musi zawierać co najmniej 8 znaków, w tym jedną cyfrę, jedną małą literę i jedną dużą literę");
+      }
+      else if(checkForPasswordIntegrity() && checkForBlankFields()){
       userService.saveUser(user).then((res)=>{
           console.log("User added succesfully");
           setMsg("Pomyślnie zarejestrowano");
@@ -132,12 +137,13 @@ const RegisterForm = function(){
       }).catch((error)=>{
         console.log(error);
         setIsSuccess(false);
+        
         if(error.response.data.message === "Email taken"){
           setMsg("Email jest zajęty");
         }
         else if(error.response.data.message === "Login taken"){
           setMsg("Login jest zajęty");
-        }
+        }       
         else{
           setMsg("Coś poszło nie tak");
         }

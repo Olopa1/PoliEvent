@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.time.LocalTime;
 
 
 @Entity
@@ -24,4 +25,5 @@ public class Post {
     private int maxPeople;
     private LocalDate datePosted;
     private LocalDate dateEvent;
+    private LocalTime timeEvent;
 }

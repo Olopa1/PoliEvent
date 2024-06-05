@@ -36,9 +36,15 @@ export const Login = () => {
       console.log("Response: ", response);
 
       if (response.status === 200) {
+        setIsSuccess(true);
         console.log("Login successful, redirecting to /homepage");
         window.location.href = '/homepage';
-      } else {
+      }if (response.status === 201) {
+        setIsSuccess(true);
+        console.log("Login successful, redirecting to /admin");
+        window.location.href = '/admin';
+      }
+      else {
         console.log("Login failed, response status: ", response.status);
         setIsSuccess(false);
         setMsg("Nieprawidłowe dane logowania");

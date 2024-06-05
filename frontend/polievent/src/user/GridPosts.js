@@ -30,7 +30,7 @@ function GridPosts() {
   {posts.map((post, index) => (
     <Row key={index} className="justify-content-center">
       <Col sm={6}>
-        <Post title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} />
+        <Post title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} timeEvent={post.timeEvent}/>
       </Col>
     </Row>
   ))}
