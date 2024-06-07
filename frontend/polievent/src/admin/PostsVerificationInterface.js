@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import './PostsVerificationInterface.css';
-const PostCard = ({ event }) => {
+import postService from '../restFunctionalities/post.service';
+const PostCard = ({ post}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -9,22 +10,21 @@ const PostCard = ({ event }) => {
   };
 
   return (
-  
     <div className="post-card">
       <div className="card">
         <div className="card-body">
           <div className="row">
             <div className="col-md-4 col-sm-12 mb-3" style={{ fontSize: 30 }}>
               <h5 className="card-title">Nazwa wydarzenia</h5>
-              <p className="card-text">{event.name}</p>
+              <p className="card-text">{post.title}</p>
             </div>
             <div className="col-md-4 col-sm-12 mb-3" style={{ fontSize: 30 }}>
               <h5 className="card-title">Organizator</h5>
-              <p className="card-text">{event.organizer}</p>
+              <p className="card-text">{post.company}</p>
             </div>
             <div className="col-md-4 col-sm-12 mb-3" style={{ fontSize: 30 }}>
               <h5 className="card-title">Data</h5>
-              <p className="card-text">{event.date}</p>
+              <p className="card-text">{post.dateEvent}</p>
             </div>
           </div>
           <div className="row">
@@ -37,7 +37,7 @@ const PostCard = ({ event }) => {
               {isExpanded && (
                 <div className="expanded-content">
                   <hr />
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione inventore sed nisi unde! Qui consequatur, voluptates velit suscipit dicta, nostrum a praesentium rem omnis quo repellat adipisci cum aut? Quos.</p>
+                  <p>{post.description}</p>
                 </div>
               )}
             </div>
@@ -61,6 +61,23 @@ export const Verification = () => {
     organizer: 'Stowarzyszenie F.O.O.D',
     date: '27.04.2024'
   };
+  const [posts, setPosts] = useState([]);
+  function getNoVerifiedPost() {
+    postService.getNoVerifiedPosts().then((res) => {
+      console.log('Response from postService.getUser():', res);
+      if (Array.isArray(res)) {
+        setPosts([]);
+      } else {
+        setPosts(res.data || []);
+      }
+      console.log('Posts:', res);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+  useEffect(() => {
+    getNoVerifiedPost();
+  }, []);
   function logout(){
     localStorage.clear();
     window.location.href = '/';
@@ -73,14 +90,13 @@ export const Verification = () => {
           <h1 style={{ textAlign: 'center', marginBottom: '20px' }} className="header"><b>Posty do weryfikowania</b></h1>
         </div>
       </div>
-
       <div className="row">
         <div className="col-md-12">
-          <PostCard event={event1} />
-          <PostCard event={event2} />
+          {posts.map((post, index) => (
+            <PostCard key={index} post={post}/>
+            ))}
         </div>
       </div>
-
       <div className="row justify-content-end">
         <div className="col-md-1">
           <button className="btn btn-danger float-right wyloguj mb-3" onClick={logout}>Wyloguj</button>
