@@ -74,4 +74,10 @@ public class PostController {
         postService.deleteNotIntrestedUser(postId, userId);
         System.out.println("usunieto");
     }
+    @PutMapping("/verifyPost")
+    public void verifyPost(@RequestBody Post post)
+    {
+        postService.verifyPost(post);
+        System.out.println("Pomyslnie zweryfikowano post");
+    }
 }

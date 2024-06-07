@@ -92,4 +92,8 @@ public class PostService {
             postRepository.save(post);
         }
     }
+    public void verifyPost(Post post)
+    {
+        post.setVerified(1);
+    }
 }
