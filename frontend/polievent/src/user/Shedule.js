@@ -21,8 +21,6 @@ export const Shedule = function(){
         const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);
         setClasses(filteredClasses);
     }
-
-
     return(
         <>
             <Scheduler 

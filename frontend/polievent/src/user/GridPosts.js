@@ -11,7 +11,7 @@ function GridPosts() {
         postService.getUser().then((res) => {
           console.log('Response from postService.getUser():', res);
           if (Array.isArray(res)) {
-            setPosts(res);
+            setPosts([]);
           } else {
             setPosts(res.data || []);
           }
@@ -23,14 +23,20 @@ function GridPosts() {
       useEffect(() => {
         getPost();
       }, []);
-
+      window.onload = function() {
+        const scrollPosition = localStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+          window.scrollTo(0, parseInt(scrollPosition));
+          localStorage.removeItem('scrollPosition');
+        }
+      }
   return (
     <div className="scroll-view">
 <Container>
   {posts.map((post, index) => (
     <Row key={index} className="justify-content-center">
       <Col sm={6}>
-        <Post title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} />
+        <Post postid={post.id}title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} interestedUsers={post.interestedUsers} MaybeUsers={post.maybeInterestedUsers} NotUsers={post.notInterestedUsers}/>
       </Col>
     </Row>
   ))}

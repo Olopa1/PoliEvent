@@ -2,35 +2,128 @@ import { AwesomeButton } from "react-awesome-button";
 import React from 'react';
 import "react-awesome-button/dist/styles.css";
 import './OptionPicker.css';
-import { useState } from 'react';
-
-const Buttons = () => {
-    const [pressedButton, setPressedButton] = useState(null);
-    const handleClick = (buttonType) => {
-        setPressedButton(buttonType);
-    };
+import { useState,useEffect } from 'react';
+import postService from '../restFunctionalities/post.service';
+const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
+  const userId=10
+  const handleInterestedUser = () => {
+    localStorage.setItem('scrollPosition', window.pageYOffset);
+    postService.deletedMaybeUserToPost(id, userId)
+      .then(response => {
+        console.log("MAYBE User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the maybe user:", error);
+      });
   
+    postService.deletedNotIntrestedUserToPost(id, userId)
+      .then(response => {
+        console.log("Not interested User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the not interested user:", error);
+      });
+
+    postService.addInterestedUserToPost(id, userId)
+      .then(response => {
+        console.log("User added successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error adding the user:", error);
+      });
+      window.location.reload();
+      };
+  
+  const handleMaybeUser = () => {
+    localStorage.setItem('scrollPosition', window.pageYOffset);
+    postService.deletedIntrestedUserToPost(id, userId)
+      .then(response => {
+        console.log("INTRESTED User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the intrested user:", error);
+      });
+  
+    postService.deletedNotIntrestedUserToPost(id, userId)
+      .then(response => {
+        console.log("Not interested User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the not interested user:", error);
+      });
+  
+    postService.addMaybeUserToPost(id, userId)
+      .then(response => {
+        console.log("User added successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error adding the user:", error);
+      });
+      window.location.reload();
+  };
+  const handleNotIntrestedUser = () => {
+    localStorage.setItem('scrollPosition', window.pageYOffset);
+    postService.deletedMaybeUserToPost(id, userId)
+      .then(response => {
+        console.log("MAYBE User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the maybe user:", error);
+      });
+  
+    postService.deletedIntrestedUserToPost(id, userId)
+      .then(response => {
+        console.log("interested User deleted successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error deleting the interested user:", error);
+      });
+  
+    postService.addNotIntrestedUserToPost(id, userId)
+      .then(response => {
+        console.log("User added successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error adding the user:", error);
+      });
+      window.location.reload();
+  };
+    const [BOOL_PRIMARY, setState_PRIMARY] = useState(false);
+    const [BOOL_SECONDARY, setState_SECONDARY] = useState(false);
+    const [BOOL_DANGER, setState_DANGER] = useState(false);
+
+    useEffect(() => {
+        if (arrUsers.includes(userId)) {
+          setState_PRIMARY(true);
+        } else if(arrMaybeUsers.includes(userId)){
+          setState_SECONDARY(true);
+        }
+        else if(arrNotUsers.includes(userId))
+        {
+          setState_DANGER(true);
+        }
+    }, [arrUsers]);
     return (
       <div>
         <AwesomeButton
-            onPressed={() => handleClick('primary')}
+            onPressed={() => handleInterestedUser()}
             type="primary"
-            active={pressedButton === 'primary'}
+            disabled={BOOL_PRIMARY}
         >
           Idę
         </AwesomeButton>
         <AwesomeButton
-            onPressed={() => handleClick('secondary')}
+            onPressed={() => handleMaybeUser()}
             type="secondary"
-            active={pressedButton === 'secondary'}
+            disabled={BOOL_SECONDARY}
         >
           Zainteresowany
         </AwesomeButton>
         <AwesomeButton
-            onPressed={() => handleClick('danger')}
+            onPressed={() =>handleNotIntrestedUser()}
           type="danger"
-          active={pressedButton === 'danger'}
-        >
+          disabled={BOOL_DANGER}
+          >
           Odpuszczam
         </AwesomeButton>
       </div>
