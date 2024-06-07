@@ -37,6 +37,7 @@ function GridPosts() {
     <Row key={index} className="justify-content-center">
       <Col sm={6}>
         <Post postid={post.id}title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} interestedUsers={post.interestedUsers} MaybeUsers={post.maybeInterestedUsers} NotUsers={post.notInterestedUsers}/>
+        <Post title={post.title} desc={post.description} street={post.street} company={post.company} interestedPeople={post.intrestedPeople} maxPeople={post.maxPeople} dateEvent={post.dateEvent} datePosted={post.datePosted} timeEvent={post.timeEvent}/>
       </Col>
     </Row>
   ))}

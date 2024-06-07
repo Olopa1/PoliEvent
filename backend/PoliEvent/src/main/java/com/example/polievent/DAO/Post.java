@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.time.LocalTime;
 
 
 @Entity
@@ -56,4 +57,5 @@ public class Post {
     {
         notInterestedUsers.remove(Integer.valueOf(userID));
     }
+    private LocalTime timeEvent;
 }

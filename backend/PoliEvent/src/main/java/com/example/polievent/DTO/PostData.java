@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.time.LocalTime;
 
 @Setter
 @Getter
@@ -25,4 +26,5 @@ public class PostData {
     private List<Integer> interestedUsers;
     private List<Integer> notInterestedUsers;
     private List<Integer> maybeInterestedUsers;
+    private LocalTime timeEvent;
 }

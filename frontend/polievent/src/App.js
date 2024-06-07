@@ -11,6 +11,7 @@ import EventPage from './advertiser/EventPage';
 import { Login } from './admin/Login'
 import { Verification } from './admin/PostsVerificationInterface'
 import { Shedule } from './user/Shedule';
+import { ShedulePage } from './user/ShedulePage';
 function App() {
   return (
     <BrowserRouter>
@@ -19,7 +20,7 @@ function App() {
         <Route path="/admin" element={<Verification/>}/>
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/post" element={<Post />} />
-        <Route path="shedule" element={<Shedule />}/>
+        <Route path="shedule" element={<ShedulePage />}/>
         <Route path="/advertiserdashboard" element={<AdvertiserDashboard/>}/>
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/homepage" element={<MainPage />} />
