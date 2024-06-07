@@ -21,11 +21,6 @@ public class userConfig {
             User test = new User(
                     3L,"test","Vlad","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
         repository.saveAll(List.of(admin, test));
-
-                    3L,"test","Vl","test","","example@email.com","user","Qwertyui1", LocalDate.of(1999, Month.JULY,12));
-            User admin = new User(
-                    4L,"test","Vlad","test","","root@email.com","admin","Admroot1", LocalDate.of(1999, Month.JULY,12));
-        repository.saveAll(List.of(dominik,jan, test, admin));
         };
     }
 }

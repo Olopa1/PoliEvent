@@ -25,6 +25,7 @@ public class Post {
     private int maxPeople;
     private LocalDate datePosted;
     private LocalDate dateEvent;
+    private LocalTime timeEvent;
     @ElementCollection
     private List<Integer> interestedUsers;
     @ElementCollection
@@ -57,5 +58,4 @@ public class Post {
     {
         notInterestedUsers.remove(Integer.valueOf(userID));
     }
-    private LocalTime timeEvent;
 }

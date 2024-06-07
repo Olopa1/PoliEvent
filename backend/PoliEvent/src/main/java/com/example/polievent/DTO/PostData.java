@@ -23,8 +23,8 @@ public class PostData {
     private int maxPeople;
     private LocalDate datePosted;
     private LocalDate dateEvent;
+    private LocalTime timeEvent;
     private List<Integer> interestedUsers;
     private List<Integer> notInterestedUsers;
     private List<Integer> maybeInterestedUsers;
-    private LocalTime timeEvent;
 }
