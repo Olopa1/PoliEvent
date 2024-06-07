@@ -6,14 +6,12 @@ import Post from './user/PostonMainPage';
 import MainPage from './user/MainPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Planzajec from './user/Planzajec';
-
 import AdvertiserDashboard from './advertiser/AdvertiserDashboard';
 import EventPage from './advertiser/EventPage';
-
 import { Login } from './admin/Login'
 import { Verification } from './admin/PostsVerificationInterface'
+import { Shedule } from './user/Shedule';
 import { ShedulePage } from './user/ShedulePage';
-
 function App() {
   return (
     <BrowserRouter>

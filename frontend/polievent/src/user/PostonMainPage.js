@@ -2,6 +2,7 @@ import React from 'react';
 import './PostonMainPage.css';
 import {Container, Row, Col } from 'react-bootstrap';
 import Buttons from './OptionPicker'
+const Post = ({postid,title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent,interestedUsers,MaybeUsers,NotUsers}) => { 
 const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent,timeEvent}) => {
   return (
     <div className="post-my-container">
@@ -25,7 +26,7 @@ const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted
           <p>{desc}</p>
         </div>
           <div className="post-my-footer">
-            <Buttons/>
+            <Buttons id={postid} arrUsers={interestedUsers} arrMaybeUsers={MaybeUsers} arrNotUsers={NotUsers}/>
           <span>{company}</span>
           <span>{datePosted}</span>
         </div>

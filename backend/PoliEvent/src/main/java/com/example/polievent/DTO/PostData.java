@@ -1,10 +1,12 @@
 package com.example.polievent.DTO;
+import jakarta.persistence.ElementCollection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.time.LocalTime;
 
 @Setter
@@ -21,5 +23,8 @@ public class PostData {
     private int maxPeople;
     private LocalDate datePosted;
     private LocalDate dateEvent;
+    private List<Integer> interestedUsers;
+    private List<Integer> notInterestedUsers;
+    private List<Integer> maybeInterestedUsers;
     private LocalTime timeEvent;
 }

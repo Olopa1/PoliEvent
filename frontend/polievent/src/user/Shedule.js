@@ -46,7 +46,6 @@ export const Shedule = function(){
             console.log(error);       
         })
     }
-
     return(
         <>  
         <Container>
