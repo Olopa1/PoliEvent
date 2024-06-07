@@ -18,7 +18,13 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> listAll(){return postRepository.findAll();}
+    public List<Post> listAllVerified(){
+        return postRepository.findPostsByVerified(1);
+    }
+    public List<Post> listAllNotVerified()
+    {
+        return postRepository.findPostsByVerified(0);
+    }
     public void addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
         if(postOptional.isPresent()){

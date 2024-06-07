@@ -18,11 +18,15 @@ public class PostController {
     @Autowired
     public PostController(PostService postService){this.postService = postService;}
 
-    @GetMapping("/getPost")
-    public List<Post> list(final HttpServletRequest request){
-        return postService.listAll();
+    @GetMapping("/getVerifiedPost")
+    public List<Post> getVerifiedPosts(final HttpServletRequest request){
+        return postService.listAllVerified();
     }
-
+    @GetMapping("/getNoVerifiedPost")
+    public List<Post> getNoVerifiedPosts(final HttpServletRequest request)
+    {
+        return postService.listAllNotVerified();
+    }
     @PostMapping("/savePost")
     public void registerNewUser(@RequestBody Post post){
         postService.addPost(post);
