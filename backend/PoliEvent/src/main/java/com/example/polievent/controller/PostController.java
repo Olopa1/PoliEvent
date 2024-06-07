@@ -77,7 +77,8 @@ public class PostController {
     @PutMapping("/verifyPost")
     public void verifyPost(@RequestBody Post post)
     {
-        postService.verifyPost(post);
+        Long postId=post.getId();
+        postService.verifyPost(postId);
         System.out.println("Pomyslnie zweryfikowano post");
     }
 }

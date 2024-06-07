@@ -92,8 +92,13 @@ public class PostService {
             postRepository.save(post);
         }
     }
-    public void verifyPost(Post post)
+    public void verifyPost(Long postId)
     {
-        post.setVerified(1);
+        Post post =postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("UNKNOWN POST ID"));
+        if(post.getVerified()==0)
+        {
+            post.setVerified(1);
+        }
     }
 }
