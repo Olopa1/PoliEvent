@@ -4,8 +4,12 @@ class PostService{
     savePost(post){
         return axios.post(APIR_URL + "/savePost",post);
     }
-    getUser(){
-        return axios.get(APIR_URL + "/getPost");
+    getVerifiedPosts(){
+        return axios.get(APIR_URL + "/getVerifiedPost");
+    }
+    getNoVerifiedPosts()
+    {
+        return axios.get(APIR_URL + "/getNoVerifiedPost")
     }
     addInterestedUserToPost(postId, userId) {
         console.log(`Sending request to add INTRESTED userId ${userId} to postId ${postId}`);
