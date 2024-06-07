@@ -11,6 +11,20 @@ class PostService{
     {
         return axios.get(APIR_URL + "/getNoVerifiedPost")
     }
+    verifyPost(post)
+    {
+        return axios.put(APIR_URL + "/verifyPost",post)
+    }
+    deletePost(post)
+    {
+        console.log(`Sending request to delete post postId ${post.id} from admin`);
+        return axios.delete(APIR_URL + "/deletePost", {
+            data: post,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+    }
     addInterestedUserToPost(postId, userId) {
         console.log(`Sending request to add INTRESTED userId ${userId} to postId ${postId}`);
         return axios.put(APIR_URL +"/addInterestedUsers",{ postId, userId});

@@ -8,7 +8,27 @@ const PostCard = ({ post}) => {
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
-
+  const handleVerifyPost = () => {
+    postService.verifyPost(post)
+      .then(response => {
+        console.log("Post Verified successfully:", response.data);
+      })
+      .catch(error => {
+        console.error("There was an error veryfing post:", error);
+      });
+      window.location.reload();
+  };
+  const handleDeletePost = () =>
+  {
+    postService.deletePost(post)
+    .then(response => {
+      console.log("Post Verified successfully:", response.data);
+    })
+    .catch(error => {
+      console.error("There was an error veryfing post:", error);
+    });
+    window.location.reload();
+  };
   return (
     <div className="post-card">
       <div className="card">
@@ -29,8 +49,12 @@ const PostCard = ({ post}) => {
           </div>
           <div className="row">
             <div className="col-md-12">
-              <Button className="btn btn-success mr-2" style={{ marginRight: 15 }}>Zatwierdź</Button>
-              <Button className="btn btn-danger mr-2" style={{ marginRight: 15 }}>Usuń</Button>
+              <Button className="btn btn-success mr-2" style={{ marginRight: 15 }} onClick={() => handleVerifyPost(post)}>
+                Zatwierdź
+                </Button>
+              <Button className="btn btn-danger mr-2" style={{ marginRight: 15 }} onClick={() => handleDeletePost(post)}>
+                Usuń
+                </Button>
               <Button className="btn btn-primary mr-2" onClick={toggleExpand}>
                 {isExpanded ? 'Zwiń' : 'Rozwiń'}
               </Button>
@@ -49,18 +73,6 @@ const PostCard = ({ post}) => {
 };
 
 export const Verification = () => {
-
-  const event1 = {
-    name: 'Food trucki na PŁ',
-    organizer: 'Stowarzyszenie F.O.O.D',
-    date: '27.04.2024'
-  };
-
-  const event2 = {
-    name: 'Food trucki na PŁ',
-    organizer: 'Stowarzyszenie F.O.O.D',
-    date: '27.04.2024'
-  };
   const [posts, setPosts] = useState([]);
   function getNoVerifiedPost() {
     postService.getNoVerifiedPosts().then((res) => {
@@ -81,7 +93,6 @@ export const Verification = () => {
   function logout(){
     localStorage.clear();
     window.location.href = '/';
-
 }
   return (
     <div className="container">
