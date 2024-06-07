@@ -7,7 +7,7 @@ import postService from '../restFunctionalities/post.service';
 const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
   const userId=10
   const handleInterestedUser = () => {
-    localStorage.setItem('scrollPosition', window.pageYOffset);
+    localStorage.setItem('scrollPosition', window.scrollY);
     postService.deletedMaybeUserToPost(id, userId)
       .then(response => {
         console.log("MAYBE User deleted successfully:", response.data);
@@ -35,7 +35,7 @@ const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
       };
   
   const handleMaybeUser = () => {
-    localStorage.setItem('scrollPosition', window.pageYOffset);
+    localStorage.setItem('scrollPosition', window.scrollY);
     postService.deletedIntrestedUserToPost(id, userId)
       .then(response => {
         console.log("INTRESTED User deleted successfully:", response.data);
@@ -62,7 +62,7 @@ const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
       window.location.reload();
   };
   const handleNotIntrestedUser = () => {
-    localStorage.setItem('scrollPosition', window.pageYOffset);
+    localStorage.setItem('scrollPosition', window.scrollY);
     postService.deletedMaybeUserToPost(id, userId)
       .then(response => {
         console.log("MAYBE User deleted successfully:", response.data);

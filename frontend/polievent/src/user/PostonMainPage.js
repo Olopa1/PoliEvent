@@ -2,8 +2,7 @@ import React from 'react';
 import './PostonMainPage.css';
 import {Container, Row, Col } from 'react-bootstrap';
 import Buttons from './OptionPicker'
-const Post = ({postid,title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent,interestedUsers,MaybeUsers,NotUsers}) => { 
-const Post = ({title, desc,street, company,interestedPeople,maxPeople,datePosted,dateEvent,timeEvent}) => {
+const Post = ({postid,title, desc,street, company,interestedPeople,maxPeople,timeEvent,datePosted,dateEvent,interestedUsers,MaybeUsers,NotUsers}) => { 
   return (
     <div className="post-my-container">
       <div className="image-container">
