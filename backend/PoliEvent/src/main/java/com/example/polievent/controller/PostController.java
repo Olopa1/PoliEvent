@@ -81,4 +81,10 @@ public class PostController {
         postService.verifyPost(postId);
         System.out.println("Pomyslnie zweryfikowano post");
     }
+    @DeleteMapping("/deletePost")
+    public void deletePost(@RequestBody Post post) {
+        Long postId = post.getId();
+        postService.deletePost(postId);
+        System.out.println("Pomyślnie usunięto post");
+    }
 }

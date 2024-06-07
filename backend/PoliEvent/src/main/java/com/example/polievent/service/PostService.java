@@ -101,4 +101,11 @@ public class PostService {
             post.setVerified(1);
         }
     }
+    public void deletePost(Long postId)
+    {
+        System.out.println(postId);
+        Post post=postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("UNKNOWN POST ID"));
+        postRepository.delete(post);
+    }
 }
