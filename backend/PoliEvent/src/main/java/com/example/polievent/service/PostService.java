@@ -18,7 +18,13 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> listAll(){return postRepository.findAll();}
+    public List<Post> listAllVerified(){
+        return postRepository.findPostsByVerified(1);
+    }
+    public List<Post> listAllNotVerified()
+    {
+        return postRepository.findPostsByVerified(0);
+    }
     public void addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
         if(postOptional.isPresent()){
@@ -85,5 +91,21 @@ public class PostService {
             post.deleteNotIntrestedUser(userId);
             postRepository.save(post);
         }
+    }
+    public void verifyPost(Long postId)
+    {
+        Post post =postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("UNKNOWN POST ID"));
+        if(post.getVerified()==0)
+        {
+            post.setVerified(1);
+        }
+    }
+    public void deletePost(Long postId)
+    {
+        System.out.println(postId);
+        Post post=postRepository.findById(postId)
+                .orElseThrow(() -> new IllegalStateException("UNKNOWN POST ID"));
+        postRepository.delete(post);
     }
 }

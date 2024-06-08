@@ -18,11 +18,15 @@ public class PostController {
     @Autowired
     public PostController(PostService postService){this.postService = postService;}
 
-    @GetMapping("/getPost")
-    public List<Post> list(final HttpServletRequest request){
-        return postService.listAll();
+    @GetMapping("/getVerifiedPost")
+    public List<Post> getVerifiedPosts(final HttpServletRequest request){
+        return postService.listAllVerified();
     }
-
+    @GetMapping("/getNoVerifiedPost")
+    public List<Post> getNoVerifiedPosts(final HttpServletRequest request)
+    {
+        return postService.listAllNotVerified();
+    }
     @PostMapping("/savePost")
     public void registerNewUser(@RequestBody Post post){
         postService.addPost(post);
@@ -69,5 +73,18 @@ public class PostController {
         Integer userId = userPostRequest.getUserId();
         postService.deleteNotIntrestedUser(postId, userId);
         System.out.println("usunieto");
+    }
+    @PutMapping("/verifyPost")
+    public void verifyPost(@RequestBody Post post)
+    {
+        Long postId=post.getId();
+        postService.verifyPost(postId);
+        System.out.println("Pomyslnie zweryfikowano post");
+    }
+    @DeleteMapping("/deletePost")
+    public void deletePost(@RequestBody Post post) {
+        Long postId = post.getId();
+        postService.deletePost(postId);
+        System.out.println("Pomyślnie usunięto post");
     }
 }

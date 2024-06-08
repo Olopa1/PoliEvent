@@ -7,8 +7,8 @@ import './GridPosts.css';
 import postService from '../restFunctionalities/post.service';
 function GridPosts() {
       const [posts, setPosts] = useState([]);
-      function getPost() {
-        postService.getUser().then((res) => {
+      function getVerifiedPost() {
+        postService.getVerifiedPosts().then((res) => {
           console.log('Response from postService.getUser():', res);
           if (Array.isArray(res)) {
             setPosts([]);
@@ -21,7 +21,7 @@ function GridPosts() {
         });
       }
       useEffect(() => {
-        getPost();
+        getVerifiedPost();
       }, []);
       window.onload = function() {
         const scrollPosition = localStorage.getItem('scrollPosition');

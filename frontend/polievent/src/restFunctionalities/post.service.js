@@ -4,8 +4,26 @@ class PostService{
     savePost(post){
         return axios.post(APIR_URL + "/savePost",post);
     }
-    getUser(){
-        return axios.get(APIR_URL + "/getPost");
+    getVerifiedPosts(){
+        return axios.get(APIR_URL + "/getVerifiedPost");
+    }
+    getNoVerifiedPosts()
+    {
+        return axios.get(APIR_URL + "/getNoVerifiedPost")
+    }
+    verifyPost(post)
+    {
+        return axios.put(APIR_URL + "/verifyPost",post)
+    }
+    deletePost(post)
+    {
+        console.log(`Sending request to delete post postId ${post.id} from admin`);
+        return axios.delete(APIR_URL + "/deletePost", {
+            data: post,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
     }
     addInterestedUserToPost(postId, userId) {
         console.log(`Sending request to add INTRESTED userId ${userId} to postId ${postId}`);
