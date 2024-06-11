@@ -24,7 +24,8 @@ public class eventConfig {
                     "Manufaktura",
                     "null",
                     "Zapraszamy na koncert!",
-                    "active");
+                    "active",
+                    4L);
             Event spotkanie = new Event(
                     2L,
                     "Spotkanie w terenie",
@@ -33,7 +34,8 @@ public class eventConfig {
                     "Park",
                     "null",
                     "Przyjdz na spacer!",
-                    "active");
+                    "active",
+                    4L);
             repository.saveAll(List.of(koncert, spotkanie));
         };
     }

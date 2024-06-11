@@ -32,7 +32,7 @@ public class Event {
     private String picturePath;
     private String description;
     private String status;
-    /*@ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private User advertiser;*/
+
+    @JoinColumn(name = "advertiser_id", nullable = false)
+    private Long advertiserId;
 }

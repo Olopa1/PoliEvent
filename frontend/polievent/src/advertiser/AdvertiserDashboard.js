@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link} from 'react-router-dom';
 import NotificationPopup from './NotificationPopup';
 import SettingsPopup from './SettingsPopup';
 import EventCard from './EventCard';
@@ -14,7 +15,7 @@ const AdvertiserDashboard = () => {
   const [showEventForm, setShowEventForm] = useState(false);
 
   useEffect(() => {
-    const APIR_URL = "http://localhost:8080";
+  const API = "http://localhost:8080";
     axios.get('/api/advertiser/events')
       .then(response => {
         setEvents(response.data);
@@ -32,7 +33,7 @@ const AdvertiserDashboard = () => {
   }, []);
 
   const handleLogout = () => {
-    // Implement logout functionality
+    
   };
 
   const handleAddEvent = (newEvent) => {
@@ -45,7 +46,8 @@ const AdvertiserDashboard = () => {
       <nav className="menu">
         <button onClick={() => setShowNotifications(true)}>Powiadomienia</button>
         <button onClick={() => setShowSettings(true)}>Ustawienia</button>
-        <button onClick={handleLogout}>Wyloguj</button>
+        <Link to="/"><button> Wyloguj</button></Link>
+        
       </nav>
       <div className="events-grid">
         {events.map(event => (

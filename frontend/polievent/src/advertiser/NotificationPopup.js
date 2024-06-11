@@ -6,9 +6,11 @@ const NotificationPopup = ({ notifications, onClose }) => {
       <button onClick={onClose}>Close</button>
       <ul>
         {notifications.map(notification => (
+          // <li key={1}>"Anna zapisał się na twoje wydarzenie!"</li>
+          // <li key={2}>"Robert jest zainteresowany twoim wydarzeniem!"</li>
+          // v
           <>
-          <li key={1}>"Anna zapisał się na twoje wydarzenie!"</li>
-          <li key={2}>"Robert jest zainteresowany twoim wydarzeniem!"</li>
+          <li key={notification.id}>{notification.message}</li> 
           </>
         ))}
       </ul>
