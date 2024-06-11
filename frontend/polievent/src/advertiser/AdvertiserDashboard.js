@@ -14,6 +14,7 @@ const AdvertiserDashboard = () => {
   const [showEventForm, setShowEventForm] = useState(false);
 
   useEffect(() => {
+    const APIR_URL = "http://localhost:8080";
     axios.get('/api/advertiser/events')
       .then(response => {
         setEvents(response.data);
@@ -42,9 +43,9 @@ const AdvertiserDashboard = () => {
   return (
     <div className="dashboard">
       <nav className="menu">
-        <button onClick={() => setShowNotifications(true)}>Notifications</button>
-        <button onClick={() => setShowSettings(true)}>Settings</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={() => setShowNotifications(true)}>Powiadomienia</button>
+        <button onClick={() => setShowSettings(true)}>Ustawienia</button>
+        <button onClick={handleLogout}>Wyloguj</button>
       </nav>
       <div className="events-grid">
         {events.map(event => (
