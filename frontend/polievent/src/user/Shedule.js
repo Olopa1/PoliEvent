@@ -9,38 +9,51 @@ import 'devextreme/dist/css/dx.light.css';
 import { Scheduler,View } from 'devextreme-react/cjs/scheduler';
 import userService from '../restFunctionalities/user.service';
 
-    //const initialData = [];
+//    const initialData = [];
 
 export const Shedule = function(){
 
     const [classes,setClasses] = useState([]);
-    const [initialData,setInitData] = useState([]);
-    const [temp,setTemp] = useState([]);
-    const onClassAdded = (e)=>{
-        setClasses([...classes, e.initialData]);
-        console.log(initialData);
+    /*const onClassAdded = (e)=>{
+        setClasses(prevCLasses => [...classes, e.appointmentData]);
+        console.log(classes);
+    };*/
+
+    const onClassAdded = (e) => {
+        setClasses(prevClasses => {
+            const isDuplicate = prevClasses.some(item => item.id === e.appointmentData.id);
+            if (isDuplicate) {
+                console.log("Duplicate detected. No changes made.");
+                return prevClasses;
+            }
+            const updatedClasses = [...prevClasses, e.appointmentData];
+            console.log("Class added. Updated classes:", updatedClasses);
+            return updatedClasses;
+        });
     };
     
     const onClassDeleted = (e)=>{
-        const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);
-        setClasses(filteredClasses);
+        setClasses([...classes, e.appointmentData]);
+        console.log(classes);
+        //    const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);
+    //    setClasses(filteredClasses);
     }
 
     const addField = ()=>{
-        setTemp([...initialData]);
-        console.log(classes);
-        console.log(temp);
-        for(var i = 0 ; i < classes.length;i++){
-            temp[i].userId = 1; //Index of current logged user
-        }        
-        setClasses(temp);
+        const updatedClass = classes.map((cls)=>({
+            ...cls,
+            userId: 1
+        }));
+        setClasses(updatedClass);
+        return updatedClass;
     }
 
     const addToDb = (e)=>{
         e.preventDefault();
-        addField();
+        const updateClass = addField();
+        console.log(updateClass);
         console.log(classes);
-        userService.saveShedule(classes).then((res)=>{
+        userService.saveShedule(updateClass).then((res)=>{
             console.log("added successfully");
         }).catch((error)=>{
             console.log(error);       
@@ -53,7 +66,7 @@ export const Shedule = function(){
             <Row>
             <Col>
                 <Scheduler 
-                dataSource={initialData}
+                dataSource={classes}
                 defaultCurrentView='workWeek' 
                 allDayPanelMode='hidden'
                 showCurrentTimeIndicaton={true}
