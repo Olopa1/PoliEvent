@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ApiKey } from "devextreme-react/cjs/map";
 const APIR_URL = "http://localhost:8080";
 
 class UserService{
@@ -14,17 +13,10 @@ class UserService{
       });
   }
   async saveShedule(shedules){
-    return await axios.post(APIR_URL + '/saveShedule',shedules,{
-      headers:{'Content-Type' : 'application/json'}
-    });
+    return await axios.post(APIR_URL + '/saveShedule',{shedules});
   }
-
   async deleteShedulesWithId(id){
-    return await axios.delete(APIR_URL + '/deleteShedule',{params: {id}});
-  }
-
-  async getInitalDataForShedule(id){
-    return await axios.get(APIR_URL + '/readSheduleWithId',{params:{id: id}});
+    return await axios.delete(APIR_URL + '/deleteShedule',{id});
   }
 }
 
