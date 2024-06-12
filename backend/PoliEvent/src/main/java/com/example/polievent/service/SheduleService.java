@@ -17,7 +17,7 @@ public class SheduleService {
 
     public SheduleService(SheduleRepository sheduleRepository){this.sheduleRepository = sheduleRepository;}
     public List<Shedule> listAll(){return sheduleRepository.findAll();}
-    public Optional<Shedule> listAllWithId(Long id){return sheduleRepository.listAllWithUserId(id);}
+    public List<Shedule> listAllWithId(Long id){return sheduleRepository.listAllWithUserId(id);}
     public void addShedule(Shedule shedule){
         Optional<Shedule> sheduleOptional = sheduleRepository.findSheduleById(shedule.getId());
         if(sheduleOptional.isPresent()){
@@ -26,8 +26,12 @@ public class SheduleService {
         sheduleRepository.save(shedule);
     }
     public void deleteShedule(Long id){
-        Optional<Shedule> shedule = Optional.ofNullable(sheduleRepository.findSheduleById(id)
-                .orElseThrow(() -> new IllegalStateException("ID not found")));
-        sheduleRepository.deleteById(id);
+        List<Shedule> shedule = sheduleRepository.listAllWithUserId(id);
+        if(shedule.isEmpty()){
+            throw new IllegalStateException("ID not found");
+        }
+        for(Shedule value : shedule){
+            sheduleRepository.deleteById(value.getId());
+        }
     }
 }

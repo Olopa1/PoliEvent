@@ -23,13 +23,11 @@ public class SheduleController {
     @GetMapping("/readSheduleWithId")
     @CrossOrigin(origins = "http://localhost:3000")
     public ResponseEntity<List<Shedule>> readShedulWithId(@RequestParam Long id){
-        Optional<Shedule> sheduleFound = sheduleService.listAllWithId(id);
-        List<Shedule> castToList = new ArrayList<Shedule>();
-        if(sheduleFound.isPresent()){
-            castToList = sheduleFound.stream().collect(Collectors.toList());
-            return ResponseEntity.ok(castToList);
+        List<Shedule> sheduleFound = sheduleService.listAllWithId(id);
+        if(!sheduleFound.isEmpty()){
+            return ResponseEntity.ok(sheduleFound);
         }
-        return ResponseEntity.status(404).body(castToList);
+        return ResponseEntity.status(404).body(sheduleFound);
     }
     @PostMapping("/saveShedule")
     public void addShedule(@RequestBody List<Shedule> shedule){
@@ -40,7 +38,8 @@ public class SheduleController {
     }
 
     @DeleteMapping("/deleteShedule")
-    public ResponseEntity<String> deleteShedule(@RequestBody Long id){
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<String> deleteShedule(@RequestParam Long id){
         sheduleService.deleteShedule(id);
         return ResponseEntity.ok("Shedule deleted successfully");
     }

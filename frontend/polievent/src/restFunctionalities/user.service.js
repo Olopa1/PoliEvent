@@ -20,7 +20,7 @@ class UserService{
   }
 
   async deleteShedulesWithId(id){
-    return await axios.delete(APIR_URL + '/deleteShedule',{id});
+    return await axios.delete(APIR_URL + '/deleteShedule',{params: {id}});
   }
 
   async getInitalDataForShedule(id){
