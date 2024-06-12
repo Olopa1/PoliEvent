@@ -28,6 +28,9 @@ public class UserController {
             User userEntity = foundUser.get();
             if ("admin".equals(userEntity.getUserStatus())) {
                 return ResponseEntity.status(201).body(userEntity);
+            }
+            else if ("advertiser".equals(userEntity.getUserStatus())) {
+                return ResponseEntity.status(202).body(userEntity);
             } else {
 
                 return ResponseEntity.status(200).body(userEntity);
