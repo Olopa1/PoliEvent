@@ -22,16 +22,18 @@ public class UserController {
 
     @PostMapping("/loginUser")
     @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<Optional<User>> fetchLoginAndEmail(@RequestBody User user) {
+    public ResponseEntity<User> fetchLoginAndEmail(@RequestBody User user) {
         Optional<User> foundUser = userService.findOneByEmailAndPassword(user.getEmail(), user.getPassword());
         if (foundUser.isPresent()) {
-            return ResponseEntity.ok(foundUser);
-        }
-//        else if(user.getUserStatus().equals("admin")){
-//            return ResponseEntity.status(111).body(foundUser);
-//        }
-        else {
-            return ResponseEntity.status(401).body(Optional.empty());
+            User userEntity = foundUser.get();
+            if ("admin".equals(userEntity.getUserStatus())) {
+                return ResponseEntity.status(201).body(userEntity);
+            } else {
+
+                return ResponseEntity.status(200).body(userEntity);
+            }
+        } else {
+            return ResponseEntity.status(401).body(null);
         }
     }
 
