@@ -4,10 +4,7 @@ import com.example.polievent.DAO.Event;
 import com.example.polievent.service.EventService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +26,21 @@ public class EventController {
     @GetMapping("/getEventsByAdvertiser")
     public List<Event> getEventsByAdvertiser(@RequestParam Long advertiserId) {
         return eventService.getEventsByAdvertiser(advertiserId);
+    }
+
+    @GetMapping("/{eventId}/signedUpUsers")
+    public List<Long> getSignedUpUsers(@PathVariable Long eventId) {
+        return eventService.getSignedUpUsers(eventId);
+    }
+
+    @PostMapping("/{eventId}/signUp")
+    public void signUpUser(@PathVariable Long eventId, @RequestParam Long userId) {
+        eventService.addSignedUpUser(eventId, userId);
+    }
+
+    @PostMapping("/{eventId}/cancelSignUp")
+    public void cancelSignUpUser(@PathVariable Long eventId, @RequestParam Long userId) {
+        eventService.removeSignedUpUser(eventId, userId);
     }
 
 }

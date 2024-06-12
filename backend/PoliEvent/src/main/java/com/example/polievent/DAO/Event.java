@@ -4,6 +4,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,4 +37,19 @@ public class Event {
 
     @JoinColumn(name = "advertiser_id", nullable = false)
     private Long advertiserId;
+
+    @Getter
+    @ElementCollection
+    private List<Long> signedUpUsers = new ArrayList<>();
+
+    public void addSignedUpUser(Long userId) {
+        if (!signedUpUsers.contains(userId)) {
+            signedUpUsers.add(userId);
+        }
+    }
+
+    public void removeSignedUpUser(Long userId) {
+        signedUpUsers.remove(userId);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -25,7 +26,9 @@ public class eventConfig {
                     "null",
                     "Zapraszamy na koncert!",
                     "active",
-                    4L);
+                    4L,
+                    new ArrayList<>() );
+            koncert.addSignedUpUser(2L);
             Event spotkanie = new Event(
                     2L,
                     "Spotkanie w terenie",
@@ -35,7 +38,9 @@ public class eventConfig {
                     "null",
                     "Przyjdz na spacer!",
                     "active",
-                    4L);
+                    4L,
+                    new ArrayList<>() );
+            spotkanie.addSignedUpUser(2L);
             repository.saveAll(List.of(koncert, spotkanie));
         };
     }

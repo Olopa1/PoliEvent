@@ -23,4 +23,27 @@ public class EventService {
     public List<Event> getEventsByAdvertiser(Long advertiserId) {
         return eventRepository.findByAdvertiserId(advertiserId);
     }
+
+    public void addSignedUpUser(Long eventId, Long userId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            event.addSignedUpUser(userId);
+            eventRepository.save(event);
+        }
+    }
+
+    public void removeSignedUpUser(Long eventId, Long userId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        if (optionalEvent.isPresent()) {
+            Event event = optionalEvent.get();
+            event.removeSignedUpUser(userId);
+            eventRepository.save(event);
+        }
+    }
+
+    public List<Long> getSignedUpUsers(Long eventId) {
+        Optional<Event> optionalEvent = eventRepository.findById(eventId);
+        return optionalEvent.map(Event::getSignedUpUsers).orElse(null);
+    }
 }
