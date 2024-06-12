@@ -9,15 +9,20 @@ import 'devextreme/dist/css/dx.light.css';
 import { Scheduler,View } from 'devextreme-react/cjs/scheduler';
 import userService from '../restFunctionalities/user.service';
 
-//    const initialData = [];
 
 export const Shedule = function(){
 
     const [classes,setClasses] = useState([]);
-    /*const onClassAdded = (e)=>{
-        setClasses(prevCLasses => [...classes, e.appointmentData]);
-        console.log(classes);
-    };*/
+
+    useEffect(() => {
+        userService.getInitalDataForShedule(1).then((res)=>{
+            console.log(res.data);
+            setClasses(res.data);
+            console.log(classes);
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }, []);
 
     const onClassAdded = (e) => {
         setClasses(prevClasses => {
@@ -35,8 +40,6 @@ export const Shedule = function(){
     const onClassDeleted = (e)=>{
         setClasses([...classes, e.appointmentData]);
         console.log(classes);
-        //    const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);
-    //    setClasses(filteredClasses);
     }
 
     const addField = ()=>{

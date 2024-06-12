@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -19,12 +21,15 @@ public class SheduleController {
     @GetMapping("/readAllSheduels")
     public List<Shedule> list(){return sheduleService.listAll();}
     @GetMapping("/readSheduleWithId")
-    public ResponseEntity<Optional<Shedule>> readShedulWithId(@RequestBody User user){
-        Optional<Shedule> sheduleFound = sheduleService.listAllWithId(user.getId());
+    @CrossOrigin(origins = "http://localhost:3000")
+    public ResponseEntity<List<Shedule>> readShedulWithId(@RequestParam Long id){
+        Optional<Shedule> sheduleFound = sheduleService.listAllWithId(id);
+        List<Shedule> castToList = new ArrayList<Shedule>();
         if(sheduleFound.isPresent()){
-            return ResponseEntity.ok(sheduleFound);
+            castToList = sheduleFound.stream().collect(Collectors.toList());
+            return ResponseEntity.ok(castToList);
         }
-        return ResponseEntity.status(404).body(Optional.empty());
+        return ResponseEntity.status(404).body(castToList);
     }
     @PostMapping("/saveShedule")
     public void addShedule(@RequestBody List<Shedule> shedule){

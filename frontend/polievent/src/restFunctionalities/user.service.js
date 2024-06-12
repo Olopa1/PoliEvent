@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ApiKey } from "devextreme-react/cjs/map";
 const APIR_URL = "http://localhost:8080";
 
 class UserService{
@@ -17,8 +18,13 @@ class UserService{
       headers:{'Content-Type' : 'application/json'}
     });
   }
+
   async deleteShedulesWithId(id){
     return await axios.delete(APIR_URL + '/deleteShedule',{id});
+  }
+
+  async getInitalDataForShedule(id){
+    return await axios.get(APIR_URL + '/readSheduleWithId',{params:{id: id}});
   }
 }
 
