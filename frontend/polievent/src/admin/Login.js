@@ -8,27 +8,24 @@ import Cookies from 'js-cookie';
 export const Login = () => {
   useEffect(() => {
     const id = Cookies.get('userID');
-    const userStatus=Cookies.get('userStatus');
-    if(userStatus)
-    {
-      userStatus=userStatus.toUpperCase();
+    let userStatus = Cookies.get('userStatus');
+
+    if (userStatus) {
+      userStatus = userStatus.toUpperCase();
     }
+
     if (id) {
-      if(userStatus)
-      {
-      if(userStatus.match('USER'))
-      {
-        window.location.href = '/homepage';
+      if (userStatus) {
+        if (userStatus.match('USER')) {
+          window.location.href = '/homepage';
+        } else if (userStatus.match('ADMIN')) {
+          window.location.href = '/admin';
+        } else if (userStatus.match('ADVERTISER')) {
+          window.location.href = '/advertiserdashboard';
+        }
       }
-      if(userStatus.match('ADMIN'))
-      {
-        window.location.href = '/admin';
-      }
-      if(userStatus.match('ADVERTISER'))
-      {
-        window.location.href = '/advertiserdashboard';
-      }
-    }
+    } else {
+      window.location.href = '/';
     }
   }, []);
   const [user, setUser] = useState({
