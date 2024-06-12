@@ -4,9 +4,30 @@ import "react-awesome-button/dist/styles.css";
 import './OptionPicker.css';
 import { useState,useEffect } from 'react';
 import postService from '../restFunctionalities/post.service';
+import Cookies from 'js-cookie';
 const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
-  const userId=10
-  const handleInterestedUser = () => {
+  const [userId, setUserID] = useState(null);
+  const [BOOL_PRIMARY, setState_PRIMARY] = useState(false);
+  const [BOOL_SECONDARY, setState_SECONDARY] = useState(false);
+  const [BOOL_DANGER, setState_DANGER] = useState(false);
+  useEffect(() => {
+    const id = Cookies.get('userID');
+    if (id) {
+      setUserID(id);
+    } else {
+      window.location.href = '/';
+    }
+    if (arrUsers.includes(parseInt(id))) {
+      setState_PRIMARY(true);
+    } else if(arrMaybeUsers.includes(parseInt(id))){
+      setState_SECONDARY(true);
+    }
+    else if(arrNotUsers.includes(parseInt(id)))
+    {
+      setState_DANGER(true);
+    }
+  }, []);
+    const handleInterestedUser = () => {
     localStorage.setItem('scrollPosition', window.scrollY);
     postService.deletedMaybeUserToPost(id, userId)
       .then(response => {
@@ -88,21 +109,6 @@ const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
       });
       window.location.reload();
   };
-    const [BOOL_PRIMARY, setState_PRIMARY] = useState(false);
-    const [BOOL_SECONDARY, setState_SECONDARY] = useState(false);
-    const [BOOL_DANGER, setState_DANGER] = useState(false);
-
-    useEffect(() => {
-        if (arrUsers.includes(userId)) {
-          setState_PRIMARY(true);
-        } else if(arrMaybeUsers.includes(userId)){
-          setState_SECONDARY(true);
-        }
-        else if(arrNotUsers.includes(userId))
-        {
-          setState_DANGER(true);
-        }
-    }, [arrUsers]);
     return (
       <div>
         <AwesomeButton
