@@ -31,6 +31,7 @@ const AdvertiserDashboard = () => {
     setShowEventForm(false);
   };
 
+
   return (
     <div className="dashboard">
       <nav className="menu">
@@ -65,9 +66,9 @@ const AdvertiserDashboard = () => {
             </Col>
           ))}
         </Row>
-        <Link to="/create-event">
-          <Button variant="success">+</Button>
-        </Link>
+        <div className="add-event-card" onClick={() => setShowEventForm(true)}>
+          <img src='/addEntity.png' alt='Dodaj wydarzenie'></img>
+        </div>
       </Container>
       {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}

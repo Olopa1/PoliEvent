@@ -5,9 +5,9 @@ const HeaderSection = ({ eventTitle, onEdit, onAddPost, onDelete }) => {
   return (
     <div className="header-section">
       <h1>{eventTitle}</h1>
-      <button onClick={onEdit}>Edit Event</button>
-      <button onClick={onAddPost}>Add Post</button>
-      <button onClick={onDelete}>Delete Event</button>
+      <button onClick={onEdit}>Edytuj wydarzenie</button>
+      <button onClick={onAddPost}>Dodaj post</button>
+      <button onClick={onDelete}>Usuń wydarzenie</button>
     </div>
   );
 };

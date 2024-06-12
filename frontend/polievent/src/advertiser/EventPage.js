@@ -12,7 +12,6 @@ const EventPage = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch event data
     axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
       .then(response => {
         setEvent(response.data);
@@ -21,7 +20,7 @@ const EventPage = () => {
         console.error('Error fetching event data:', error);
       });
 
-    // Fetch posts data
+
     axios.get(`http://localhost:8080/getPostsByEventId?eventId=${eventId}`)
       .then(response => {
         setPosts(response.data);
@@ -76,7 +75,7 @@ const EventPage = () => {
           />
           <div className="event-content">
             <div className="left-section">
-              <h3>Posts</h3>
+              <h3>Twoje posty</h3>
               <PostsSection
                 posts={posts}
                 onEditPost={handleEditPost}

@@ -1,0 +1,76 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .popup-inner {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+  }
+  
+  .popup-inner h2 {
+    margin-bottom: 20px;
+  }
+  
+  .popup-inner form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .popup-inner input[type="text"],
+  .popup-inner input[type="date"],
+  .popup-inner input[type="time"],
+  .popup-inner input[type="file"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .popup-inner input[type="file"] {
+    border: none;
+  }
+  
+  .popup-inner button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .popup-inner button[type="submit"]:hover {
+    background-color: #218838;
+  }
+  
+  .popup-inner button {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .popup-inner button:hover {
+    background-color: #c82333;
+  }
+  

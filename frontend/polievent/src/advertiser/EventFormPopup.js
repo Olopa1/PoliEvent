@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './EventFormPopup.css'
 
 const EventFormPopup = ({ onClose, onSubmit }) => {
   const [title, setTitle] = useState('');

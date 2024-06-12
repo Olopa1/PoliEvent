@@ -88,3 +88,8 @@ h1 {
 .btn-success:hover {
   background-color: #218838;
 }
+
+.add-event-card {
+  display: inline;
+  height: 20px;
+}
