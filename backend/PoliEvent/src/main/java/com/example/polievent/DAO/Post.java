@@ -32,6 +32,10 @@ public class Post {
     private List<Integer> notInterestedUsers;
     @ElementCollection
     private List<Integer> maybeInterestedUsers;
+
+    @JoinColumn(name = "event_id", nullable = false)
+    private Long eventId;
+
     public void addInterestedUser(int userID)
     {
         intrestedPeople+=1;

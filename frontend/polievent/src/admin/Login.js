@@ -44,6 +44,11 @@ export const Login = () => {
         console.log("Login successful, redirecting to /admin");
         window.location.href = '/admin';
       }
+        if (response.status === 202) {
+          setIsSuccess(true);
+          console.log("Login successful, redirecting to /advertiserDashboard");
+          window.location.href = '/advertiserDashboard';
+      }
       else {
         console.log("Login failed, response status: ", response.status);
         setIsSuccess(false);

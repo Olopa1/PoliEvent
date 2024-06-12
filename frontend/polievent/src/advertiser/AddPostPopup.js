@@ -4,14 +4,14 @@ import axios from 'axios';
 const AddPostPopup = ({ eventId, onClose, onAdd }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [image, setImage] = useState(null); // Nowe pole dla zdjęcia
+  const [image, setImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('image', image); // Dodanie zdjęcia do formularza
+    formData.append('image', image);
 
     try {
       const response = await axios.post(`/api/events/${eventId}/posts`, formData, {

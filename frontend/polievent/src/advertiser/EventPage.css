@@ -1,127 +1,72 @@
 .event-page {
-    padding: 16px;
-  }
-  
-  .event-header {
-    position: relative;
-    text-align: center;
-    margin-bottom: 32px;
-  }
-  
-  .event-background {
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-  
-  .event-header h1 {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    color: white;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  .event-buttons {
-    position: absolute;
-    bottom: 16px;
-    right: 16px;
-  }
-  
-  .event-buttons button {
-    margin-left: 8px;
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .event-buttons button:hover {
-    background: #0056b3;
-  }
-  
-  .event-details {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .posts-panel, .event-info-panel {
-    width: 48%;
-  }
-  
-  .post {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-  }
-  
-  .post img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-  }
-  
-  .post h3 {
-    margin: 0 0 8px;
-  }
-  
-  .post-buttons {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 8px;
-  }
-  
-  .post-buttons button {
-    margin-left: 8px;
-    padding: 4px 8px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .post-buttons button:hover {
-    background: #0056b3;
-  }
-  
-  .event-info-panel p {
-    margin: 4px 0;
-  }
-  
-  .event-attendance-buttons {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 16px;
-  }
-  
-  .event-attendance-buttons button {
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .event-attendance-buttons button:hover {
-    background: #0056b3;
-  }
-  
-  .attendance-list {
-    margin-top: 16px;
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 8px;
-  }
-  
-  .attendance-list p {
-    margin: 4px 0;
-  }
-  
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-section h1 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.header-section button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.event-content {
+  display: flex;
+  gap: 20px;
+}
+
+.left-section, .right-section {
+  flex: 1;
+}
+
+.left-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.left-section h3 {
+  margin-top: 0;
+}
+
+.posts-section {
+  margin-top: 20px;
+}
+
+.post {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.post h4 {
+  margin-top: 0;
+}
+
+.post button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.event-info-section {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+}

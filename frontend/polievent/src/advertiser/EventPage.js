@@ -1,99 +1,93 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import HeaderSection from './HeaderSection';
+import PostsSection from './PostsSection';
+import EventInfoSection from './EventInfoSection';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import EditEventPopup from './EditEventPopup';
-import AddPostPopup from './AddPostPopup';
 import './EventPage.css'
 
 const EventPage = () => {
   const { eventId } = useParams();
-  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [posts, setPosts] = useState([]);
-  const [showEditEvent, setShowEditEvent] = useState(false);
-  const [showAddPost, setShowAddPost] = useState(false);
-  const [showAttendees, setShowAttendees] = useState(true);
 
   useEffect(() => {
-    axios.get(`/api/events/${eventId}`)
+    axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
       .then(response => {
         setEvent(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching the event!', error);
+        console.error('Error fetching event data:', error);
       });
 
-    axios.get(`/api/events/${eventId}/posts`)
+
+    axios.get(`http://localhost:8080/getPostsByEventId?eventId=${eventId}`)
       .then(response => {
         setPosts(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching posts!', error);
+        console.error('Error fetching posts data:', error);
       });
   }, [eventId]);
 
+  const handleEditEvent = () => {};
+
+  const handleAddPost = () => {};
+
   const handleDeleteEvent = () => {
-    axios.delete(`/api/events/${eventId}`)
-      .then(() => {
-        navigate('/dashboard');
-      })
-      .catch(error => {
-        console.error('There was an error deleting the event!', error);
-      });
+    const confirmDelete = window.confirm('Are you sure you want to delete this event?');
+    if (confirmDelete) {
+      axios.delete(`http://localhost:8080/deleteEvent?id=${eventId}`)
+        .then(response => {
+          console.log('Event deleted successfully');
+        })
+        .catch(error => {
+          console.error('Error deleting event:', error);
+        });
+    }
+  };
+
+  const handleEditPost = (postId) => {};
+
+  const handleDeletePost = (postId) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this post?');
+    if (confirmDelete) {
+      axios.delete(`http://localhost:8080/deletePost?id=${postId}`)
+        .then(response => {
+          console.log('Post deleted successfully');
+          setPosts(posts.filter(post => post.id !== postId));
+        })
+        .catch(error => {
+          console.error('Error deleting post:', error);
+        });
+    }
   };
 
   return (
     <div className="event-page">
       {event && (
         <>
-          <div className="event-header">
-            <img src={event.image} alt={event.title} className="event-background" />
-            <h1>{event.title}</h1>
-            <div className="event-buttons">
-              <button onClick={() => setShowEditEvent(true)}>Edit Event</button>
-              <button onClick={() => setShowAddPost(true)}>Add Post</button>
-              <button onClick={handleDeleteEvent}>Delete Event</button>
+          <HeaderSection
+            eventTitle={event.title}
+            onEdit={handleEditEvent}
+            onAddPost={handleAddPost}
+            onDelete={handleDeleteEvent}
+          />
+          <div className="event-content">
+            <div className="left-section">
+              <h3>Twoje posty</h3>
+              <PostsSection
+                posts={posts}
+                onEditPost={handleEditPost}
+                onDeletePost={handleDeletePost}
+              />
             </div>
-          </div>
-          <div className="event-details">
-            <div className="posts-panel">
-              {posts.map(post => (
-                <div key={post.id} className="post">
-                  <h3>{post.title}</h3>
-                  <div className="post-buttons">
-                    <button>Edit</button>
-                    <button>Delete</button>
-                  </div>
-                  <img src={post.image} alt={post.title} />
-                  <p>{post.content}</p>
-                </div>
-              ))}
-            </div>
-            <div className="event-info-panel">
-              <p>Date: {event.date}</p>
-              <p>Location: {event.location}</p>
-              <p>{event.description}</p>
-              <div className="event-attendance-buttons">
-                <button onClick={() => setShowAttendees(true)}>Attendees</button>
-                <button onClick={() => setShowAttendees(false)}>Interested</button>
-              </div>
-              <div className="attendance-list">
-                {showAttendees ? (
-                  event.attendees.map(user => (
-                    <p key={user.id}>{user.name}</p>
-                  ))
-                ) : (
-                  event.interested.map(user => (
-                    <p key={user.id}>{user.name}</p>
-                  ))
-                )}
-              </div>
+            <div className="right-section">
+              <EventInfoSection event={event} />
             </div>
           </div>
         </>
       )}
-      {showEditEvent && <EditEventPopup event={event} onClose={() => setShowEditEvent(false)} />}
-      {showAddPost && <AddPostPopup eventId={eventId} onClose={() => setShowAddPost(false)} />}
     </div>
   );
 };

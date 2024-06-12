@@ -1,9 +1,8 @@
 package com.example.polievent.service;
-import com.example.polievent.DAO.PostRepository;
-import com.example.polievent.DAO.Post;
-import com.example.polievent.DAO.UserRepository;
+import com.example.polievent.DAO.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +24,8 @@ public class PostService {
     {
         return postRepository.findPostsByVerified(0);
     }
+
+
     public void addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
         if(postOptional.isPresent()){
@@ -101,6 +102,27 @@ public class PostService {
             post.setVerified(1);
         }
     }
+
+    public Post editPost(Long postId, Post updatedPost) {
+        Optional<Post> optionalPost = postRepository.findById(postId);
+        if (optionalPost.isPresent()) {
+            Post existingPost = optionalPost.get();
+            existingPost.setTitle(updatedPost.getTitle());
+            existingPost.setDescription(updatedPost.getDescription());
+            existingPost.setStreet(updatedPost.getStreet());
+            existingPost.setCompany(updatedPost.getCompany());
+            existingPost.setVerified(updatedPost.getVerified());
+            existingPost.setIntrestedPeople(updatedPost.getIntrestedPeople());
+            existingPost.setMaxPeople(updatedPost.getMaxPeople());
+            existingPost.setDatePosted(updatedPost.getDatePosted());
+            existingPost.setDateEvent(updatedPost.getDateEvent());
+            existingPost.setTimeEvent(updatedPost.getTimeEvent());
+            return postRepository.save(existingPost);
+        } else {
+            throw new RuntimeException("Post not found with ID: " + postId);
+        }
+    }
+
     public void deletePost(Long postId)
     {
         System.out.println(postId);

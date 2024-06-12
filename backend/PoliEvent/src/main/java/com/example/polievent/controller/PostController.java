@@ -87,4 +87,5 @@ public class PostController {
         postService.deletePost(postId);
         System.out.println("Pomyślnie usunięto post");
     }
+
 }

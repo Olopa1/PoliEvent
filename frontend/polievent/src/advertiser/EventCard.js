@@ -32,9 +32,9 @@ const EventCard = ({ event }) => {
         <button onClick={() => setShowOptions(!showOptions)}>⋮</button>
         {showOptions && (
           <div className="options-menu">
-            <button onClick={() => navigate(`/event/${event.id}`)}>View</button>
-            <button onClick={() => setShowEditEvent(true)}>Edit</button>
-            <button onClick={() => setShowAddPost(true)}>Add Post</button>
+            <button onClick={() => navigate(`/event/${event.id}`)}>Wyświetl wydarzenie</button>
+            <button onClick={() => setShowEditEvent(true)}>Edytuj wydarzenie</button>
+            <button onClick={() => setShowAddPost(true)}>Dodaj post</button>
             <button onClick={handleDelete}>Delete</button>
           </div>
         )}

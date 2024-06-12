@@ -17,8 +17,10 @@ public class postConfig {
     @Bean
     CommandLineRunner clr(PostRepository repository){
         return args -> {
-            Post first = new Post(1L,"politechnika na foodtruck","jest fajnie","Politechniczna 8","WPRE",0,0,50,LocalDate.of(2024, Month.MAY,31),LocalDate.of(2024, Month.MAY,10),LocalTime.of(12,30),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
-            Post sec = new Post(2L,"statki","ogieeeen","Marunska 8","qpres",0,0,100,LocalDate.of(2024, Month.MAY,31),LocalDate.of(2024, Month.MAY,12), LocalTime.of(12,30),new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+            Post first = new Post(1L,"politechnika na foodtruck","jest fajnie","Politechniczna 8","WPRE",0,0,50,LocalDate.of(2024, Month.MAY,31),LocalDate.of(2024, Month.MAY,10),LocalTime.of(12,30),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),
+            1L);
+            Post sec = new Post(2L,"statki","ogieeeen","Marunska 8","qpres",0,0,100,LocalDate.of(2024, Month.MAY,31),LocalDate.of(2024, Month.MAY,12), LocalTime.of(12,30),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),
+                    2L);
             first.addInterestedUser(1);
             first.addInterestedUser(2);
             sec.addInterestedUser(2);
