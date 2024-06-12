@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,13 +19,12 @@ public class SheduleController {
     @GetMapping("/readAllSheduels")
     public List<Shedule> list(){return sheduleService.listAll();}
     @GetMapping("/readSheduleWithId")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<List<Shedule>> readShedulWithId(@RequestParam Long id){
-        List<Shedule> sheduleFound = sheduleService.listAllWithId(id);
-        if(!sheduleFound.isEmpty()){
+    public ResponseEntity<Optional<Shedule>> readShedulWithId(@RequestBody User user){
+        Optional<Shedule> sheduleFound = sheduleService.listAllWithId(user.getId());
+        if(sheduleFound.isPresent()){
             return ResponseEntity.ok(sheduleFound);
         }
-        return ResponseEntity.status(404).body(sheduleFound);
+        return ResponseEntity.status(404).body(Optional.empty());
     }
     @PostMapping("/saveShedule")
     public void addShedule(@RequestBody List<Shedule> shedule){
@@ -38,8 +35,7 @@ public class SheduleController {
     }
 
     @DeleteMapping("/deleteShedule")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public ResponseEntity<String> deleteShedule(@RequestParam Long id){
+    public ResponseEntity<String> deleteShedule(@RequestBody Long id){
         sheduleService.deleteShedule(id);
         return ResponseEntity.ok("Shedule deleted successfully");
     }
