@@ -4,14 +4,15 @@ import HeaderSection from './HeaderSection';
 import PostsSection from './PostsSection';
 import EventInfoSection from './EventInfoSection';
 import axios from 'axios';
-import './EventPage.css'
 
 const EventPage = () => {
   const { eventId } = useParams();
   const [event, setEvent] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [showAddPostPopup, setShowAddPostPopup] = useState(false);
 
   useEffect(() => {
+    // Fetch event data
     axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
       .then(response => {
         setEvent(response.data);
@@ -20,7 +21,7 @@ const EventPage = () => {
         console.error('Error fetching event data:', error);
       });
 
-
+    // Fetch posts data
     axios.get(`http://localhost:8080/getPostsByEventId?eventId=${eventId}`)
       .then(response => {
         setPosts(response.data);
@@ -32,7 +33,10 @@ const EventPage = () => {
 
   const handleEditEvent = () => {};
 
-  const handleAddPost = () => {};
+  const handleAddPost = (newPost) => {
+    setPosts([...posts, newPost]);
+    setShowAddPostPopup(false);
+  };
 
   const handleDeleteEvent = () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this event?');
@@ -75,7 +79,7 @@ const EventPage = () => {
           />
           <div className="event-content">
             <div className="left-section">
-              <h3>Twoje posty</h3>
+              <h3>Posts</h3>
               <PostsSection
                 posts={posts}
                 onEditPost={handleEditPost}

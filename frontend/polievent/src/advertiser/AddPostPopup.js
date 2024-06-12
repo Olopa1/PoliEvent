@@ -14,7 +14,7 @@ const AddPostPopup = ({ eventId, onClose, onAdd }) => {
     formData.append('image', image);
 
     try {
-      const response = await axios.post(`/api/events/${eventId}/posts`, formData, {
+      const response = await axios.post(`http://localhost:8080/events/${eventId}/posts`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
