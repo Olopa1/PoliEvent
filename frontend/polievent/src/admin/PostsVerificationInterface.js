@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import './PostsVerificationInterface.css';
 import postService from '../restFunctionalities/post.service';
+import Cookies from 'js-cookie';
 const PostCard = ({ post}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -92,6 +93,8 @@ export const Verification = () => {
   }, []);
   function logout(){
     localStorage.clear();
+    Cookies.remove('userID');
+    Cookies.remove('userStatus');
     window.location.href = '/';
 }
   return (

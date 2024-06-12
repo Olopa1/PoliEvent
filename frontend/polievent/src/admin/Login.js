@@ -1,11 +1,36 @@
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Validation from './Validation';
 import './Login.css';
 import userService from '../restFunctionalities/user.service';
-
+import Cookies from 'js-cookie';
 export const Login = () => {
+  useEffect(() => {
+    const id = Cookies.get('userID');
+    const userStatus=Cookies.get('userStatus');
+    if(userStatus)
+    {
+      userStatus=userStatus.toUpperCase();
+    }
+    if (id) {
+      if(userStatus)
+      {
+      if(userStatus.match('USER'))
+      {
+        window.location.href = '/homepage';
+      }
+      if(userStatus.match('ADMIN'))
+      {
+        window.location.href = '/admin';
+      }
+      if(userStatus.match('ADVERTISER'))
+      {
+        window.location.href = '/advertiserdashboard';
+      }
+    }
+    }
+  }, []);
   const [user, setUser] = useState({
     email: "",
     password: ""
@@ -34,19 +59,24 @@ export const Login = () => {
       console.log("Attempting to login with: ", user);
       const response = await userService.loginUser(user.email, user.password); 
       console.log("Response: ", response);
-
       if (response.status === 200) {
         setIsSuccess(true);
         console.log("Login successful, redirecting to /homepage");
+        Cookies.set('userID', response.data.id, { expires: 7 });
+        Cookies.set('userStatus',response.data.userStatus,{expires: 7})
         window.location.href = '/homepage';
       }if (response.status === 201) {
         setIsSuccess(true);
         console.log("Login successful, redirecting to /admin");
+        Cookies.set('userID', response.data.id, { expires: 7 });
+        Cookies.set('userStatus',response.data.userStatus,{expires: 7})
         window.location.href = '/admin';
       }
         if (response.status === 202) {
           setIsSuccess(true);
           console.log("Login successful, redirecting to /advertiserDashboard");
+          Cookies.set('userID', response.data.id, { expires: 7 });
+          Cookies.set('userStatus',response.data.userStatus,{expires: 7})
           window.location.href = '/advertiserDashboard';
       }
       else {
