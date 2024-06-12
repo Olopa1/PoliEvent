@@ -17,4 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Long>
     List<Post> findPostsByVerified(@Param("verified") int verified);
     @Query("SELECT u FROM Post u WHERE u.title = ?1")
     Optional<Post> findPostsByTitle(String title);
+    @Query("SELECT u FROM Post u WHERE u.eventId = ?1")
+    List<Post> findByEventId(Long eventId);
 }

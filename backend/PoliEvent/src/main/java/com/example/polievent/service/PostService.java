@@ -25,6 +25,11 @@ public class PostService {
     {
         return postRepository.findPostsByVerified(0);
     }
+
+    public List<Post> getPostsByEventId(Long eventId) {
+        return postRepository.findByEventId(eventId);
+    }
+
     public void addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
         if(postOptional.isPresent()){

@@ -27,6 +27,10 @@ public class PostController {
     {
         return postService.listAllNotVerified();
     }
+    @GetMapping("/getPostsByEvent")
+    public List<Post> getPostsByEvent(@RequestParam Long eventId) {
+        return postService.getPostsByEventId(eventId);
+    }
     @PostMapping("/savePost")
     public void registerNewUser(@RequestBody Post post){
         postService.addPost(post);
