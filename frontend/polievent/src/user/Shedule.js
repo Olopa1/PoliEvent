@@ -9,42 +9,69 @@ import 'devextreme/dist/css/dx.light.css';
 import { Scheduler,View } from 'devextreme-react/cjs/scheduler';
 import userService from '../restFunctionalities/user.service';
 
-    //const initialData = [];
 
 export const Shedule = function(){
 
     const [classes,setClasses] = useState([]);
-    const [initialData,setInitData] = useState([]);
-    const [temp,setTemp] = useState([]);
-    const onClassAdded = (e)=>{
-        setClasses([...classes, e.initialData]);
-        console.log(initialData);
+    const [classesChanged,setClassesChanged] = useState(false);
+    useEffect(() => {
+        userService.getInitalDataForShedule(1).then((res)=>{
+            console.log(res.data);
+            setClasses(res.data);
+            console.log(classes);
+        }).catch((err)=>{
+            console.log(err.response.data);
+        })
+    }, []);
+
+    const onClassAdded = (e) => {
+        setClasses(prevClasses => {
+            const isDuplicate = prevClasses.some(item => item.id === e.appointmentData.id);
+            if (isDuplicate) {
+                console.log("Duplicate detected. No changes made.");
+                return prevClasses;
+            }
+            const updatedClasses = [...prevClasses, e.appointmentData];
+            console.log("Class added. Updated classes:", updatedClasses);
+            return updatedClasses;
+        });
+        setClassesChanged(true);
     };
     
     const onClassDeleted = (e)=>{
-        const filteredClasses = classes.filter(currentClass=>currentClass.id !== e.initialData.id);
-        setClasses(filteredClasses);
+        const idToDelete = e.appointmentData.id;
+        const updatedClasses = classes.filter(item=> item.id !== idToDelete);
+        setClasses(updatedClasses);
+        setClassesChanged(true);
     }
 
     const addField = ()=>{
-        setTemp([...initialData]);
-        console.log(classes);
-        console.log(temp);
-        for(var i = 0 ; i < classes.length;i++){
-            temp[i].userId = 1; //Index of current logged user
-        }        
-        setClasses(temp);
+        const updatedClass = classes.map((cls)=>({
+            ...cls,
+            userId: 1
+        }));
+        setClasses(updatedClass);
+        return updatedClass;
     }
 
     const addToDb = (e)=>{
         e.preventDefault();
-        addField();
+        if(classesChanged == true){
+            userService.deleteShedulesWithId(1).then((res)=>{
+                console.log(res.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
+        }
+        const updateClass = addField();
+        console.log(updateClass);
         console.log(classes);
-        userService.saveShedule(classes).then((res)=>{
+        userService.saveShedule(updateClass).then((res)=>{
             console.log("added successfully");
         }).catch((error)=>{
-            console.log(error);       
+            console.log(error.response.data);       
         })
+        setClassesChanged(false);
     }
     return(
         <>  
@@ -52,11 +79,12 @@ export const Shedule = function(){
             <Row>
             <Col>
                 <Scheduler 
-                dataSource={initialData}
+                dataSource={classes}
                 defaultCurrentView='workWeek' 
                 allDayPanelMode='hidden'
                 showCurrentTimeIndicaton={true}
                 onAppointmentAdded={onClassAdded}
+                onAppointmentDeleted={onClassDeleted}
                 height={600}
                 width={1000}
                 >
