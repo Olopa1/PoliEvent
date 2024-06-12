@@ -11,5 +11,4 @@ Uruchomienie strony
 4. Uruchomić plik 'install_react_dependecies.bat'
 5. Jeżeli nie będzie chciał się wykonać to należy uruchomić jako administrator
 6. Jeżeli dalej nie będzie chciał się wykonać należy każdą linijkę z tego pliku wkleić osobno do linii poleceń i wykonać
-(jeżeli pakiety zostały wcześniej zainstalowane a konsola pokazuje błąd należy spróbować zainstalować wszytkie pakiety z pliku jeszcze raz)
-7. Jeżeli polecenie zostało wykonane należy wpisać npm start powinna uruchomić się strona startowa z ekranem logowania
+7. Jeżeli polecenie zostało wykonane należy wpisać npm start powinna uruchomić się strona startowa
