@@ -6,6 +6,7 @@ import SettingsPopup from './SettingsPopup';
 import EventCard from './EventCard';
 import EventFormPopup from './EventFormPopup';
 import './AdvertiserDashboard.css'
+import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -15,24 +16,16 @@ const AdvertiserDashboard = () => {
   const [showEventForm, setShowEventForm] = useState(false);
 
   useEffect(() => {
-  const API = "http://localhost:8080";
-    axios.get('/api/advertiser/events')
+    axios.get('http://localhost:8080/getEventsByAdvertiser?advertiserId=4')
       .then(response => {
         setEvents(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching events!', error);
-      });
-    axios.get('/api/advertiser/notifications')
-      .then(response => {
-        setNotifications(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching notifications!', error);
+        console.error('Error fetching events:', error);
       });
   }, []);
 
-  const handleLogout = () => {
+  const handleDeleteEvent = (eventId) => {
     
   };
 
@@ -49,14 +42,36 @@ const AdvertiserDashboard = () => {
         <Link to="/"><button> Wyloguj</button></Link>
         
       </nav>
-      <div className="events-grid">
+      <Container>
+      <h1>Twoje wydarzenia</h1>
+      <Row>
         {events.map(event => (
-          <EventCard key={event.id} event={event} />
+          <Col key={event.id} xs={12} sm={6} md={4} lg={3}>
+            <Card style={{ marginBottom: '20px' }}>
+              <Card.Body>
+                <Card.Title>{event.title}</Card.Title>
+                <Card.Text>
+                  Data: {event.date} <br></br>
+                  Start: {event.startTime} <br></br>
+                  Miejsce: {event.place}
+                </Card.Text>
+                <Card.Text>
+                  Zapisanych: {event.signedUpUsers.length}
+                </Card.Text>
+                <Link to={`/event/${event.id}`}>
+                  <Button variant="primary">Wyswietl</Button>
+                </Link>
+                <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>Usun</Button>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-        <div className="add-event-card" onClick={() => setShowEventForm(true)}>
-          <span>+</span>
-        </div>
-      </div>
+      </Row>
+      {/* Add button for creating new event */}
+      <Link to="/create-event">
+        <Button variant="success">+</Button>
+      </Link>
+    </Container>
       {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}
       {showEventForm && <EventFormPopup onClose={() => setShowEventForm(false)} onSubmit={handleAddEvent} />}

@@ -43,6 +43,7 @@ const EventPage = () => {
   };
 
   return (
+
     <div className="event-page">
       {event && (
         <>

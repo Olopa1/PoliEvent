@@ -27,7 +27,8 @@ public class eventConfig {
                     "Zapraszamy na koncert!",
                     "active",
                     4L,
-                    new ArrayList<>() );
+                    new ArrayList<>(),
+                    new ArrayList<>());
             koncert.addSignedUpUser(2L);
             Event spotkanie = new Event(
                     2L,
@@ -39,7 +40,8 @@ public class eventConfig {
                     "Przyjdz na spacer!",
                     "active",
                     4L,
-                    new ArrayList<>() );
+                    new ArrayList<>(),
+                    new ArrayList<>());
             spotkanie.addSignedUpUser(2L);
             repository.saveAll(List.of(koncert, spotkanie));
         };

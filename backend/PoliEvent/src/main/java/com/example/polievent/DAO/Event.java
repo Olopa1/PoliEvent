@@ -42,6 +42,10 @@ public class Event {
     @ElementCollection
     private List<Long> signedUpUsers = new ArrayList<>();
 
+    @Getter
+    @OneToMany(mappedBy = "eventId", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
+
     public void addSignedUpUser(Long userId) {
         if (!signedUpUsers.contains(userId)) {
             signedUpUsers.add(userId);
