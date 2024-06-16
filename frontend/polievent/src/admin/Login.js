@@ -24,8 +24,6 @@ export const Login = () => {
           window.location.href = '/advertiserdashboard';
         }
       }
-    } else {
-      window.location.href = '/';
     }
   }, []);
   const [user, setUser] = useState({
