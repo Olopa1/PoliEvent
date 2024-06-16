@@ -41,8 +41,19 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void registerNewUser(@RequestBody User user){
         userService.addUser(user);
         System.out.println("Dodano");
+    }
+
+    @GetMapping("/getUserById")
+    public ResponseEntity<User> getUserById(@RequestParam Long id){
+        Optional<User> foundUser = userService.findOneById(id);
+        if (foundUser.isPresent()) {
+            User userEntity = foundUser.get();
+            return ResponseEntity.status(200).body(userEntity);
+        }
+        return ResponseEntity.status(401).body(null);
     }
 }

@@ -19,6 +19,10 @@ class UserService{
     });
   }
 
+  async getUserById(id){
+    return await axios.get(APIR_URL + '/getUserById',{params:{id: id}});
+  }
+  
   async deleteShedulesWithId(id){
     return await axios.delete(APIR_URL + '/deleteShedule',{params: {id}});
   }

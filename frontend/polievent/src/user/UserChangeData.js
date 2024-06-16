@@ -1,27 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import userService from '../restFunctionalities/user.service';
 import { Alert, Col, Container, FormLabel, Row } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
-import { Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap';
+import Cookies from 'js-cookie';
 import './UserRegister.css';
 import '../admin/Login.css';
 
 export const ChangeUserDataForm = function(){
     const [user,setUser] = useState({
-      login: "",
-      firstName: "",
-      lastName: "",
-      companyName: "",
-      email: "",
-      userStatus: "User",
-      password: "",
-      dateOfBirth: ""
-    });
-    const [fieldsAreBlank,setFieldsAreBlank] = useState(true);
-    const [secondPassword,setPassword] = useState("");
-    const [msg,setMsg] = useState("");
-    const [isSuccess,setIsSuccess] = useState(true);
-    const [invalidCharacters,setInvalidCharacter] = useState(false);
+        login: "",
+        firstName: "",
+        lastName: "",
+        companyName: "",
+        email: "",
+        userStatus: "User",
+        password: "",
+        dateOfBirth: ""
+      });
+      const [fieldsAreBlank,setFieldsAreBlank] = useState(true);
+      const [secondPassword,setPassword] = useState("");
+      const [msg,setMsg] = useState("");
+      const [isSuccess,setIsSuccess] = useState(true);
+      const [invalidCharacters,setInvalidCharacter] = useState(false);
+      const [currentUserId,setCurrentUserId] = useState(-1);
+  
+      useEffect(() => {
+        const id = Cookies.get('userID');
+        const userStatus = Cookies.get('userStatus');
+        
+        if (userStatus) {
+          const userStatusUpper = userStatus.toUpperCase();
+          setCurrentUserId(id);
+          
+          if (id) {
+            if (userStatusUpper.match('ADVERTISER')) {
+              window.location.href = '/advertiserdashboard';
+            } else if (userStatusUpper.match('ADMIN')) {
+              window.location.href = '/admin';
+            }
+          } else {
+            window.location.href = '/';
+          }
+        }
+        setCurrentUserId(id)
+        userService.getUserById(id).then((res)=>{
+            console.log(res.data);
+            setUser(prevUser=>({...prevUser,login: res.data.login}));
+            setUser(prevUser=>({...prevUser,firstName: res.data.firstName}));
+            setUser(prevUser=>({...prevUser,lastName: res.data.lastName}));
+            setUser(prevUser=>({...prevUser,companyName: res.data.companyName}));
+            setUser(prevUser=>({...prevUser,email: res.data.email}));
+            setUser(prevUser=>({...prevUser,userStatus: res.data.userStatus}));
+            setUser(prevUser=>({...prevUser,password: res.data.password}));
+            setUser(prevUser=>({...prevUser,dateOfBirth: res.data.dateOfBirth}));
+        }).catch((err)=>{
+            console.log(err);
+        })
+      }, []);
+
+
 
     const handleChangeUserLogin = (e)=>{
       const value = e.target.value;

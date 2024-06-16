@@ -28,6 +28,7 @@ public class UserService {
     public Optional<User> findOneByEmailAndPassword(String email,String password){
         return userRepository.findUserByEmailAndPassword(email,password);
     }
+    public Optional<User> findOneById(long id){return userRepository.findUserById(id);}
     public void addUser(User user){
         Optional<User> userOptional = userRepository.findUserByLogin(user.getLogin());
         Optional<User> userOptional1 = userRepository.findUserByEmail(user.getEmail());
