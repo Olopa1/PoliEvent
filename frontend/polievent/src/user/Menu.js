@@ -26,7 +26,7 @@ const Menu = () => {
                 </li>
           <div className="profile-section">
           <li className={location.pathname === '/register' ? 'active' : ''}>
-                        <Link to="/register"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
+                        <Link to="/userProfile"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
                     </li>
           <li>
             <LogoutButton />

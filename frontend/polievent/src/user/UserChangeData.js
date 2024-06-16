@@ -4,8 +4,9 @@ import { Alert, Col, Container, FormLabel, Row } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
 import './UserRegister.css';
+import '../admin/Login.css';
 
-export const RegisterForm = function(){
+export const ChangeUserDataForm = function(){
     const [user,setUser] = useState({
       login: "",
       firstName: "",
@@ -175,74 +176,77 @@ export const RegisterForm = function(){
   
     }
   
-    return(
+
+  return(
+    <div className='RegisterBorder'>
       <Container className='justify-content-center'>
-          <p>Rejestracja użytkownika</p>
+          <p className='text1'>Edycja profilu</p>
       {msg && 
       <Alert variant={isSuccess ? 'success' : 'danger'}>{msg}</Alert>}
       <Form>
           <Form.Group>
-            <Form.Label>Imię:</Form.Label>
-            <Form.Control type='text' placeholder='Podaj imię' onChange={(e)=>handleChangeFirstName(e)} value={user.firstName}/>
+            <Form.Label className='textLabel'>Imię:</Form.Label>
+            <Form.Control className='' type='text' placeholder='Podaj imię' onChange={(e)=>handleChangeFirstName(e)} value={user.firstName}/>
             <Form.Text className='text-muted'>
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <FormLabel>Nazwisko:</FormLabel>
+            <FormLabel className='textLabel'>Nazwisko:</FormLabel>
             <Form.Control type='text' placeholder='Podaj nazwisko' onChange={(e)=>handleChangeLastName(e)} value={user.lastName}/>
             <Form.Text className='text-muted'>
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <FormLabel>Nazwa użytkownika:</FormLabel>
+            <FormLabel className='textLabel'>Nazwa użytkownika:</FormLabel>
             <Form.Control type='text' placeholder='Podaj nazwę użytkownika' onChange={(e)=>handleChangeUserLogin(e)} value={user.login}/>
             <Form.Text className='text-muted'>
             {invalidCharacters && <Alert variant='danger'>W loginie znajduje się zakazanych znak</Alert>}
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Rodzaj użytkownika</Form.Label><br></br>
+            <Form.Label className='textLabel'>Rodzaj użytkownika</Form.Label><br></br>
             <Form.Check inline defaultChecked type='radio' label='Użytkownik' name='userStatus' value={'User'} onClick={(e)=>handleChangeUserState(e)}/>
             <Form.Check inline type='radio' label='Firma' name='userStatus' value={'Company'} onClick={(e)=>handleChangeUserState(e)}/>
           </Form.Group>
           {user.userStatus === 'Company' &&
             <Form.Group>
-            <FormLabel>Nazwa firmy:</FormLabel>
+            <FormLabel className='textLabel'>Nazwa firmy:</FormLabel>
             <Form.Control type='text' placeholder='Podaj nazwę firmy' onChange={(e)=>handleChangeCompanyName(e)} value={user.companyName}/>
             <Form.Text className='text-muted'>
             </Form.Text>
           </Form.Group>}
           <Form.Group>
-            <Form.Label>Email:</Form.Label>
+            <Form.Label className='textLabel'>Email:</Form.Label>
             <Form.Control type='email' placeholder='Podaj email' onChange={(e)=>handleChangeEmail(e)} value={user.email}/>
             <Form.Text>
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Data urodzenia:</Form.Label>
+            <Form.Label className='textLabel'>Data urodzenia:</Form.Label>
             <Form.Control type='date' onChange={(e)=>handleChangeDateOfBirth(e)} value={user.dateOfBirth}/>
             <Form.Text>
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Hasło:</Form.Label>
+            <Form.Label className='textLabel'>Hasło:</Form.Label>
             <Form.Control type='password' onChange={(e)=>handleChangePassword(e)} value={user.password}/>
             <Form.Text>
             </Form.Text>
           </Form.Group>
           <Form.Group>
-            <Form.Label>Powtórz hasło:</Form.Label>
+            <Form.Label className='textLabel'>Powtórz hasło:</Form.Label>
             <Form.Control type='password' onChange={(e)=>handleChangeConfirmPassword(e)} value={secondPassword}/>
             <Form.Text>
             </Form.Text>
           </Form.Group>
           <br></br>
           <Button disabled={invalidCharacters} variant='primary' onClick={(e)=>RegisterUser(e)}>
-            Zarejestruj
+            Zmień dane
           </Button>
         </Form>
       </Container>
-    );
-  }
+    </div>
+  );
+}
 
-export default RegisterForm;
+export default ChangeUserDataForm;

@@ -1,16 +1,14 @@
 import './App.css';
 import React, { useState } from 'react';
-import userService from './restFunctionalities/user.service';
-import RegisterForm from "./user/userFunctions";
+import {RegisterForm} from "./user/userFunctions";
+import {ChangeUserDataForm} from "./user/UserChangeData"
 import Post from './user/PostonMainPage';
 import MainPage from './user/MainPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Planzajec from './user/Planzajec';
 import AdvertiserDashboard from './advertiser/AdvertiserDashboard';
 import EventPage from './advertiser/EventPage';
 import { Login } from './admin/Login'
 import { Verification } from './admin/PostsVerificationInterface'
-import { Shedule } from './user/Shedule';
 import { ShedulePage } from './user/ShedulePage';
 function App() {
   return (
@@ -24,6 +22,7 @@ function App() {
         <Route path="/advertiserdashboard" element={<AdvertiserDashboard/>}/>
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/homepage" element={<MainPage />} />
+        <Route path="/userProfile" element={<ChangeUserDataForm />}/>
       </Routes>
     </BrowserRouter>
   );
