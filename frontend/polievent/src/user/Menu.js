@@ -1,6 +1,7 @@
 import './Menu.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { LogoutButton } from '../admin/LogoutButton';
 const Menu = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const location = useLocation();
@@ -27,6 +28,9 @@ const Menu = () => {
           <li className={location.pathname === '/register' ? 'active' : ''}>
                         <Link to="/register"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
                     </li>
+          <li>
+            <LogoutButton />
+          </li>
                             </div>
       </nav>
       );

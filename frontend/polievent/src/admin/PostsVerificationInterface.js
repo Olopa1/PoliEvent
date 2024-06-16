@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import './PostsVerificationInterface.css';
 import postService from '../restFunctionalities/post.service';
 import Cookies from 'js-cookie';
+import { LogoutButton } from './LogoutButton';
 const PostCard = ({ post}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -91,12 +92,7 @@ export const Verification = () => {
   useEffect(() => {
     getNoVerifiedPost();
   }, []);
-  function logout(){
-    localStorage.clear();
-    Cookies.remove('userID');
-    Cookies.remove('userStatus');
-    window.location.href = '/';
-}
+
   return (
     <div className="container">
       <div className="row">
@@ -113,7 +109,7 @@ export const Verification = () => {
       </div>
       <div className="row justify-content-end">
         <div className="col-md-1">
-          <button className="btn btn-danger float-right wyloguj mb-3" onClick={logout}>Wyloguj</button>
+            <LogoutButton />
         </div>
       </div>
     </div>
