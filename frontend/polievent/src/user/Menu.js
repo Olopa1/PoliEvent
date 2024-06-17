@@ -2,6 +2,7 @@ import './Menu.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { LogoutButton } from '../admin/LogoutButton';
+import Cookies from 'js-cookie';
 const Menu = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const location = useLocation();
@@ -14,6 +15,7 @@ const Menu = () => {
       const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       return (
         <nav className="left-menu">
+        <span>Witaj: {Cookies.get('userLogin')}</span>
         <span>{formattedTime}</span>
         <li className={location.pathname === '/' ? 'active' : ''}>
                     <Link to="/"> <img src="/custom.house.png" alt="Opis zdjęcia 1" /> Strona główna</Link>
