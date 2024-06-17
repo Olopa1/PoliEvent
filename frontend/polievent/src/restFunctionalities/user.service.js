@@ -13,6 +13,21 @@ class UserService{
         }
       });
   }
+
+  async deleteUser(id){
+    return await axios.delete(APIR_URL + '/deleteUserById',{params:{id: id}});
+  }
+
+  async updateuser(user,id){
+    const updatedUser = {...user,id:id};
+    console.log(updatedUser);
+    return await axios.put(APIR_URL + '/changeUser',updatedUser,{
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   async saveShedule(shedules){
     return await axios.post(APIR_URL + '/saveShedule',shedules,{
       headers:{'Content-Type' : 'application/json'}

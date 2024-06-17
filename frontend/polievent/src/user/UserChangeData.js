@@ -88,6 +88,7 @@ export const ChangeUserDataForm = function(){
     const handleChangeFirstName = (e)=>{
       const value = e.target.value;
       setUser(prevUser=>({...prevUser, firstName: value}));
+      console.log(user.firstName);
     }
     
     const handleChangeLastName = (e)=>{
@@ -161,47 +162,14 @@ export const ChangeUserDataForm = function(){
         setMsg("Hasło musi zawierać co najmniej 8 znaków, w tym jedną cyfrę, jedną małą literę i jedną dużą literę");
       }
       else if(checkForPasswordIntegrity() && checkForBlankFields()){
-      userService.saveUser(user).then((res)=>{
-          console.log("User added succesfully");
-          setMsg("Pomyślnie zarejestrowano");
-          setUser({
-            login: "",
-            firstName: "",
-            lastName: "",
-            companyName: "",
-            email: "",
-            userStatus: "User",
-            password: "",
-            dateOfBirth: ""
-          })
-          setPassword("");
-      }).catch((error)=>{
-        console.log(error);
-        setIsSuccess(false);
-        
-        if(error.response.data.message === "Email taken"){
-          setMsg("Email jest zajęty");
-        }
-        else if(error.response.data.message === "Login taken"){
-          setMsg("Login jest zajęty");
-        }       
-        else{
-          setMsg("Coś poszło nie tak");
-        }
-      });
+        userService.updateuser(user,currentUserId).then((res)=>{
+          console.log(res);
+        }).catch((err)=>{
+          console.log(err);
+        })
     }
     else{
       setIsSuccess(false);
-      setUser({
-        login: "",
-        firstName: "",
-        lastName: "",
-        companyName: "",
-        email: "",
-        userStatus: "User",
-        password: "",
-        dateOfBirth: ""
-      })
       setPassword("");
       if(fieldsAreBlank){
         setMsg("Nie wpisano wszytkich informacji");

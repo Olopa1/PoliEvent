@@ -56,4 +56,17 @@ public class UserController {
         }
         return ResponseEntity.status(401).body(null);
     }
+
+    @DeleteMapping("/deleteUserById")
+    public ResponseEntity<String> deleteUserById(@RequestParam Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @PutMapping("/changeUser")
+    public ResponseEntity<String> changeUser(@RequestBody User changedUser){
+        System.out.println(changedUser.getId());
+        userService.updateUser(changedUser.getId(),changedUser);
+        return ResponseEntity.ok("User has beeen changed");
+    }
 }

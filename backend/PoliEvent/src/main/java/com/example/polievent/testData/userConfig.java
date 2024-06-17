@@ -13,7 +13,7 @@ import java.util.List;
 @Configuration
 public class userConfig {
 
-    @Bean
+    /*@Bean
     CommandLineRunner commandLineRunner(UserRepository repository){
         return args -> {
             User admin = new User(
@@ -24,5 +24,5 @@ public class userConfig {
                     4L,"advertiser","John","Smith","ExampleCompany","JohnSmith@email.com","advertiser","P@ssw0rd", LocalDate.of(1980, Month.MAY,5));
             repository.saveAll(List.of(admin, test, advertiser));
         };
-    }
+    }*/
 }
