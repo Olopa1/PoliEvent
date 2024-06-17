@@ -5,6 +5,7 @@ import NotificationPopup from './NotificationPopup';
 import SettingsPopup from './SettingsPopup';
 import EventFormPopup from './EventFormPopup';
 import './AdvertiserDashboard.css';
+import { LogoutButton } from '../admin/LogoutButton';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 
 const AdvertiserDashboard = () => {
@@ -39,7 +40,7 @@ const AdvertiserDashboard = () => {
         <br></br>
         <button onClick={() => setShowSettings(true)}>Ustawienia</button>
         <br></br>
-        <Link to="/"><button>Wyloguj</button></Link>
+        <LogoutButton></LogoutButton>
       </nav>
       <Container>
         <h1>Twoje wydarzenia</h1>
