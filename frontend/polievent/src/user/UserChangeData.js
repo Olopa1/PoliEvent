@@ -166,6 +166,7 @@ export const ChangeUserDataForm = function(){
           console.log(res);
           setIsSuccess(true);
           setMsg("Użytkownik poprawnie zmienony");
+          Cookies.set('userLogin',user.login,{expires: 7});
         }).catch((err)=>{
           console.log(err);
         })
