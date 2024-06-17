@@ -1,7 +1,6 @@
 import './App.css';
-import React, { useState } from 'react';
+import React from 'react';
 import {RegisterForm} from "./user/userFunctions";
-import {ChangeUserDataForm} from "./user/UserChangeData"
 import Post from './user/PostonMainPage';
 import MainPage from './user/MainPage';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -10,6 +9,7 @@ import EventPage from './advertiser/EventPage';
 import { Login } from './admin/Login'
 import { Verification } from './admin/PostsVerificationInterface'
 import { ShedulePage } from './user/ShedulePage';
+import ChangeUserPage from './user/UserChangePage';
 function App() {
   return (
     <BrowserRouter>
@@ -22,7 +22,7 @@ function App() {
         <Route path="/advertiserdashboard" element={<AdvertiserDashboard/>}/>
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/homepage" element={<MainPage />} />
-        <Route path="/userProfile" element={<ChangeUserDataForm />}/>
+        <Route path="/userProfile" element={<ChangeUserPage />}/>
       </Routes>
     </BrowserRouter>
   );
