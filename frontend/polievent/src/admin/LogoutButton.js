@@ -8,6 +8,7 @@ export const LogoutButton = () =>{
         localStorage.clear();
         Cookies.remove('userID');
         Cookies.remove('userStatus');
+        
         window.location.href = '/';
     }
     return(

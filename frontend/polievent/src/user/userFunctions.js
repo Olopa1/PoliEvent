@@ -85,7 +85,7 @@ export const RegisterForm = function(){
     }
 
     function checkForBlankFields(){
-      if(user.companyName === '' && user.userStatus === 'Company'){
+      if(user.companyName === '' && user.userStatus === 'Advertiser'){
         setFieldsAreBlank(true);
         return false;
       }
@@ -203,9 +203,9 @@ export const RegisterForm = function(){
           <Form.Group>
             <Form.Label>Rodzaj użytkownika</Form.Label><br></br>
             <Form.Check inline defaultChecked type='radio' label='Użytkownik' name='userStatus' value={'User'} onClick={(e)=>handleChangeUserState(e)}/>
-            <Form.Check inline type='radio' label='Firma' name='userStatus' value={'Company'} onClick={(e)=>handleChangeUserState(e)}/>
+            <Form.Check inline type='radio' label='Firma' name='userStatus' value={'Advertiser'} onClick={(e)=>handleChangeUserState(e)}/>
           </Form.Group>
-          {user.userStatus === 'Company' &&
+          {user.userStatus === 'Advertiser' &&
             <Form.Group>
             <FormLabel>Nazwa firmy:</FormLabel>
             <Form.Control type='text' placeholder='Podaj nazwę firmy' onChange={(e)=>handleChangeCompanyName(e)} value={user.companyName}/>

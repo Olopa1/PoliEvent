@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class EventData {
+public class git EventData {
     private Long id;
     private String title;
     private LocalDate date;
