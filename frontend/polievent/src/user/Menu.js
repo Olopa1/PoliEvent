@@ -1,6 +1,7 @@
 import './Menu.css';
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { LogoutButton } from '../admin/LogoutButton';
 const Menu = () => {
     const [currentTime, setCurrentTime] = useState(new Date());
     const location = useLocation();
@@ -17,16 +18,19 @@ const Menu = () => {
         <li className={location.pathname === '/' ? 'active' : ''}>
                     <Link to="/"> <img src="/custom.house.png" alt="Opis zdjęcia 1" /> Strona główna</Link>
                 </li>
-          <li className={location.pathname === '/plan' ? 'active' : ''}>
-                    <Link to="/plan"> <img src="/calendar.png" alt="Opis zdjęcia 1" /> Plan zajęć</Link>
+          <li className={location.pathname === '/shedule' ? 'active' : ''}>
+                    <Link to="/shedule"> <img src="/calendar.png" alt="Opis zdjęcia 1" /> Plan zajęć</Link>
                 </li>
                 <li className={location.pathname === '/post' ? 'active' : ''}>
                     <Link to="/post"> <img src="/heart.png" alt="Opis zdjęcia 1" /> Obserwowane</Link>
                 </li>
           <div className="profile-section">
           <li className={location.pathname === '/register' ? 'active' : ''}>
-                        <Link to="/register"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
+                        <Link to="/userProfile"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
                     </li>
+          <li>
+            <LogoutButton />
+          </li>
                             </div>
       </nav>
       );

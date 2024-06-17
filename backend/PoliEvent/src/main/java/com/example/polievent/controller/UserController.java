@@ -41,8 +41,32 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
+    @CrossOrigin(origins = "http://localhost:3000")
     public void registerNewUser(@RequestBody User user){
         userService.addUser(user);
         System.out.println("Dodano");
+    }
+
+    @GetMapping("/getUserById")
+    public ResponseEntity<User> getUserById(@RequestParam Long id){
+        Optional<User> foundUser = userService.findOneById(id);
+        if (foundUser.isPresent()) {
+            User userEntity = foundUser.get();
+            return ResponseEntity.status(200).body(userEntity);
+        }
+        return ResponseEntity.status(401).body(null);
+    }
+
+    @DeleteMapping("/deleteUserById")
+    public ResponseEntity<String> deleteUserById(@RequestParam Long id){
+        userService.deleteUser(id);
+        return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @PutMapping("/changeUser")
+    public ResponseEntity<String> changeUser(@RequestBody User changedUser){
+        System.out.println(changedUser.getId());
+        userService.updateUser(changedUser.getId(),changedUser);
+        return ResponseEntity.ok("User has beeen changed");
     }
 }
