@@ -164,6 +164,8 @@ export const ChangeUserDataForm = function(){
       else if(checkForPasswordIntegrity() && checkForBlankFields()){
         userService.updateuser(user,currentUserId).then((res)=>{
           console.log(res);
+          setIsSuccess(true);
+          setMsg("Użytkownik poprawnie zmienony");
         }).catch((err)=>{
           console.log(err);
         })
