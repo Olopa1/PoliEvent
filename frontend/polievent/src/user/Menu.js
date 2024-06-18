@@ -23,9 +23,6 @@ const Menu = () => {
           <li className={location.pathname === '/shedule' ? 'active' : ''}>
                     <Link to="/shedule"> <img src="/calendar.png" alt="Opis zdjęcia 1" /> Plan zajęć</Link>
                 </li>
-                <li className={location.pathname === '/post' ? 'active' : ''}>
-                    <Link to="/post"> <img src="/heart.png" alt="Opis zdjęcia 1" /> Obserwowane</Link>
-                </li>
           <div className="profile-section">
           <li className={location.pathname === '/register' ? 'active' : ''}>
                         <Link to="/userProfile"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
