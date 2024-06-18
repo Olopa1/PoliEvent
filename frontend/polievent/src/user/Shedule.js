@@ -1,10 +1,6 @@
 import './Planzajec.css';
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Post from './PostonMainPage';
-import Menu from './Menu'
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import GridPosts from './GridPosts';
 import 'devextreme/dist/css/dx.light.css'; 
 import { Scheduler,View } from 'devextreme-react/cjs/scheduler';
 import userService from '../restFunctionalities/user.service';
