@@ -90,7 +90,21 @@ export const Verification = () => {
     });
   }
   useEffect(() => {
+    const id = Cookies.get('userID');
+    let userStatus = Cookies.get('userStatus');
     getNoVerifiedPost();
+    if (userStatus) {
+      userStatus = userStatus.toUpperCase();
+    }
+    if (id) {
+      if (userStatus) {
+        if (userStatus.match('USER')) {
+          window.location.href = '/homepage';
+        } else if (userStatus.match('ADVERTISER')) {
+          window.location.href = '/advertiserdashboard';
+        }
+      }
+    }
   }, []);
 
   return (

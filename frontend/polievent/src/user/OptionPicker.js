@@ -99,7 +99,7 @@ const Buttons = ({id,arrUsers,arrMaybeUsers,arrNotUsers}) => {
       .catch(error => {
         console.error("There was an error deleting the interested user:", error);
       });
-  
+
     postService.addNotIntrestedUserToPost(id, userId)
       .then(response => {
         console.log("User added successfully:", response.data);

@@ -9,13 +9,11 @@ function GridPosts() {
       const [posts, setPosts] = useState([]);
       function getVerifiedPost() {
         postService.getVerifiedPosts().then((res) => {
-          console.log('Response from postService.getUser():', res);
           if (Array.isArray(res)) {
             setPosts([]);
           } else {
             setPosts(res.data || []);
           }
-          console.log('Posts:', res);
         }).catch((error) => {
           console.log(error);
         });

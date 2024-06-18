@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ApiKey } from "devextreme-react/cjs/map";
 const APIR_URL = "http://localhost:8080";
 
 class UserService{

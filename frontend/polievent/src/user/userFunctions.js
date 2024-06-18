@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import userService from '../restFunctionalities/user.service';
-import { Alert, Col, Container, FormLabel, Row } from 'react-bootstrap';
+import { Alert, Container, FormLabel} from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { Button } from 'react-bootstrap'
 import './UserRegister.css';
