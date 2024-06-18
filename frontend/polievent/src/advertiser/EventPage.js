@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams} from 'react-router-dom';
 import HeaderSection from './HeaderSection';
 import PostsSection from './PostsSection';
 import EventInfoSection from './EventInfoSection';
 import axios from 'axios';
 import './EventPage.css';
 import eventService from '../restFunctionalities/event.service';
+import EditEventForm from './EditEventForm';
 
 const EventPage = () => {
   const {eventId} = useParams();
   const [event, setEvent] = useState(null);
   const [posts, setPosts] = useState([]);
-  const navigate = useNavigate
+  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
@@ -32,7 +33,16 @@ const EventPage = () => {
       });
   }, [eventId]);
 
-  const handleEditEvent = () => {};
+  const handleEditEvent = (updatedEventData) => {
+    eventService.editEvent(eventId, updatedEventData)
+      .then(response => {
+        setEvent(response.data);
+        setShowEditForm(false);
+      })
+      .catch(error => {
+        console.error('Error updating event:', error);
+      });
+  };
 
   const handleAddPost = () => {};
 
@@ -71,7 +81,7 @@ const EventPage = () => {
         <>
           <HeaderSection
             eventTitle={event.title}
-            onEdit={handleEditEvent}
+            onEdit={() => setShowEditForm(true)}
             onAddPost={handleAddPost}
             onDelete={() => handleDeleteEvent(eventId)}
           />
@@ -89,6 +99,13 @@ const EventPage = () => {
             </div>
           </div>
         </>
+      )}
+      {showEditForm && (
+        <EditEventForm
+          eventData={event}
+          onClose={() => setShowEditForm(false)}
+          onSave={handleEditEvent}
+        />
       )}
     </div>
   );
