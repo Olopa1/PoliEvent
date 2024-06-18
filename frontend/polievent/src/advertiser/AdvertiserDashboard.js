@@ -7,17 +7,38 @@ import EventFormPopup from './EventFormPopup';
 import './AdvertiserDashboard.css';
 import { LogoutButton } from '../admin/LogoutButton';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-
+import eventService from '../restFunctionalities/event.service';
+import EditEventForm from './EditEventForm';
+import Cookies from 'js-cookie';
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [editEventId, setEditEventId] = useState(null);
+
+  /*function getEventsByAdvertiser() {
+    eventService.getEventsByAdvertiser().then((response) => {
+      console.log('Response from eventService.getEventsByAdvertiser():', response);
+      if (Array.isArray(response)) {
+        setEvents([]);
+      } else {
+        setEvents(response.data || []);
+      }
+      console.log('Events:', response);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }*/
 
   useEffect(() => {
-    axios.get('http://localhost:8080/getEventsByAdvertiser?advertiserId=4')
+    const advertiserId = Number(Cookies.get('userID'));
+    //getEventsByAdvertiser(advertiserId);
+    axios.get(`http://localhost:8080/getEventsByAdvertiser?advertiserId=${advertiserId}`)
       .then(response => {
+        console.log('Response from getEventsByAdvertiser():', response);
         setEvents(response.data);
       })
       .catch(error => {
@@ -25,13 +46,31 @@ const AdvertiserDashboard = () => {
       });
   }, []);
 
-  const handleDeleteEvent = (eventId) => {};
+  const handleDeleteEvent = async (eventId) => {
+    const confirmDelete = window.confirm('Czy napewno chcesz usunąć to wydarzenie?');
+    if (confirmDelete) {
+      try {
+        console.log(`Sending request to delete event eventId= ${eventId}`);
+        await eventService.deleteEvent(eventId);
+        setEvents((prevEvents) => prevEvents.filter(event => event.id !== eventId));
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+    }
+  };
 
   const handleAddEvent = (newEvent) => {
     setEvents([...events, newEvent]);
-    setShowEventForm(false);
   };
 
+  const toggleEventForm = () => {
+    setShowEventForm(!showEventForm);
+  };
+
+  const handleEditEvent = (eventId) => {
+    setEditEventId(eventId);
+    setShowEditForm(true);
+  };
 
   return (
     <div className="dashboard">
@@ -61,19 +100,52 @@ const AdvertiserDashboard = () => {
                   <Link to={`/event/${event.id}`}>
                     <Button variant="primary">Wyswietl</Button>
                   </Link>
+                  <Button variant="info" onClick={() => handleEditEvent(event.id)}>Edytuj wydarzenie</Button>
                   <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>Usun</Button>
                 </Card.Body>
               </Card>
             </Col>
           ))}
         </Row>
-        <div className="add-event-card" onClick={() => setShowEventForm(true)}>
+        <div className="add-event-card" onClick={toggleEventForm}>
           <img src='/addEntity.png' alt='Dodaj wydarzenie'></img>
         </div>
+        {showEventForm && (
+          <EventFormPopup
+            onClose={() => setShowEventForm(false)}
+            onSubmit={(newEvent) => handleAddEvent(newEvent)}
+          />
+        )}
       </Container>
       {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}
-      {showEventForm && <EventFormPopup onClose={() => setShowEventForm(false)} onSubmit={handleAddEvent} />}
+      {showEventForm && (
+        <EventFormPopup
+          onClose={toggleEventForm}
+          onSubmit={(newEvent) => {
+            handleAddEvent(newEvent);
+            toggleEventForm();
+          }}
+        />
+      )}
+      {showEditForm && editEventId && (
+        <EditEventForm
+          eventData={events.find(event => event.id === editEventId)}
+          onClose={() => setShowEditForm(false)}
+          onSave={(updatedEventData) => {
+            eventService.editEvent(editEventId, updatedEventData)
+              .then(response => {
+                setEvents(prevEvents => prevEvents.map(event =>
+                  event.id === editEventId ? response.data : event
+                ));
+                setShowEditForm(false);
+              })
+              .catch(error => {
+                console.error('Error updating event:', error);
+              });
+          }}
+        />
+      )}
     </div>
   );
 };

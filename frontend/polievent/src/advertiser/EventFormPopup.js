@@ -1,37 +1,37 @@
+// EventFormPopup.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
-import './EventFormPopup.css'
+import './EventFormPopup.css';
+import Cookies from 'js-cookie';
 
-const EventFormPopup = ({ onClose, onSubmit }) => {
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
-  const [location, setLocation] = useState('');
-  const [image, setImage] = useState(null);
+const EventFormPopup = ({onClose, onSubmit }) => {
+  const [eventData, setEventData] = useState({
+    title: '',
+    date: '',
+    startTime: '',
+    place: '',
+    description: '',
+    picturePath:'null',
+    status: 'active',
+    advertiserId: Cookies.get('userID')
+  });
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setEventData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('date', date);
-    formData.append('time', time);
-    formData.append('location', location);
-    formData.append('image', image);
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const response = await axios.post('/api/events', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
+      const response = await axios.post(`http://localhost:8080/addEvent`, eventData);
       onSubmit(response.data);
       onClose();
     } catch (error) {
-      console.error('There was an error creating the event!', error);
+      console.error('Error adding event:', error);
     }
   };
 
@@ -40,11 +40,11 @@ const EventFormPopup = ({ onClose, onSubmit }) => {
       <div className="popup-inner">
         <h2>Dodaj wydarzenie</h2>
         <form onSubmit={handleSubmit}>
-          <input type="text" placeholder="Tytuł" value={title} onChange={(e) => setTitle(e.target.value)} required />
-          <input type="date" placeholder="Data" value={date} onChange={(e) => setDate(e.target.value)} required />
-          <input type="time" placeholder="Czas" value={time} onChange={(e) => setTime(e.target.value)} required />
-          <input type="text" placeholder="Miejsce" value={location} onChange={(e) => setLocation(e.target.value)} required />
-          <input type="file" onChange={handleImageChange} accept="image/*" />
+          <input type="text" name="title" placeholder="Tytuł" value={eventData.title} onChange={handleChange} required />
+          <input type="date" name="date" placeholder="Data" value={eventData.date} onChange={handleChange} required />
+          <input type="time" name="startTime" placeholder="Czas" value={eventData.startTime} onChange={handleChange} required />
+          <input type="text" name="place" placeholder="Miejsce" value={eventData.place} onChange={handleChange} required />
+          <input type="text" name="description" placeholder="Opis" value={eventData.description} onChange={handleChange} required />
           <button type="submit">Dodaj</button>
         </form>
         <button onClick={onClose}>Anuluj</button>
