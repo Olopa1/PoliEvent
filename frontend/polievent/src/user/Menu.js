@@ -17,14 +17,14 @@ const Menu = () => {
         <nav className="left-menu">
         <span>Witaj: {Cookies.get('userLogin')}</span>
         <span>{formattedTime}</span>
-        <li className={location.pathname === '/' ? 'active' : ''}>
-                    <Link to="/"> <img src="/custom.house.png" alt="Opis zdjęcia 1" /> Strona główna</Link>
+        <li className={location.pathname === '/homepage' ? 'active' : ''}>
+                    <Link to="/homepage"> <img src="/custom.house.png" alt="Opis zdjęcia 1" /> Strona główna</Link>
                 </li>
           <li className={location.pathname === '/shedule' ? 'active' : ''}>
                     <Link to="/shedule"> <img src="/calendar.png" alt="Opis zdjęcia 1" /> Plan zajęć</Link>
                 </li>
           <div className="profile-section">
-          <li className={location.pathname === '/register' ? 'active' : ''}>
+          <li className={location.pathname === '/userProfile' ? 'active' : ''}>
                         <Link to="/userProfile"> <img src="/person.png" alt="Opis zdjęcia 1" /> Profil</Link>
                     </li>
           <li>
