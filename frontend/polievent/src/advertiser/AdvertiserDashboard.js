@@ -19,7 +19,7 @@ const AdvertiserDashboard = () => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [editEventId, setEditEventId] = useState(null);
 
-  function getEventsByAdvertiser() {
+  /*function getEventsByAdvertiser() {
     eventService.getEventsByAdvertiser().then((response) => {
       console.log('Response from eventService.getEventsByAdvertiser():', response);
       if (Array.isArray(response)) {
@@ -31,11 +31,10 @@ const AdvertiserDashboard = () => {
     }).catch((error) => {
       console.log(error);
     });
-  }
+  }*/
 
   useEffect(() => {
-    const advertiserId = Cookies.get('userID');
-    //const userStatus=Cookies.get('userStatus').toUpperCase();]
+    const advertiserId = Number(Cookies.get('userID'));
     //getEventsByAdvertiser(advertiserId);
     axios.get(`http://localhost:8080/getEventsByAdvertiser?advertiserId=${advertiserId}`)
       .then(response => {
@@ -62,7 +61,10 @@ const AdvertiserDashboard = () => {
 
   const handleAddEvent = (newEvent) => {
     setEvents([...events, newEvent]);
-    setShowEventForm(false);
+  };
+
+  const toggleEventForm = () => {
+    setShowEventForm(!showEventForm);
   };
 
   const handleEditEvent = (eventId) => {
@@ -105,28 +107,24 @@ const AdvertiserDashboard = () => {
             </Col>
           ))}
         </Row>
-        <div className="add-event-card" onClick={() => setShowEventForm(true)}>
+        <div className="add-event-card" onClick={toggleEventForm}>
           <img src='/addEntity.png' alt='Dodaj wydarzenie'></img>
         </div>
+        {showEventForm && (
+          <EventFormPopup
+            onClose={() => setShowEventForm(false)}
+            onSubmit={(newEvent) => handleAddEvent(newEvent)}
+          />
+        )}
       </Container>
       {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}
-      {showEventForm && <EventFormPopup onClose={() => setShowEventForm(false)} onSubmit={handleAddEvent} />}
-      {showEditForm && editEventId && (
-        <EditEventForm
-          eventData={events.find(event => event.id === editEventId)}
-          onClose={() => setShowEditForm(false)}
-          onSave={(updatedEventData) => {
-            eventService.editEvent(editEventId, updatedEventData)
-              .then(response => {
-                setEvents(prevEvents => prevEvents.map(event =>
-                  event.id === editEventId ? response.data : event
-                ));
-                setShowEditForm(false);
-              })
-              .catch(error => {
-                console.error('Error updating event:', error);
-              });
+      {showEventForm && (
+        <EventFormPopup
+          onClose={toggleEventForm}
+          onSubmit={(newEvent) => {
+            handleAddEvent(newEvent);
+            toggleEventForm();
           }}
         />
       )}
