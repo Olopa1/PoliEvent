@@ -26,10 +26,10 @@ public class UserController {
         Optional<User> foundUser = userService.findOneByEmailAndPassword(user.getEmail(), user.getPassword());
         if (foundUser.isPresent()) {
             User userEntity = foundUser.get();
-            if ("admin".equals(userEntity.getUserStatus())) {
+            if ("Admin".equals(userEntity.getUserStatus())) {
                 return ResponseEntity.status(201).body(userEntity);
             }
-            else if ("advertiser".equals(userEntity.getUserStatus())) {
+            else if ("Advertiser".equals(userEntity.getUserStatus())) {
                 return ResponseEntity.status(202).body(userEntity);
             } else {
 

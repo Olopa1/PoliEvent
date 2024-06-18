@@ -61,15 +61,14 @@ export const Login = () => {
         Cookies.set('userStatus',response.data.userStatus,{expires: 7});
         Cookies.set('userLogin',response.data.login,{expires: 7});
         window.location.href = '/homepage';
-      }if (response.status === 201) {
+      }else if (response.status === 201) {
         setIsSuccess(true);
         console.log("Login successful, redirecting to /admin");
         Cookies.set('userID', response.data.id, { expires: 7 });
         Cookies.set('userStatus',response.data.userStatus,{expires: 7})
         Cookies.set('userLogin',response.data.login,{expires: 7});
         window.location.href = '/admin';
-      }
-      if (response.status === 202) {
+      }else if (response.status === 202) {
         setIsSuccess(true);
         console.log("Login successful, redirecting to /advertiserDashboard");
         Cookies.set('userID', response.data.id, { expires: 7 });
