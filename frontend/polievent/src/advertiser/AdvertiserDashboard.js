@@ -8,6 +8,7 @@ import './AdvertiserDashboard.css';
 import { LogoutButton } from '../admin/LogoutButton';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import eventService from '../restFunctionalities/event.service';
+import EditEventForm from './EditEventForm';
 import Cookies from 'js-cookie';
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
@@ -15,6 +16,8 @@ const AdvertiserDashboard = () => {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [editEventId, setEditEventId] = useState(null);
 
   function getEventsByAdvertiser() {
     eventService.getEventsByAdvertiser().then((response) => {
@@ -62,6 +65,10 @@ const AdvertiserDashboard = () => {
     setShowEventForm(false);
   };
 
+  const handleEditEvent = (eventId) => {
+    setEditEventId(eventId);
+    setShowEditForm(true);
+  };
 
   return (
     <div className="dashboard">
@@ -91,6 +98,7 @@ const AdvertiserDashboard = () => {
                   <Link to={`/event/${event.id}`}>
                     <Button variant="primary">Wyswietl</Button>
                   </Link>
+                  <Button variant="info" onClick={() => handleEditEvent(event.id)}>Edytuj wydarzenie</Button>
                   <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>Usun</Button>
                 </Card.Body>
               </Card>
@@ -104,6 +112,24 @@ const AdvertiserDashboard = () => {
       {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}
       {showEventForm && <EventFormPopup onClose={() => setShowEventForm(false)} onSubmit={handleAddEvent} />}
+      {showEditForm && editEventId && (
+        <EditEventForm
+          eventData={events.find(event => event.id === editEventId)}
+          onClose={() => setShowEditForm(false)}
+          onSave={(updatedEventData) => {
+            eventService.editEvent(editEventId, updatedEventData)
+              .then(response => {
+                setEvents(prevEvents => prevEvents.map(event =>
+                  event.id === editEventId ? response.data : event
+                ));
+                setShowEditForm(false);
+              })
+              .catch(error => {
+                console.error('Error updating event:', error);
+              });
+          }}
+        />
+      )}
     </div>
   );
 };

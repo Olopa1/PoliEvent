@@ -6,6 +6,7 @@ const EditEventForm = ({ eventData, onClose, onSave }) => {
     date: eventData.date,
     startTime: eventData.startTime,
     place: eventData.place,
+    description: eventData.description,
     status: eventData.status
   });
 
@@ -36,6 +37,8 @@ const EditEventForm = ({ eventData, onClose, onSave }) => {
           <input type="time" name="startTime" value={updatedEvent.startTime} onChange={handleChange} />
           <label>Miejsce:</label>
           <input type="text" name="place" value={updatedEvent.place} onChange={handleChange} />
+          <label>Opis:</label>
+          <input type="text" name="description" value={updatedEvent.description} onChange={handleChange} />
           <button type="submit">Zapisz zmiany</button>
         </form>
       </div>
