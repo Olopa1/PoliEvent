@@ -128,6 +128,24 @@ const AdvertiserDashboard = () => {
           }}
         />
       )}
+      {showEditForm && editEventId && (
+        <EditEventForm
+          eventData={events.find(event => event.id === editEventId)}
+          onClose={() => setShowEditForm(false)}
+          onSave={(updatedEventData) => {
+            eventService.editEvent(editEventId, updatedEventData)
+              .then(response => {
+                setEvents(prevEvents => prevEvents.map(event =>
+                  event.id === editEventId ? response.data : event
+                ));
+                setShowEditForm(false);
+              })
+              .catch(error => {
+                console.error('Error updating event:', error);
+              });
+          }}
+        />
+      )}
     </div>
   );
 };
