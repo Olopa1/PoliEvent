@@ -1,15 +1,12 @@
 package com.example.polievent.controller;
 import java.util.*;
 import com.example.polievent.DAO.Post;
-import com.example.polievent.DAO.User;
 import com.example.polievent.DTO.UserPostRequest;
 import com.example.polievent.service.PostService;
-import com.example.polievent.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.service.annotation.PutExchange;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,9 +25,10 @@ public class PostController {
         return postService.listAllNotVerified();
     }
     @PostMapping("/savePost")
-    public void registerNewUser(@RequestBody Post post){
-        postService.addPost(post);
+    public ResponseEntity<Post> savePost(@RequestBody Post post){
+        Post savedPost = postService.addPost(post);
         System.out.println("Dodano post");
+        return ResponseEntity.ok(savedPost);
     }
     @PutMapping("/addInterestedUsers")
     public void addIntrestedUser(@RequestBody UserPostRequest userPostRequest){

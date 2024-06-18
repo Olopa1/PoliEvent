@@ -1,44 +1,36 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const AddPostPopup = ({ eventId, onClose, onAdd }) => {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState(null);
+const AddPostPopup = ({ onClose, onSave }) => {
+  const [postData, setPostData] = useState({
+    title: '',
+    description: ''
+  });
 
-  const handleSubmit = async (e) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPostData(prevData => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('image', image);
-
-    try {
-      const response = await axios.post(`/api/events/${eventId}/posts`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      onAdd(response.data);
-      onClose();
-    } catch (error) {
-      console.error('There was an error adding post!', error);
-    }
+    onSave(postData);
   };
 
   return (
-    <div className="popup">
-      <div className="popup-inner">
-        <button className="close-btn" onClick={onClose}>Anuluj</button>
-        <h2>Dodaj post</h2>
+    <div className="popup-overlay">
+      <div className="popup-content">
+        <h3>Dodaj nowy post</h3>
         <form onSubmit={handleSubmit}>
-          <label>Tytuł:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-          <label>Opis:</label>
-          <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-          <label>Zdjęcie:</label>
-          <input type="file" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
-          <button type="submit">Wyślij</button>
+          <div>
+            <label>Tytuł:</label>
+            <input type="text" name="title" value={postData.title} onChange={handleChange} required />
+          </div>
+          <div>
+            <label>Opis:</label>
+            <textarea name="description" value={postData.description} onChange={handleChange} required />
+          </div>
+          <button type="submit">Dodaj post</button>
+          <button type="button" onClick={onClose}>Anuluj</button>
         </form>
       </div>
     </div>
