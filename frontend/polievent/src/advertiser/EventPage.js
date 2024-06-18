@@ -7,12 +7,14 @@ import axios from 'axios';
 import './EventPage.css';
 import eventService from '../restFunctionalities/event.service';
 import EditEventForm from './EditEventForm';
+import AddPostPopup from './AddPostPopup';
 
 const EventPage = () => {
   const {eventId} = useParams();
   const [event, setEvent] = useState(null);
   const [posts, setPosts] = useState([]);
   const [showEditForm, setShowEditForm] = useState(false);
+  const [showAddPostForm, setShowAddPostPopup] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
@@ -44,7 +46,20 @@ const EventPage = () => {
       });
   };
 
-  const handleAddPost = () => {};
+  const handleAddPost = (newPostData) => {
+    axios.post('http://localhost:8080/savePost', {
+      ...newPostData,
+      eventId: eventId
+    })
+      .then(response => {
+        // Update the state with the new post data
+        setPosts(prevPosts => [...prevPosts, response.data]);
+        setShowAddPostPopup(false);
+      })
+      .catch(error => {
+        console.error('Error adding post:', error);
+      });
+  };
 
   const handleDeleteEvent = async () => {
     const confirmDelete = window.confirm('Czy napewno chcesz usunąć to wydarzenie?');
@@ -82,7 +97,7 @@ const EventPage = () => {
           <HeaderSection
             eventTitle={event.title}
             onEdit={() => setShowEditForm(true)}
-            onAddPost={handleAddPost}
+            onAddPost={() => setShowAddPostPopup(true)}
             onDelete={() => handleDeleteEvent(eventId)}
           />
           <div className="event-content">
@@ -105,6 +120,12 @@ const EventPage = () => {
           eventData={event}
           onClose={() => setShowEditForm(false)}
           onSave={handleEditEvent}
+        />
+      )}
+      {showAddPostForm && (
+        <AddPostPopup
+          onClose={() => setShowAddPostPopup(false)}
+          onSave={handleAddPost}
         />
       )}
     </div>

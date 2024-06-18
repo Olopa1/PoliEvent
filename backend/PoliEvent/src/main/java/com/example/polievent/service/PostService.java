@@ -2,7 +2,6 @@ package com.example.polievent.service;
 import com.example.polievent.DAO.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +25,13 @@ public class PostService {
     }
 
 
-    public void addPost(Post post){
+    public Post addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());
         if(postOptional.isPresent()){
             throw new IllegalStateException("ID TAKEN");
         }
         postRepository.save(post);
+        return post;
     }
     public void addInterestedUserToPost(Long postId, int userId) {
         Post post = postRepository.findById(postId)
