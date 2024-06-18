@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import HeaderSection from './HeaderSection';
 import PostsSection from './PostsSection';
 import EventInfoSection from './EventInfoSection';
 import axios from 'axios';
-import './EventPage.css'
+import './EventPage.css';
+import eventService from '../restFunctionalities/event.service';
 
 const EventPage = () => {
-  const { eventId } = useParams();
+  const {eventId} = useParams();
   const [event, setEvent] = useState(null);
   const [posts, setPosts] = useState([]);
+  const navigate = useNavigate
 
   useEffect(() => {
     axios.get(`http://localhost:8080/getEventById?eventId=${eventId}`)
@@ -34,16 +36,16 @@ const EventPage = () => {
 
   const handleAddPost = () => {};
 
-  const handleDeleteEvent = () => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this event?');
+  const handleDeleteEvent = async () => {
+    const confirmDelete = window.confirm('Czy napewno chcesz usunąć to wydarzenie?');
     if (confirmDelete) {
-      axios.delete(`http://localhost:8080/deleteEvent?id=${eventId}`)
-        .then(response => {
-          console.log('Event deleted successfully');
-        })
-        .catch(error => {
-          console.error('Error deleting event:', error);
-        });
+      try {
+        console.log(`Sending request to delete event eventId= ${eventId}`);
+        await eventService.deleteEvent(eventId);
+        window.location.href='/advertiserdashboard'
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
     }
   };
 
@@ -71,7 +73,7 @@ const EventPage = () => {
             eventTitle={event.title}
             onEdit={handleEditEvent}
             onAddPost={handleAddPost}
-            onDelete={handleDeleteEvent}
+            onDelete={() => handleDeleteEvent(eventId)}
           />
           <div className="event-content">
             <div className="left-section">

@@ -27,6 +27,10 @@ class EventService {
     return axios.delete(`${API_URL}/deletePost/${postId}`);
   }
 
+  getEventsByAdvertiser(advertiserId){
+    return axios.get(`${API_URL}/getEventsByAdvertiser/${advertiserId}`);
+}
+
 }
 
 export default new EventService();

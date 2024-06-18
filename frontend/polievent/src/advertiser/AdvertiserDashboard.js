@@ -7,7 +7,8 @@ import EventFormPopup from './EventFormPopup';
 import './AdvertiserDashboard.css';
 import { LogoutButton } from '../admin/LogoutButton';
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-
+import eventService from '../restFunctionalities/event.service';
+import Cookies from 'js-cookie';
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
   const [notifications, setNotifications] = useState([]);
@@ -15,9 +16,27 @@ const AdvertiserDashboard = () => {
   const [showSettings, setShowSettings] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
 
+  function getEventsByAdvertiser() {
+    eventService.getEventsByAdvertiser().then((response) => {
+      console.log('Response from eventService.getEventsByAdvertiser():', response);
+      if (Array.isArray(response)) {
+        setEvents([]);
+      } else {
+        setEvents(response.data || []);
+      }
+      console.log('Events:', response);
+    }).catch((error) => {
+      console.log(error);
+    });
+  }
+
   useEffect(() => {
-    axios.get('http://localhost:8080/getEventsByAdvertiser?advertiserId=4')
+    const advertiserId = Cookies.get('userID');
+    //const userStatus=Cookies.get('userStatus').toUpperCase();]
+    //getEventsByAdvertiser(advertiserId);
+    axios.get(`http://localhost:8080/getEventsByAdvertiser?advertiserId=${advertiserId}`)
       .then(response => {
+        console.log('Response from getEventsByAdvertiser():', response);
         setEvents(response.data);
       })
       .catch(error => {
@@ -25,7 +44,18 @@ const AdvertiserDashboard = () => {
       });
   }, []);
 
-  const handleDeleteEvent = (eventId) => {};
+  const handleDeleteEvent = async (eventId) => {
+    const confirmDelete = window.confirm('Czy napewno chcesz usunąć to wydarzenie?');
+    if (confirmDelete) {
+      try {
+        console.log(`Sending request to delete event eventId= ${eventId}`);
+        await eventService.deleteEvent(eventId);
+        setEvents((prevEvents) => prevEvents.filter(event => event.id !== eventId));
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+    }
+  };
 
   const handleAddEvent = (newEvent) => {
     setEvents([...events, newEvent]);
