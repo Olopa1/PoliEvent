@@ -10,6 +10,7 @@ import { Login } from './admin/Login'
 import { Verification } from './admin/PostsVerificationInterface'
 import { ShedulePage } from './user/ShedulePage';
 import ChangeUserPage from './user/UserChangePage';
+import LastPost from './user/LastPost';
 function App() {
   return (
     <BrowserRouter>
@@ -23,6 +24,7 @@ function App() {
         <Route path="/event/:eventId" element={<EventPage />} />
         <Route path="/homepage" element={<MainPage />} />
         <Route path="/userProfile" element={<ChangeUserPage />}/>
+        <Route path="/last" element={<LastPost/>}/>
       </Routes>
     </BrowserRouter>
   );

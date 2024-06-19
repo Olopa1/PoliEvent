@@ -9,7 +9,11 @@ class PostService{
     }
     getNoVerifiedPosts()
     {
-        return axios.get(APIR_URL + "/getNoVerifiedPost")
+        return axios.get(APIR_URL + "/getNoVerifiedPost");
+    }
+    getLastPost()
+    {
+        return axios.get(APIR_URL + "/findLastPost");
     }
     verifyPost(post)
     {
