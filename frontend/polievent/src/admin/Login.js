@@ -106,7 +106,7 @@ export const Login = () => {
         />
       </Helmet>
       <div className="container">
-        <img src="logo-pl_2.jpg" className="logo_pl" alt="logo" />
+        <img src="logo-pl_2.png" className="logo_pl" alt="logo" />
         <div className="login-container">
           <h2 className="text1">Zaloguj się</h2>
           

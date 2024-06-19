@@ -154,7 +154,7 @@ const SettingsPopup = ({ onClose }) => {
               <Form.Control type='password' onChange={handleConfirmPasswordChange} value={secondPassword} />
             </Form.Group>
             <br />
-            <Button disabled={invalidCharacters} variant='primary' type='submit'>
+            <Button  className='button2' disabled={invalidCharacters} variant='primary' type='submit'>
               Zmień dane
             </Button>
             <Button variant='secondary' onClick={onClose} style={{ marginLeft: '10px' }}>

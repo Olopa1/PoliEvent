@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: center; /* Align items vertically at the center */
   margin-bottom: 20px;
-  background-color: #861818;
+  background-color: #333;
   padding: 10px; /* Adjust padding to give more space around the content */
   text-decoration: none;
 }
@@ -21,7 +21,8 @@
   text-decoration: none;
 }
 
-.header-section button {
+.header-section button:hover {
+  background-color: #279427;;
   margin-left: 10px;
   padding: 10px 20px;
   font-size: 1em;
