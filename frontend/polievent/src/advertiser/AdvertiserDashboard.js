@@ -96,7 +96,8 @@ const AdvertiserDashboard = () => {
                   <Card.Title>{event.title}</Card.Title>
                   <Card.Text>
                     Data: {event.date} <br />
-                    Start: {event.startTime} <br />
+                    Start: {event.startTime.substr(0, 5)} {/* Displaying only "HH:mm" */}
+                    <br />
                     Miejsce: {event.place}
                   </Card.Text>
                   <Link to={`/event/${event.id}`}>
@@ -154,5 +155,3 @@ const AdvertiserDashboard = () => {
 };
 
 export default AdvertiserDashboard;
-
-/*<Card.Text>Zapisanych: {event.signedUpUsers.length}</Card.Text>*/
