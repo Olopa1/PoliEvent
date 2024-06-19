@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './EventFormPopup.css'
 
 const EditEventForm = ({ eventData, onClose, onSave }) => {
   const [updatedEvent, setUpdatedEvent] = useState({
@@ -24,9 +25,8 @@ const EditEventForm = ({ eventData, onClose, onSave }) => {
   };
 
   return (
-    <div className="popup">
-      <div className="popup-inner">
-        <button className="close-btn" onClick={onClose}>Anuluj</button>
+    <div className="advertiser-popup">
+      <div className="advertiser-popup-inner">
         <h2>Edytuj wydarzenie</h2>
         <form onSubmit={handleSubmit}>
           <label>Tytuł:</label>
@@ -40,6 +40,7 @@ const EditEventForm = ({ eventData, onClose, onSave }) => {
           <label>Opis:</label>
           <input type="text" name="description" value={updatedEvent.description} onChange={handleChange} />
           <button type="submit">Zapisz zmiany</button>
+          <button className="close-btn" onClick={onClose}>Anuluj</button>
         </form>
       </div>
     </div>

@@ -1,5 +1,6 @@
-.popup {
+.advertiser-popup {
     position: fixed;
+    padding-top: 20px;
     top: 0;
     left: 0;
     width: 100%;
@@ -9,9 +10,10 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    overflow-y: auto;
   }
   
-  .popup-inner {
+  .advertiser-popup-inner {
     background-color: white;
     padding: 30px;
     border-radius: 10px;
@@ -21,31 +23,31 @@
     text-align: center;
   }
   
-  .popup-inner h2 {
+  .advertiser-popup-inner h2 {
     margin-bottom: 20px;
   }
   
-  .popup-inner form {
+  .advertiser-popup-inner form {
     display: flex;
     flex-direction: column;
     gap: 15px;
   }
   
-  .popup-inner input[type="text"],
-  .popup-inner input[type="date"],
-  .popup-inner input[type="time"],
-  .popup-inner input[type="file"] {
+  .advertiser-popup-inner input[type="text"],
+  .advertiser-popup-inner input[type="date"],
+  .advertiser-popup-inner input[type="time"],
+  .advertiser-popup-inner input[type="file"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
   }
   
-  .popup-inner input[type="file"] {
+  .advertiser-popup-inner input[type="file"] {
     border: none;
   }
   
-  .popup-inner button[type="submit"] {
+  .advertiser-popup-inner button[type="submit"] {
     background-color: #28a745;
     color: white;
     padding: 10px 20px;
@@ -55,11 +57,11 @@
     font-size: 16px;
   }
   
-  .popup-inner button[type="submit"]:hover {
+  .advertiser-popup-inner button[type="submit"]:hover {
     background-color: #218838;
   }
   
-  .popup-inner button {
+  .advertiser-popup-inner button {
     background-color: #dc3545;
     color: white;
     padding: 10px 20px;
@@ -70,7 +72,7 @@
     margin-top: 10px;
   }
   
-  .popup-inner button:hover {
+  .advertiser-popup-inner button:hover {
     background-color: #c82333;
   }
   

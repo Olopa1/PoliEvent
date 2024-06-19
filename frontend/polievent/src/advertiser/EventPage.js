@@ -52,7 +52,6 @@ const EventPage = () => {
       eventId: eventId
     })
       .then(response => {
-        // Update the state with the new post data
         setPosts(prevPosts => [...prevPosts, response.data]);
         setShowAddPostPopup(false);
       })
@@ -74,9 +73,7 @@ const EventPage = () => {
     }
   };
 
-  const handleEditPost = (postId) => {};
-
-  const handleDeletePost = (postId) => {
+  const handleDeletePost = async (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
       axios.delete(`http://localhost:8080/deletePost?id=${postId}`)
@@ -105,8 +102,6 @@ const EventPage = () => {
               <h3>Twoje posty</h3>
               <PostsSection
                 posts={posts}
-                onEditPost={handleEditPost}
-                onDeletePost={handleDeletePost}
               />
             </div>
             <div className="right-section">

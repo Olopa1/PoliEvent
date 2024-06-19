@@ -113,11 +113,11 @@ const SettingsPopup = ({ onClose }) => {
   };
 
   return (
-    <div className='popup'>
-      <div className='popup-longform'>
+    <div className='advertiser-popup'>
+      <div className='advertiser-popup-longform'>
       <div className='RegisterBorder'>
         <Container className='justify-content-center'>
-          <p className='text1'>Edycja profilu reklamodawcy</p>
+          <p className='text1'>Edycja profilu</p>
           {msg && <Alert variant={isSuccess ? 'success' : 'danger'}>{msg}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group>

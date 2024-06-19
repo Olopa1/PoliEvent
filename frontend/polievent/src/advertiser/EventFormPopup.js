@@ -1,4 +1,3 @@
-// EventFormPopup.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import './EventFormPopup.css';
@@ -36,14 +35,19 @@ const EventFormPopup = ({onClose, onSubmit }) => {
   };
 
   return (
-    <div className="popup">
-      <div className="popup-inner">
+    <div className="advertiser-popup">
+      <div className="advertiser-popup-inner">
         <h2>Dodaj wydarzenie</h2>
         <form onSubmit={handleSubmit}>
+          <label>Tytuł:</label>
           <input type="text" name="title" placeholder="Tytuł" value={eventData.title} onChange={handleChange} required />
+          <label>Data:</label>
           <input type="date" name="date" placeholder="Data" value={eventData.date} onChange={handleChange} required />
+          <label>Godzina:</label>
           <input type="time" name="startTime" placeholder="Czas" value={eventData.startTime} onChange={handleChange} required />
+          <label>Miejsce:</label>
           <input type="text" name="place" placeholder="Miejsce" value={eventData.place} onChange={handleChange} required />
+          <label>Opis:</label>
           <input type="text" name="description" placeholder="Opis" value={eventData.description} onChange={handleChange} required />
           <button type="submit">Dodaj</button>
         </form>
