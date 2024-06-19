@@ -20,4 +20,15 @@
     font-size: 0.9em;
     cursor: pointer;
   }
-  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    border-radius: 32px;
+  }
+  .image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 200px;
+  }

@@ -52,7 +52,6 @@ const EventPage = () => {
       eventId: eventId
     })
       .then(response => {
-        // Update the state with the new post data
         setPosts(prevPosts => [...prevPosts, response.data]);
         setShowAddPostPopup(false);
       })
@@ -76,9 +75,18 @@ const EventPage = () => {
 
   const handleEditPost = (postId) => {};
 
-  const handleDeletePost = (postId) => {
+  const handleDeletePost = async (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
+      try {
+        console.log(`Sending request to delete event eventId= ${eventId}`);
+        await axios.delete(`http://localhost:8080/deletePost?id=${postId}`);
+        window.location.href='/advertiserdashboard'
+      } catch (error) {
+        console.error('Error deleting event:', error);
+      }
+
+
       axios.delete(`http://localhost:8080/deletePost?id=${postId}`)
         .then(response => {
           console.log('Post deleted successfully');

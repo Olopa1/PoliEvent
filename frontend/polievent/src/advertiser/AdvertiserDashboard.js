@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import NotificationPopup from './NotificationPopup';
 import SettingsPopup from './SettingsPopup';
 import EventFormPopup from './EventFormPopup';
 import './AdvertiserDashboard.css';
@@ -10,14 +9,15 @@ import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import eventService from '../restFunctionalities/event.service';
 import EditEventForm from './EditEventForm';
 import Cookies from 'js-cookie';
+import userService from '../restFunctionalities/user.service';
 const AdvertiserDashboard = () => {
   const [events, setEvents] = useState([]);
-  const [notifications, setNotifications] = useState([]);
-  const [showNotifications, setShowNotifications] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showEventForm, setShowEventForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editEventId, setEditEventId] = useState(null);
+  const [currentUserId, setCurrentUserId] = useState(-1);
+  const [currentFirstName, setCurrentFirstName] = useState(null);
 
   /*function getEventsByAdvertiser() {
     eventService.getEventsByAdvertiser().then((response) => {
@@ -35,7 +35,15 @@ const AdvertiserDashboard = () => {
 
   useEffect(() => {
     const advertiserId = Number(Cookies.get('userID'));
-    //getEventsByAdvertiser(advertiserId);
+    const userStatus=Cookies.get('userStatus').toUpperCase();
+    if (advertiserId) {
+      if(userStatus.match('USER'))
+        window.location.href = '/';
+      if(userStatus.match('ADMIN'))
+        window.location.href='/admin'
+    } else {
+      window.location.href='/advertiserdashboard'
+    }
     axios.get(`http://localhost:8080/getEventsByAdvertiser?advertiserId=${advertiserId}`)
       .then(response => {
         console.log('Response from getEventsByAdvertiser():', response);
@@ -44,6 +52,14 @@ const AdvertiserDashboard = () => {
       .catch(error => {
         console.error('Error fetching events:', error);
       });
+
+    setCurrentUserId(advertiserId)
+      userService.getUserById(advertiserId).then((res)=>{
+          console.log(res.data);
+          setCurrentFirstName(res.data.firstName)
+      }).catch((err)=>{
+          console.log(err);
+      })
   }, []);
 
   const handleDeleteEvent = async (eventId) => {
@@ -75,8 +91,7 @@ const AdvertiserDashboard = () => {
   return (
     <div className="dashboard">
       <nav className="menu">
-        <button onClick={() => setShowNotifications(true)}>Powiadomienia</button>
-        <br></br>
+      <span>Witaj: {currentFirstName}</span>
         <button onClick={() => setShowSettings(true)}>Ustawienia</button>
         <br></br>
         <LogoutButton></LogoutButton>
@@ -98,10 +113,10 @@ const AdvertiserDashboard = () => {
                     Zapisanych: {event.signedUpUsers.length}
                   </Card.Text>
                   <Link to={`/event/${event.id}`}>
-                    <Button variant="primary">Wyswietl</Button>
+                    <Button variant="primary">Wyświetl</Button>
                   </Link>
-                  <Button variant="info" onClick={() => handleEditEvent(event.id)}>Edytuj wydarzenie</Button>
-                  <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>Usun</Button>
+                  <Button variant="info" onClick={() => handleEditEvent(event.id)}>Edytuj</Button>
+                  <Button variant="danger" onClick={() => handleDeleteEvent(event.id)}>Usuń</Button>
                 </Card.Body>
               </Card>
             </Col>
@@ -117,7 +132,6 @@ const AdvertiserDashboard = () => {
           />
         )}
       </Container>
-      {showNotifications && <NotificationPopup notifications={notifications} onClose={() => setShowNotifications(false)} />}
       {showSettings && <SettingsPopup onClose={() => setShowSettings(false)} />}
       {showEventForm && (
         <EventFormPopup

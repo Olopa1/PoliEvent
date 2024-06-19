@@ -9,14 +9,15 @@ const EventInfoSection = ({ event }) => {
       <p>Start: {event.startTime}</p>
       <p>Miejsce: {event.place}</p>
       <p>Opis: {event.description}</p>
-      <h3>Zapisane osoby</h3>
-      <ul>
-        {event.signedUpUsers.map(user => (
-          <li key={user.id}>{user.firstName} {user.lastName}</li>
-        ))}
-      </ul>
     </div>
   );
 }
 
 export default EventInfoSection;
+
+/* <h3>Zapisane osoby</h3>
+<ul>
+  {event.signedUpUsers.map(user => (
+    <li key={user.id}>{user.firstName} {user.lastName}</li>
+  ))}
+</ul> */

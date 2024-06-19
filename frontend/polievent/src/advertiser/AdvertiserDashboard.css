@@ -9,7 +9,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 .menu button {
   padding: 10px 20px;
   font-size: 1em;
@@ -20,7 +19,6 @@
   border-radius: 4px;
   transition: background-color 0.3s;
 }
-
 .menu button:hover {
   background-color: #0056b3;
 }
@@ -28,7 +26,6 @@
 .menu a button {
   background-color: #dc3545;
 }
-
 .menu a button:hover {
   background-color: #c82333;
 }
@@ -60,15 +57,14 @@ h1 {
 }
 
 .card .btn-primary {
-  background-color: #007bff;
+  /*background-color: #007bff;*/
   border: none;
   transition: background-color 0.3s;
 }
 
 .card .btn-primary:hover {
-  background-color: #0056b3;
+  /*background-color: #0056b3;*/
 }
-
 .card .btn-danger {
   background-color: #dc3545;
   border: none;
