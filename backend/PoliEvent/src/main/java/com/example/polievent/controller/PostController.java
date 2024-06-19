@@ -30,6 +30,17 @@ public class PostController {
         System.out.println("Dodano post");
         return ResponseEntity.ok(savedPost);
     }
+
+    @GetMapping("/findLastPost")
+    public Post findLastPost(){
+        Post lastPost = postService.findLastPost();
+        if(lastPost == null){
+            return null;
+            //return ResponseEntity.status(404).body(null);
+        }
+        return lastPost;
+        //return ResponseEntity.status(200).body(lastPost);
+    }
     @PutMapping("/addInterestedUsers")
     public void addIntrestedUser(@RequestBody UserPostRequest userPostRequest){
         Long postId = userPostRequest.getPostId();
