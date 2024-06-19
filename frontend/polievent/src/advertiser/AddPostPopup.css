@@ -15,7 +15,7 @@
   advertiser-.popup button {
     margin-bottom: 16px;
     padding: 8px 16px;
-    background: #007bff;
+    background: #279c27;
     color: white;
     border: none;
     border-radius: 4px;
@@ -23,7 +23,7 @@
   }
   
   .popup button:hover {
-    background: #0056b3;
+    background: #259f25;
   }
   
   .popup form {
@@ -46,7 +46,7 @@
   
   .popup input[type="submit"] {
     padding: 8px 16px;
-    background: #007bff;
+    background: #32cd32;
     color: white;
     border: none;
     border-radius: 4px;
@@ -54,6 +54,6 @@
   }
   
   .popup input[type="submit"]:hover {
-    background: #0056b3;
+    background: #269d26;
   }
   

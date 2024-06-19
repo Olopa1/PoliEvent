@@ -35,7 +35,7 @@ body {
   padding: 10px 20px;
   font-size: 1em;
   cursor: pointer;
-  background-color: #007bff;
+  background-color:#32cd32;;
   color: white;
   border: none;
   border-radius: 4px;
@@ -46,7 +46,7 @@ body {
 }
 
 .advertiser-menu button:hover {
-  background-color: #0056b3;
+  background-color: #1e981e;
 }
 
 .advertiser-menu a button {
@@ -86,13 +86,13 @@ body {
 }
 
 .advertiser-container .card .btn-primary {
-  background-color: #007bff;
+  background-color:#32cd32;;
   border: none;
   transition: background-color 0.3s;
 }
 */
 .advertiser-container .card .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #1f961f;
 }
 
 .advertiser-container .card .btn-danger {

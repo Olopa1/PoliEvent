@@ -212,7 +212,7 @@ export const ChangeUserDataForm = function(){
             {invalidCharacters && <Alert variant='danger'>W loginie znajduje się zakazanych znak</Alert>}
             </Form.Text>
           </Form.Group>
-          <Form.Group>
+          <Form.Group className='whitefont'>
             <Form.Label className='textLabel'>Rodzaj użytkownika</Form.Label><br></br>
             <Form.Check inline defaultChecked type='radio' label='Użytkownik' name='userStatus' value={'User'} onClick={(e)=>handleChangeUserState(e)}/>
             <Form.Check inline type='radio' label='Firma' name='userStatus' value={'Company'} onClick={(e)=>handleChangeUserState(e)}/>
@@ -249,7 +249,7 @@ export const ChangeUserDataForm = function(){
             </Form.Text>
           </Form.Group>
           <br></br>
-          <Button disabled={invalidCharacters} variant='primary' onClick={(e)=>RegisterUser(e)}>
+          <Button className='button2' disabled={invalidCharacters} variant='primary' onClick={(e)=>RegisterUser(e)}>
             Zmień dane
           </Button>
         </Form>
