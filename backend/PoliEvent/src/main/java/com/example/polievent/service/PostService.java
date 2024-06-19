@@ -24,6 +24,13 @@ public class PostService {
         return postRepository.findPostsByVerified(0);
     }
 
+    public Post findLastPost(){
+        List<Post> posts = postRepository.findLastAdded(1);
+        if(posts.isEmpty()){
+            return null;
+        }
+        return posts.get(posts.size() - 1);
+    }
 
     public Post addPost(Post post){
         Optional<Post> postOptional =postRepository.findPostsByID(post.getId());

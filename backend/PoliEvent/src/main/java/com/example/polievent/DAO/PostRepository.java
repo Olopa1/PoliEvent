@@ -19,4 +19,6 @@ public interface PostRepository extends JpaRepository<Post, Long>
     Optional<Post> findPostsByTitle(String title);
     @Query("SELECT u FROM Post u WHERE u.eventId = ?1")
     List<Post> findByEventId(Long eventId);
+    @Query("SELECT u FROM Post u where u.verified = :verified ORDER BY u.id")
+    List<Post> findLastAdded(@Param("verified") int verified);
 }
