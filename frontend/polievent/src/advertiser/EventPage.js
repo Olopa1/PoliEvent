@@ -73,20 +73,9 @@ const EventPage = () => {
     }
   };
 
-  const handleEditPost = (postId) => {};
-
   const handleDeletePost = async (postId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this post?');
     if (confirmDelete) {
-      try {
-        console.log(`Sending request to delete event eventId= ${eventId}`);
-        await axios.delete(`http://localhost:8080/deletePost?id=${postId}`);
-        window.location.href='/advertiserdashboard'
-      } catch (error) {
-        console.error('Error deleting event:', error);
-      }
-
-
       axios.delete(`http://localhost:8080/deletePost?id=${postId}`)
         .then(response => {
           console.log('Post deleted successfully');
@@ -113,8 +102,6 @@ const EventPage = () => {
               <h3>Twoje posty</h3>
               <PostsSection
                 posts={posts}
-                onEditPost={handleEditPost}
-                onDeletePost={handleDeletePost}
               />
             </div>
             <div className="right-section">

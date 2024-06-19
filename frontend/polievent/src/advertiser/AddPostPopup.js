@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './EventFormPopup.css'
 
 const AddPostPopup = ({ onClose, onSave }) => {
   const [postData, setPostData] = useState({
@@ -17,8 +18,8 @@ const AddPostPopup = ({ onClose, onSave }) => {
   };
 
   return (
-    <div className="popup-overlay">
-      <div className="popup-content">
+    <div className="advertiser-popup">
+      <div className="advertiser-popup-inner">
         <h3>Dodaj nowy post</h3>
         <form onSubmit={handleSubmit}>
           <div>
@@ -27,6 +28,7 @@ const AddPostPopup = ({ onClose, onSave }) => {
           </div>
           <div>
             <label>Opis:</label>
+            <br></br>
             <textarea name="description" value={postData.description} onChange={handleChange} required />
           </div>
           <button type="submit">Dodaj post</button>

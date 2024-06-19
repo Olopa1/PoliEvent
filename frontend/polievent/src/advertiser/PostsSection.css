@@ -20,6 +20,16 @@
     font-size: 0.9em;
     cursor: pointer;
   }
+
+  .post-card {
+    padding: 5px;
+    background-color:#d2d2d2;
+  }
+
+  .post-card h3 {
+    font-weight: bold;
+  }
+
   .image {
     width: 100%;
     height: 100%;
